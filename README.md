@@ -1,1 +1,1 @@
-# ProbabilistiskModellering
+# Probabilistisk Modellering
