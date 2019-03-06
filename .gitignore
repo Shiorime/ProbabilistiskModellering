@@ -1,0 +1,6 @@
+# Ignore folders
+bin/
+
+# Ignore files
+*.csproj
+*.config
