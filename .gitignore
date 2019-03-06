@@ -1,6 +1,12 @@
 # Ignore folders
 bin/
+obj/
+_ReSharper.*/
 
 # Ignore files
+*.suo
+*.user
 *.csproj
 *.config
+*.sdf
+*.log
