@@ -1,7 +1,5 @@
 <additional>
     <vTypeDistribution id="DEFAULT_VEHTYPE">
-         <vType id="1" length="1"/>
-         <vType id="2" length="2"/>
-         <vType id="3" length="3"/>
+         <vType id="1" length="3"/>
     </vTypeDistribution>
 </additional>
