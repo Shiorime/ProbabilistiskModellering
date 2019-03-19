@@ -1,0 +1,15 @@
+<connections>
+    <connection from="1to0" to="0to2"/>
+    <connection from="1to0" to="0to3"/>
+
+    <connection from="2to0" to="0to1"/>
+    <connection from="2to0" to="0to3"/>
+    <connection from="2to0" to="0to4"/>
+
+    <connection from="3to0" to="0to1"/>
+    <connection from="3to0" to="0to2"/>
+    <connection from="3to0" to="0to4"/>
+
+    <connection from="4to0" to="0to2"/>
+    <connection from="4to0" to="0to3"/>
+</connections>

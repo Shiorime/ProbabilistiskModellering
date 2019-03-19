@@ -1,5 +1,5 @@
 <additional>
     <vTypeDistribution id="DEFAULT_VEHTYPE">
-         <vType id="1" length="3"/>
+         <vType accel="1.0" decel="5.0" id="Car" length="4.0" maxSpeed="100.0" sigma="0.0"/>
     </vTypeDistribution>
-</additional>
+</additional>   

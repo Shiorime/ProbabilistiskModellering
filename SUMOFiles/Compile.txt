@@ -1,0 +1,5 @@
+Compile road
+netconvert --node-files=nodes.nod.xml --edge-files=edges.edg.xml --connection-files=connections.con.xml --output-fule=net.net.xml
+
+Compile flow
+duarouter -n net.net.xml -r routes.rou.xml --randomize-flows -o myroutes.rou.xml
