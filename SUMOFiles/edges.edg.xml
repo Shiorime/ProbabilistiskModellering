@@ -1,13 +1,15 @@
 <edges>
-    <edge from="n1" to="n0" id="1to0" priority="2" numLanes="1" speed="20"/>
-    <edge from="n0" to="n1" id="0to1" priority="2" numLanes="1" speed="20"/>
+    <edge from="1o" to="n0" id="1to0" priority="2" numLanes="2" speed="20">
+        <lane index="1" allow="bus"/>
+    </edge>
+    <edge from="n0" to="1i" id="0to1" priority="2" numLanes="2" speed="20"/>
 
-    <edge from="n2" to="n0" id="2to0" priority="2" numLanes="3" speed="20"/>
-    <edge from="n0" to="n2" id="0to2" priority="2" numLanes="1" speed="20"/>
+    <edge from="2o" to="n0" id="2to0" priority="2" numLanes="3" speed="20"/>
+    <edge from="n0" to="2i" id="0to2" priority="2" numLanes="1" speed="20"/>
 
-    <edge from="n3" to="n0" id="3to0" priority="2" numLanes="2" speed="20"/>
-    <edge from="n0" to="n3" id="0to3" priority="2" numLanes="1" speed="20"/>
+    <edge from="3o" to="n0" id="3to0" priority="2" numLanes="2" speed="20"/>
+    <edge from="n0" to="3i" id="0to3" priority="2" numLanes="1" speed="20"/>
 
-    <edge from="n4" to="n0" id="4to0" priority="2" numLanes="1" speed="20"/>
-    <edge from="n0" to="n4" id="0to4" priority="2" numLanes="1" speed="20"/>
+    <edge from="4o" to="n0" id="4to0" priority="2" numLanes="2" speed="20"/>
+    <edge from="n0" to="4i" id="0to4" priority="2" numLanes="1" speed="20"/>
 </edges>

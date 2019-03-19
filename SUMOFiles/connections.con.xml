@@ -1,9 +1,9 @@
 <connections>
-    <connection from="1to0" to="0to2"/>
-    <connection from="1to0" to="0to3"/>
+    <connection from="1to0" to="0to2" fromLane="0" toLane="0"/>
+    <connection from="1to0" to="0to3" fromLane="1" toLane="0"/>
 
     <connection from="2to0" to="0to1" fromLane="0" toLane="0"/>
-    <connection from="2to0" to="0to1" fromLane="1" toLane="0"/>
+    <connection from="2to0" to="0to1" fromLane="1" toLane="1"/>
     <connection from="2to0" to="0to3" fromLane="0" toLane="0"/>
     <connection from="2to0" to="0to4" fromLane="2" toLane="0"/>
 

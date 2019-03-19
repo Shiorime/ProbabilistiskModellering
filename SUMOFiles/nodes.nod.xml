@@ -1,13 +1,13 @@
 <nodes>
     <node id="n0" x="0" y="0" type="traffic_light"/>
 
-    <node id="n1" x="-500" y="0" type="priority"/>
-    <node id="n2" x="+500" y="0" type="priority"/>
-    <node id="n3" x="0" y="+500" type="priority"/>
-    <node id="n4" x="0" y="-500" type="priority"/>
+    <node id="1o" x="-500" y="0" type="priority"/>
+    <node id="2o" x="+500" y="0" type="priority"/>
+    <node id="3o" x="0" y="+500" type="priority"/>
+    <node id="4o" x="0" y="-500" type="priority"/>
 
-    <node id="1n" x="-500" y="0" type="priority"/>
-    <node id="2n" x="+500" y="0" type="priority"/>
-    <node id="3n" x="0" y="+500" type="priority"/>
-    <node id="4n" x="0" y="-500" type="priority"/>
+    <node id="1i" x="-500" y="0" type="priority"/>
+    <node id="2i" x="+500" y="0" type="priority"/>
+    <node id="3i" x="0" y="+500" type="priority"/>
+    <node id="4i" x="0" y="-500" type="priority"/>
 </nodes>

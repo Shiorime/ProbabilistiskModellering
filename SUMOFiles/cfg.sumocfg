@@ -1,7 +1,7 @@
 <configuration>
     <input>
         <net-file value="net.net.xml"/>
-        <route-files value="myroutes.rou.xml"/>
+        <route-files value="routes.rou.xml"/>
         <gui-settings-file value="settings.settings.xml"/>
         <additional-files value="types.add.xml"/>
     </input>
