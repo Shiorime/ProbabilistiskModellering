@@ -2,10 +2,10 @@
     <input>
         <net-file value="net.net.xml"/>
         <route-files value="routes.rou.xml"/>
-        <gui-settings-file value="settings.settings.xml"/>
+        <gui-settings-file value="setting.settings.xml"/>
     </input>
     <time>
         <begin value="0"/>
-        <end value="10000"/>
+        <end value="3000"/>
     </time>
 </configuration>
