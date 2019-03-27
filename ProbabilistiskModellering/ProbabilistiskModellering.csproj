@@ -33,8 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CodingConnected.TraCI.NET">
-      <HintPath>..\..\..\Desktop\CodingConnected.Traci-master\CodingConnected.TraCI.NET\bin\Debug\CodingConnected.TraCI.NET.dll</HintPath>
+    <Reference Include="CodingConnected.TraCI.NET, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\CodingConnected.TraCI.NET.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
