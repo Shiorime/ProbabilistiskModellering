@@ -1,6 +1,6 @@
 <viewsettings>
     <viewport y="500" x="500" zoom="1600"/>
-    <delay value="20"/>
+    <delay value="1"/>
     <scheme name="Shapes">
         <opengl dither="0"/>
         <background backgroundColor="0,128,0" showGrid="0" gridXSize="100.00" gridYSize="100.00"/>
