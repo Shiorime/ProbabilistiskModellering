@@ -14,21 +14,21 @@ namespace C2.ProbabilistiskModellering.DNA
         // Fitness, that will calculate fitness in fitnessFunction
         public float fitness { get; private set; }
         private Random random;
-        private Func<T> getRandomGene;
-        Func<float, int> fitnessFunction;
+        private Func<T> GetRandomGene;
+        Func<float, int> FitnessFunction;
 
-        public DNA(int size, Random random, Func<T> getRandomGene, Func<float, int> fitnessFunction, bool shouldInitializeGenes = true)
+        public DNA(int size, Random random, Func<T> GetRandomGene, Func<float, int> FitnessFunction, bool shouldInitializeGenes = true)
         {
             genes = new T[size];
             this.random = random;
-            this.getRandomGene = getRandomGene;
-            this.fitnessFunction = fitnessFunction;
+            this.GetRandomGene = GetRandomGene;
+            this.FitnessFunction = FitnessFunction;
             
             if(shouldInitializeGenes)
             {
                 for (int i = 0; i < genes.Length; i++)
                 {
-                    genes[i] = getRandomGene();
+                    genes[i] = GetRandomGene();
                 }
             } 
         }
@@ -37,14 +37,14 @@ namespace C2.ProbabilistiskModellering.DNA
         public float CalculateFitness(int index)
         {
             // TODO
-            fitness = fitnessFunction(index);
+            fitness = FitnessFunction(index);
             return fitness;
         }
 
         public DNA<T> CrossOver(DNA <T> otherParent)
         {
             // Child initializes
-            DNA<T> child = new DNA<T>(genes.Length, random, getRandomGene, fitnessFunction, shouldInitializeGenes: false);
+            DNA<T> child = new DNA<T>(genes.Length, random, GetRandomGene, FitnessFunction, shouldInitializeGenes: false);
 
             for(int i = 0; i < genes.Length; i++)
             {
@@ -60,7 +60,7 @@ namespace C2.ProbabilistiskModellering.DNA
         {
             for(int i = 0; i < genes.Length; i++)
             {
-                genes[i] = getRandomGene();
+                genes[i] = GetRandomGene();
             }
         }
 
