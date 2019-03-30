@@ -22,6 +22,7 @@ namespace ProbabilistiskModellering
                 Console.Write("Insert Port Number: ");
                 int port = int.Parse(Console.ReadLine());
                 await client.ConnectAsync("127.0.0.1", port);
+                
                 while (true)
                 {
                     Console.WriteLine("Taking a step");
