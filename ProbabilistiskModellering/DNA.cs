@@ -4,65 +4,63 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProbabilistiskModellering
+namespace C2.ProbabilistiskModellering.DNA
 {
     public class DNA<T>
     {
-        // Array til gener til hvert individ // 
-        public T[] Genes { get; private set; }
-        // Fittness, som vil udregnes i en fitness funktion
-        public float Fitness { get; private set; }
-        private Random random;
-        private Func<T> GetRandomGene;
-        Func<float, int> FitnessFunction;
+        // Array for genes for every individual
+        public T[] genes { get; private set; }
 
-        public DNA(int size, Random random, Func<T> GetRandomGene, Func<float, int> FitnessFunction, bool ShouldInitializeGenes = true)
+        // Fitness, that will calculate fitness in fitnessFunction
+        public float fitness { get; private set; }
+        private Random random;
+        private Func<T> getRandomGene;
+        Func<float, int> fitnessFunction;
+
+        public DNA(int size, Random random, Func<T> getRandomGene, Func<float, int> fitnessFunction, bool shouldInitializeGenes = true)
         {
-            Genes = new T[size];
+            genes = new T[size];
             this.random = random;
-            this.GetRandomGene = GetRandomGene;
-            this.FitnessFunction = FitnessFunction;
+            this.getRandomGene = getRandomGene;
+            this.fitnessFunction = fitnessFunction;
             
-            if( ShouldInitializeGenes)
+            if(shouldInitializeGenes)
             {
-                for (int i = 0; i < Genes.Length; i++)
+                for (int i = 0; i < genes.Length; i++)
                 {
-                    Genes[i] = GetRandomGene();
+                    genes[i] = getRandomGene();
                 }
-            }
-                     
+            } 
         }
 
-        // udregne fitness til naturlig selektion
+        // Calculate fitness for natural selection
         public float CalculateFitness(int index)
         {
-            // ikke lavet
-            Fitness = FitnessFunction(index);
-            return Fitness;
+            // TODO
+            fitness = fitnessFunction(index);
+            return fitness;
         }
-
-        
 
         public DNA<T> CrossOver(DNA <T> otherParent)
         {
-            // barnet initialiseres
-            DNA<T> child = new DNA<T>(Genes.Length, random, GetRandomGene, FitnessFunction, ShouldInitializeGenes: false);
+            // Child initializes
+            DNA<T> child = new DNA<T>(genes.Length, random, getRandomGene, fitnessFunction, shouldInitializeGenes: false);
 
-            for(int i = 0; i < Genes.Length; i++)
+            for(int i = 0; i < genes.Length; i++)
             {
-                // når gener deles mellem to forældre, så er det tilfældigt, hvilke der overlever
-                // Derfor bruger vi random. Hvis den er mindre en 0.5 er det gener fra den første, ellers er det fra den anden
+                // When genes split between 2 parents, then it is random who survives.
+                // This is why we use random. If it is less than 0.5 then it is genes from the first parent, else it is the other parent.
 
-                child.Genes[i] = random.NextDouble() < 0.5 ? (Genes[i]) : otherParent.Genes[i]; 
+                child.genes[i] = random.NextDouble() < 0.5 ? (genes[i]) : otherParent.genes[i]; 
             }
             return child;
         }
 
         public void Mutate(float mutationRate)
         {
-            for(int i = 0; i < Genes.Length; i++)
+            for(int i = 0; i < genes.Length; i++)
             {
-                Genes[i] = GetRandomGene();
+                genes[i] = getRandomGene();
             }
         }
 
