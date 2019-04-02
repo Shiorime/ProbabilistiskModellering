@@ -30,9 +30,15 @@ namespace ProbabilistiskModellering
 
                 List<string> test = trafficLights.GetIdList().Content;
                 List<string> test1 = trafficLights.GetControlledLanes("n0").Content;
-
-                Console.WriteLine(test.ElementAt(0));
-                Console.WriteLine(test1.ElementAt(0));
+                
+                foreach (string nodes in test)
+                {
+                    Console.WriteLine(nodes);
+                }
+                foreach (string controlledLanes in test1)
+                {
+                    Console.WriteLine(controlledLanes);
+                }
 
                 Console.ReadLine();
 
