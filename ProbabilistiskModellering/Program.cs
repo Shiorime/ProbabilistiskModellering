@@ -23,6 +23,7 @@ namespace ProbabilistiskModellering
                 Console.Write("Insert Port Number: ");
                 int port = int.Parse(Console.ReadLine());
                 await client.ConnectAsync("127.0.0.1", port);
+                SimulationCommands simulation = new SimulationCommands(client);
 
                 TrafficLightCommands trafficLights = new TrafficLightCommands(client);
 
@@ -42,7 +43,7 @@ namespace ProbabilistiskModellering
 
                 Console.ReadLine();
 
-                while (true)
+                while (simulation.GetTime("yeet").Content < 3000)
                 {
                     Console.WriteLine("Taking a step");
                     client.Control.SimStep();
@@ -50,6 +51,7 @@ namespace ProbabilistiskModellering
                     trafficLights.SetRedYellowGreenState("n0", "GGGGGGGGGGGG");
                     await Task.Delay(10);
 
+                    Console.WriteLine($"Time: {simulation.GetTime("yeet").Content}");
                     //Console.WriteLine("Taking a step");
                     //client.Control.SimStep();
                     //Console.WriteLine("1");
