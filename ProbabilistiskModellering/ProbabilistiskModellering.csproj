@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{EAB5801E-4F2F-4CD9-9DE5-CD9EC15BA3CD}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ProbabilistiskModellering</RootNamespace>
-    <AssemblyName>ProbabilistiskModellering</AssemblyName>
+    <RootNamespace>C2.ProbabilistiskModellering</RootNamespace>
+    <AssemblyName>C2-19.ProbabilistiskModellering</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -47,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GeneticAlgorithm.cs" />
+    <Compile Include="DNA.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
