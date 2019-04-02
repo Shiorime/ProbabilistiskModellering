@@ -1,6 +1,6 @@
 <routes>
-    <vType id="bus" length="10.0" maxSpeed="100.0" sigma="0.0" accel="0.7" decel="5.0" vClass="bus" guiShape="bus"/>
-    <vType id="passenger" length="3.0" maxSpeed="100.0" sigma="0.0" accel="1.0" decel="5.0" vClass="passenger" guiShape="passenger"/>
+    <vType id="bus" length="10.0" maxSpeed="27.8" sigma="0.0" accel="0.7" decel="5.0" vClass="bus" guiShape="bus"/>
+    <vType id="passenger" length="3.0" maxSpeed="27.8" sigma="0.0" accel="1.0" decel="5.0" vClass="passenger" guiShape="passenger"/>
 
     <flow id="1to3" begin="0" end="2400" number="15" from="1to0" to="0to3" type="bus"/>
     <flow id="1to2" begin="0" end="2400" number="320" from="1to0" to="0to2"/>
