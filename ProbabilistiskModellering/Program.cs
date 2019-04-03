@@ -12,7 +12,7 @@ namespace ProbabilistiskModellering
     {
         static void Main(string[] args)
         {
-            MainAsync(args).ConfigureAwait(false).GetAwaiter().GetResult();
+           MainAsync(args).ConfigureAwait(false).GetAwaiter().GetResult();
         }
 
         public static async Task MainAsync(string[] args)
@@ -35,6 +35,8 @@ namespace ProbabilistiskModellering
                 Console.WriteLine(test1.ElementAt(0));
 
                 Console.ReadLine();
+
+                
 
                 while (true)
                 {
@@ -104,7 +106,7 @@ namespace ProbabilistiskModellering
                     trafficLights.SetRedYellowGreenState("n0", "rrrrrrrrrrG");
                     await Task.Delay(1000);
 
-                    await Task.Delay(100);
+                    await Task.Delay(1000);
                 }
 
             });
