@@ -5,4 +5,4 @@ Compile flow
 duarouter -n net.net.xml -r flow.rou.xml --randomize-flows -o routes.rou.xml
 
 Åbn Sumo-gui as server
-sumo-gui --remote-port (portnumber) -c cfg.sumocfg
+sumo-gui --remote-port 1000 -c cfg.sumocfg

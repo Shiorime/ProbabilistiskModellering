@@ -3,6 +3,7 @@
         <net-file value="net.net.xml"/>
         <route-files value="routes.rou.xml"/>
         <gui-settings-file value="setting.settings.xml"/>
+	<additional-files value="cross.det.xml"/>
     </input>
     <time>
         <begin value="0"/>
