@@ -31,8 +31,8 @@ namespace ProbabilistiskModellering
 
                 List<string> test = trafficLights.GetIdList().Content;
                 List<string> test1 = trafficLights.GetControlledLanes("n0").Content;
-                
-                foreach (string nodes in test)
+
+                /*foreach (string nodes in test)
                 {
                     Console.WriteLine(nodes);
                 }
@@ -42,149 +42,90 @@ namespace ProbabilistiskModellering
                 }
 
                 Console.ReadLine();
+                */
 
-<<<<<<< HEAD
-                
+
 
                 while (true)
-=======
-                while (simulation.GetTime("yeet").Content < 3000)
->>>>>>> 7e4d177a95287b5b3557322ef48480c47e4c6c80
-                {
-                    Console.WriteLine("Taking a step");
-                    client.Control.SimStep();
-                    Console.WriteLine("0");
-<<<<<<< HEAD
-                    trafficLights.SetRedYellowGreenState("n0", "Grrrrrrrrrr");
-                    await Task.Delay(1000);
 
-                    Console.WriteLine("Taking a step");
-                    client.Control.SimStep();
-                    Console.WriteLine("1");
-                    trafficLights.SetRedYellowGreenState("n0", "rGrrrrrrrrr");
-                    await Task.Delay(1000);
+                    while (simulation.GetTime("yeet").Content < 3000)
 
-                    Console.WriteLine("Taking a step");
-                    client.Control.SimStep();
-                    Console.WriteLine("2");
-                    trafficLights.SetRedYellowGreenState("n0", "rrGrrrrrrrr");
-                    await Task.Delay(1000);
+                    {
+                        Console.WriteLine("Taking a step");
+                        client.Control.SimStep();
+                        Console.WriteLine("0");
 
-                    Console.WriteLine("Taking a step");
-                    client.Control.SimStep();
-                    Console.WriteLine("3");
-                    trafficLights.SetRedYellowGreenState("n0", "rrrGrrrrrrr");
-                    await Task.Delay(1000);
+                        trafficLights.SetRedYellowGreenState("n0", "Grrrrrrrrrr");
+                        await Task.Delay(1000);
 
-                    Console.WriteLine("Taking a step");
-                    client.Control.SimStep();
-                    Console.WriteLine("4");
-                    trafficLights.SetRedYellowGreenState("n0", "rrrrGrrrrrr");
-                    await Task.Delay(1000);
+                        Console.WriteLine("Taking a step");
+                        client.Control.SimStep();
+                        Console.WriteLine("1");
+                        trafficLights.SetRedYellowGreenState("n0", "rGrrrrrrrrr");
+                        await Task.Delay(1000);
 
-                    Console.WriteLine("Taking a step");
-                    client.Control.SimStep();
-                    Console.WriteLine("5");
-                    trafficLights.SetRedYellowGreenState("n0", "rrrrrGrrrrr");
-                    await Task.Delay(1000);
+                        Console.WriteLine("Taking a step");
+                        client.Control.SimStep();
+                        Console.WriteLine("2");
+                        trafficLights.SetRedYellowGreenState("n0", "rrGrrrrrrrr");
+                        await Task.Delay(1000);
 
-                    Console.WriteLine("Taking a step");
-                    client.Control.SimStep();
-                    Console.WriteLine("6");
-                    trafficLights.SetRedYellowGreenState("n0", "rrrrrrGrrrr");
-                    await Task.Delay(1000);
+                        Console.WriteLine("Taking a step");
+                        client.Control.SimStep();
+                        Console.WriteLine("3");
+                        trafficLights.SetRedYellowGreenState("n0", "rrrGrrrrrrr");
+                        await Task.Delay(1000);
 
-                    Console.WriteLine("Taking a step");
-                    client.Control.SimStep();
-                    Console.WriteLine("7");
-                    trafficLights.SetRedYellowGreenState("n0", "rrrrrrrGrrr");
-                    await Task.Delay(1000);
+                        Console.WriteLine("Taking a step");
+                        client.Control.SimStep();
+                        Console.WriteLine("4");
+                        trafficLights.SetRedYellowGreenState("n0", "rrrrGrrrrrr");
+                        await Task.Delay(1000);
 
-                    Console.WriteLine("Taking a step");
-                    client.Control.SimStep();
-                    Console.WriteLine("8");
-                    trafficLights.SetRedYellowGreenState("n0", "rrrrrrrrGrr");
-                    await Task.Delay(1000);
+                        Console.WriteLine("Taking a step");
+                        client.Control.SimStep();
+                        Console.WriteLine("5");
+                        trafficLights.SetRedYellowGreenState("n0", "rrrrrGrrrrr");
+                        await Task.Delay(1000);
 
-                    Console.WriteLine("Taking a step");
-                    client.Control.SimStep();
-                    Console.WriteLine("9");
-                    trafficLights.SetRedYellowGreenState("n0", "rrrrrrrrrGr");
-                    await Task.Delay(1000);
+                        Console.WriteLine("Taking a step");
+                        client.Control.SimStep();
+                        Console.WriteLine("6");
+                        trafficLights.SetRedYellowGreenState("n0", "rrrrrrGrrrr");
+                        await Task.Delay(1000);
 
-                    Console.WriteLine("Taking a step");
-                    client.Control.SimStep();
-                    Console.WriteLine("10");
-                    trafficLights.SetRedYellowGreenState("n0", "rrrrrrrrrrG");
-                    await Task.Delay(1000);
+                        Console.WriteLine("Taking a step");
+                        client.Control.SimStep();
+                        Console.WriteLine("7");
+                        trafficLights.SetRedYellowGreenState("n0", "rrrrrrrGrrr");
+                        await Task.Delay(1000);
 
-                    await Task.Delay(1000);
-=======
-                    trafficLights.SetRedYellowGreenState("n0", "GGGGGGGGGGGG");
-                    await Task.Delay(10);
+                        Console.WriteLine("Taking a step");
+                        client.Control.SimStep();
+                        Console.WriteLine("8");
+                        trafficLights.SetRedYellowGreenState("n0", "rrrrrrrrGrr");
+                        await Task.Delay(1000);
 
-                    Console.WriteLine($"Time: {simulation.GetTime("yeet").Content}");
-                    //Console.WriteLine("Taking a step");
-                    //client.Control.SimStep();
-                    //Console.WriteLine("1");
-                    //trafficLights.SetRedYellowGreenState("n0", "rGrrrrrrrrr");
-                    //await Task.Delay(1000);
+                        Console.WriteLine("Taking a step");
+                        client.Control.SimStep();
+                        Console.WriteLine("9");
+                        trafficLights.SetRedYellowGreenState("n0", "rrrrrrrrrGr");
+                        await Task.Delay(1000);
 
-                    //Console.WriteLine("Taking a step");
-                    //client.Control.SimStep();
-                    //Console.WriteLine("2");
-                    //trafficLights.SetRedYellowGreenState("n0", "rrGrrrrrrrr");
-                    //await Task.Delay(1000);
+                        Console.WriteLine("Taking a step");
+                        client.Control.SimStep();
+                        Console.WriteLine("10");
+                        trafficLights.SetRedYellowGreenState("n0", "rrrrrrrrrrG");
+                        await Task.Delay(1000);
 
-                    //Console.WriteLine("Taking a step");
-                    //client.Control.SimStep();
-                    //Console.WriteLine("3");
-                    //trafficLights.SetRedYellowGreenState("n0", "rrrGrrrrrrr");
-                    //await Task.Delay(1000);
+                        await Task.Delay(1000);
 
-                    //Console.WriteLine("Taking a step");
-                    //client.Control.SimStep();
-                    //Console.WriteLine("4");
-                    //trafficLights.SetRedYellowGreenState("n0", "rrrrGrrrrrr");
-                    //await Task.Delay(1000);
+                        trafficLights.SetRedYellowGreenState("n0", "GGGGGGGGGGGG");
+                        await Task.Delay(10);
 
-                    //Console.WriteLine("Taking a step");
-                    //client.Control.SimStep();
-                    //Console.WriteLine("5");
-                    //trafficLights.SetRedYellowGreenState("n0", "rrrrrGrrrrr");
-                    //await Task.Delay(1000);
+                        Console.WriteLine($"Time: {simulation.GetTime("yeet").Content}");
 
-                    //Console.WriteLine("Taking a step");
-                    //client.Control.SimStep();
-                    //Console.WriteLine("6");
-                    //trafficLights.SetRedYellowGreenState("n0", "rrrrrrGrrrr");
-                    //await Task.Delay(1000);
-
-                    //Console.WriteLine("Taking a step");
-                    //client.Control.SimStep();
-                    //Console.WriteLine("7");
-                    //trafficLights.SetRedYellowGreenState("n0", "rrrrrrrGrrr");
-                    //await Task.Delay(1000);
-
-                    //Console.WriteLine("Taking a step");
-                    //client.Control.SimStep();
-                    //Console.WriteLine("8");
-                    //trafficLights.SetRedYellowGreenState("n0", "rrrrrrrrGrr");
-                    //await Task.Delay(1000);
-
-                    //Console.WriteLine("Taking a step");
-                    //client.Control.SimStep();
-                    //Console.WriteLine("9");
-                    //trafficLights.SetRedYellowGreenState("n0", "rrrrrrrrrGr");
-                    //await Task.Delay(1000);
-
-                    //Console.WriteLine("Taking a step");
-                    //client.Control.SimStep();
-                    //Console.WriteLine("10");
-                    //trafficLights.SetRedYellowGreenState("n0", "rrrrrrrrrrG");
-                    //await Task.Delay(1000);
->>>>>>> 7e4d177a95287b5b3557322ef48480c47e4c6c80
-                }
+                    }
 
             });
         }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace C2.ProbabilistiskModellering.DNA
+namespace ProbabilistiskModellering
 {
     public class DNA<T>
     {
@@ -15,9 +15,9 @@ namespace C2.ProbabilistiskModellering.DNA
         public float fitness { get; private set; }
         private Random random;
         private Func<T> GetRandomGene;
-        Func<float, int> FitnessFunction;
+        Func<int, float> FitnessFunction;
 
-        public DNA(int size, Random random, Func<T> GetRandomGene, Func<float, int> FitnessFunction, bool shouldInitializeGenes = true)
+        public DNA(int size, Random random, Func<T> GetRandomGene, Func<int, float> FitnessFunction, bool shouldInitializeGenes = true)
         {
             genes = new T[size];
             this.random = random;
