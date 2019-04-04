@@ -16,6 +16,7 @@ namespace ProbabilistiskModellering
         private Random random;
         private Func<T> GetRandomGene;
         Func<int, float> FitnessFunction;
+        string randomState;
 
         public DNA(int size, Random random, Func<T> GetRandomGene, Func<int, float> FitnessFunction, bool shouldInitializeGenes = true)
         {
@@ -54,6 +55,26 @@ namespace ProbabilistiskModellering
                 child.genes[i] = random.NextDouble() < 0.5 ? (genes[i]) : otherParent.genes[i]; 
             }
             return child;
+        }
+
+        Random rand = new Random();
+        public string GenerateRandomRedYellowGreenState()
+        {
+            randomState = string.Empty;
+            int result = rand.Next(0, 2);
+            for (int i = 0; i < 11; i++)
+            {
+                if (result == 0)
+                {
+                    randomState = randomState + "r";
+                }
+                else if (result == 1)
+                {
+                    randomState = randomState + "G";
+                }
+                result = rand.Next(0, 2);
+            }
+            return randomState;
         }
 
         public void Mutate(float mutationRate)

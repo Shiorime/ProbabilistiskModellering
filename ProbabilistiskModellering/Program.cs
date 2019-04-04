@@ -32,7 +32,7 @@ namespace ProbabilistiskModellering
                 List<string> test = trafficLights.GetIdList().Content;
                 List<string> test1 = trafficLights.GetControlledLanes("n0").Content;
 
-                /*foreach (string nodes in test)
+                foreach (string nodes in test)
                 {
                     Console.WriteLine(nodes);
                 }
@@ -42,7 +42,7 @@ namespace ProbabilistiskModellering
                 }
 
                 Console.ReadLine();
-                */
+                
 
 
 
