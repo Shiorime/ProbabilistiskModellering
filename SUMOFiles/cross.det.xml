@@ -1,34 +1,49 @@
 <additional>
+						<!--LEFT -->
+  <!--incoming-->
   <inductionLoop id="det_1to0_0" lane="1to0_0" pos="-50" freq="3000"
    file="out.xml" friendlyPos="true"/>
-
   <inductionLoop id="det_1to0_1" lane="1to0_1" pos="-50" freq="3000"
    file="out.xml" friendlyPos="true"/>
-
-
-
+  <!--outgoing--> 
+  <inductionLoop id="det_0to1_0" lane="0to1_0" pos="25" freq="3000"
+   file="out.xml" friendlyPos="true"/>
+  <inductionLoop id="det_0to1_1" lane="0to1_1" pos="25" freq="3000"
+   file="out.xml" friendlyPos="true"/> 
+   
+   
+						<!--RIGHT--> 
+  <!--incoming-->
   <inductionLoop id="det_2to0_0" lane="2to0_0" pos="-50" freq="3000"
    file="out.xml" friendlyPos="true"/>
-
   <inductionLoop id="det_2to0_1" lane="2to0_1" pos="-50" freq="3000"
    file="out.xml" friendlyPos="true"/>
-
   <inductionLoop id="det_2to0_2" lane="2to0_2" pos="-50" freq="3000"
    file="out.xml" friendlyPos="true"/>
+   <!--outgoing--> 
+  <inductionLoop id="det_0to2_0" lane="0to2_0" pos="25" freq="3000"
+   file="out.xml" friendlyPos="true"/> 
 
-
-
+						<!--TOP--> 
+  <!--incoming-->
   <inductionLoop id="det_3to0_0" lane="3to0_0" pos="-50" freq="3000"
    file="out.xml" friendlyPos="true"/>
-
   <inductionLoop id="det_3to0_1" lane="3to0_1" pos="-50" freq="3000"
    file="out.xml" friendlyPos="true"/>
-
-
-
+  <!--outgoing--> 
+  <inductionLoop id="det_0to3_0" lane="0to3_0" pos="25" freq="3000"
+   file="out.xml" friendlyPos="true"/> 
+  
+						<!--BOTTOM--> 
+  <!--incoming--> 
   <inductionLoop id="det_4to0_0" lane="4to0_0" pos="-50" freq="3000"
    file="out.xml" friendlyPos="true"/>
-
   <inductionLoop id="det_4to0_1" lane="4to0_1" pos="-50" freq="3000"
    file="out.xml" friendlyPos="true"/>
+  <!--outgoing--> 
+  <inductionLoop id="det_0to4_0" lane="0to4_0" pos="25" freq="3000"
+   file="out.xml" friendlyPos="true"/>
+  
+   
+   
 </additional>
