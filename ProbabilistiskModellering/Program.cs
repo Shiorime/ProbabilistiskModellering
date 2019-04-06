@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using CodingConnected.TraCI.NET;
 using CodingConnected.TraCI.NET.Commands;
@@ -44,7 +45,7 @@ namespace ProbabilistiskModellering
                 Console.ReadLine();
                 
 
-
+                
 
                 while (true)
 
@@ -121,13 +122,32 @@ namespace ProbabilistiskModellering
                         await Task.Delay(1000);
 
                         trafficLights.SetRedYellowGreenState("n0", "GGGGGGGGGGGG");
-                        await Task.Delay(10);
+                        await Task.Delay(1000);
 
                         Console.WriteLine($"Time: {simulation.GetTime("yeet").Content}");
 
                     }
 
             });
+        }
+
+        // er udelukkende blevet testet i projekt ved siden af, eventuelt skal cmd.waitforexit fjernes, men simulationen i sumo burde lukke, efter den er færdig
+        // men det finder vi nok ud af 
+        public void OpenSumo()
+        {
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = "cmd.exe";
+            cmd.StartInfo.RedirectStandardInput = true;
+            cmd.StartInfo.RedirectStandardOutput = true;
+            cmd.StartInfo.CreateNoWindow = true;
+            cmd.Start();
+
+            //port skal nok ændres til noget vilkårligt, som kan føres som input til funktionskaldet senere, så vi kan starte uendeligt mange instanser
+            cmd.StandardInput.WriteLine("sumo-gui --remote-port 1000 -c cfg.sumocfg");
+            cmd.StandardInput.Flush();
+            cmd.StandardInput.Close();
+            cmd.WaitForExit();
+            Console.WriteLine(cmd.StandardOutput.ReadToEnd());
         }
     }
 }
