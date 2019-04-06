@@ -42,91 +42,14 @@ namespace ProbabilistiskModellering
                 }
 
                 Console.ReadLine();
+                while (simulation.GetTime("yeet").Content < 3000)
+                {
+                    client.Control.SimStep();
+
+                    trafficLights.SetRedYellowGreenState("n0", "GGGGGGGGGGGG");
+                }
                 
-
-
-
-                while (true)
-
-                    while (simulation.GetTime("yeet").Content < 3000)
-
-                    {
-                        Console.WriteLine("Taking a step");
-                        client.Control.SimStep();
-                        Console.WriteLine("0");
-
-                        trafficLights.SetRedYellowGreenState("n0", "Grrrrrrrrrr");
-                        await Task.Delay(1000);
-
-                        Console.WriteLine("Taking a step");
-                        client.Control.SimStep();
-                        Console.WriteLine("1");
-                        trafficLights.SetRedYellowGreenState("n0", "rGrrrrrrrrr");
-                        await Task.Delay(1000);
-
-                        Console.WriteLine("Taking a step");
-                        client.Control.SimStep();
-                        Console.WriteLine("2");
-                        trafficLights.SetRedYellowGreenState("n0", "rrGrrrrrrrr");
-                        await Task.Delay(1000);
-
-                        Console.WriteLine("Taking a step");
-                        client.Control.SimStep();
-                        Console.WriteLine("3");
-                        trafficLights.SetRedYellowGreenState("n0", "rrrGrrrrrrr");
-                        await Task.Delay(1000);
-
-                        Console.WriteLine("Taking a step");
-                        client.Control.SimStep();
-                        Console.WriteLine("4");
-                        trafficLights.SetRedYellowGreenState("n0", "rrrrGrrrrrr");
-                        await Task.Delay(1000);
-
-                        Console.WriteLine("Taking a step");
-                        client.Control.SimStep();
-                        Console.WriteLine("5");
-                        trafficLights.SetRedYellowGreenState("n0", "rrrrrGrrrrr");
-                        await Task.Delay(1000);
-
-                        Console.WriteLine("Taking a step");
-                        client.Control.SimStep();
-                        Console.WriteLine("6");
-                        trafficLights.SetRedYellowGreenState("n0", "rrrrrrGrrrr");
-                        await Task.Delay(1000);
-
-                        Console.WriteLine("Taking a step");
-                        client.Control.SimStep();
-                        Console.WriteLine("7");
-                        trafficLights.SetRedYellowGreenState("n0", "rrrrrrrGrrr");
-                        await Task.Delay(1000);
-
-                        Console.WriteLine("Taking a step");
-                        client.Control.SimStep();
-                        Console.WriteLine("8");
-                        trafficLights.SetRedYellowGreenState("n0", "rrrrrrrrGrr");
-                        await Task.Delay(1000);
-
-                        Console.WriteLine("Taking a step");
-                        client.Control.SimStep();
-                        Console.WriteLine("9");
-                        trafficLights.SetRedYellowGreenState("n0", "rrrrrrrrrGr");
-                        await Task.Delay(1000);
-
-                        Console.WriteLine("Taking a step");
-                        client.Control.SimStep();
-                        Console.WriteLine("10");
-                        trafficLights.SetRedYellowGreenState("n0", "rrrrrrrrrrG");
-                        await Task.Delay(1000);
-
-                        await Task.Delay(1000);
-
-                        trafficLights.SetRedYellowGreenState("n0", "GGGGGGGGGGGG");
-                        await Task.Delay(10);
-
-                        Console.WriteLine($"Time: {simulation.GetTime("yeet").Content}");
-
-                    }
-
+                
             });
         }
     }
