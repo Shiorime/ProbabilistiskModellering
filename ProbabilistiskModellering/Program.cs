@@ -131,8 +131,7 @@ namespace ProbabilistiskModellering
             });
         }
 
-        // er udelukkende blevet testet i projekt ved siden af, eventuelt skal cmd.waitforexit fjernes, men simulationen i sumo burde lukke, efter den er færdig
-        // men det finder vi nok ud af 
+        // has been tested in seperate project, we will have to test if cmd.WaitForExit() causes conflict with the ending simulation
         public void OpenSumo(string portNumber)
         {
             Process cmd = new Process();
@@ -142,7 +141,7 @@ namespace ProbabilistiskModellering
             cmd.StartInfo.CreateNoWindow = true;
             cmd.Start();
 
-            //port skal nok ændres til noget vilkårligt, som kan føres som input til funktionskaldet senere, så vi kan starte uendeligt mange instanser
+            //port number is passed as argument, thus enabling sumo to be opened as many times as wanted 
             cmd.StandardInput.WriteLine($"sumo-gui --remote-port {portNumber} -c cfg.sumocfg");
             cmd.StandardInput.Flush();
             cmd.StandardInput.Close();
