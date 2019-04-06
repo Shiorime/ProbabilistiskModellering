@@ -51,12 +51,12 @@ namespace ProbabilistiskModellering
             {
                 // When genes split between 2 parents, then it is random who survives.
                 // This is why we use random. If it is less than 0.5 then it is genes from the first parent, else it is the other parent.
-
                 child.genes[i] = random.NextDouble() < 0.5 ? (genes[i]) : otherParent.genes[i]; 
             }
             return child;
         }
 
+        // skal placeres andetsteds, da denne skal føres som input i construteren
         Random rand = new Random();
         public string GenerateRandomRedYellowGreenState()
         {
@@ -77,13 +77,16 @@ namespace ProbabilistiskModellering
             return randomState;
         }
 
+        // should work lmao
         public void Mutate(float mutationRate)
         {
-            for(int i = 0; i < genes.Length; i++)
+            for (int i = 0; i < genes.Length; i++)
             {
-                genes[i] = GetRandomGene();
+                if (random.NextDouble() < mutationRate)
+                {
+                    genes[i] = GetRandomGene();
+                }
             }
-        }
-
+        }  
     }
 }

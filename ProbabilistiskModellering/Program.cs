@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using CodingConnected.TraCI.NET;
 using CodingConnected.TraCI.NET.Commands;
@@ -42,15 +43,33 @@ namespace ProbabilistiskModellering
                 }
 
                 Console.ReadLine();
+
                 while (simulation.GetTime("yeet").Content < 3000)
                 {
                     client.Control.SimStep();
-
                     trafficLights.SetRedYellowGreenState("n0", "GGGGGGGGGGGG");
                 }
-                
-                
+
+                client.Control.Close();
             });
+        }
+
+        // has been tested in seperate project, we will have to test if cmd.WaitForExit() causes conflict with the ending simulation
+        public void OpenSumo(string portNumber)
+        {
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = "cmd.exe";
+            cmd.StartInfo.RedirectStandardInput = true;
+            cmd.StartInfo.RedirectStandardOutput = true;
+            cmd.StartInfo.CreateNoWindow = true;
+            cmd.Start();
+
+            //port number is passed as argument, thus enabling sumo to be opened as many times as wanted 
+            cmd.StandardInput.WriteLine($"sumo-gui --remote-port {portNumber} -c cfg.sumocfg");
+            cmd.StandardInput.Flush();
+            cmd.StandardInput.Close();
+            cmd.WaitForExit();
+            Console.WriteLine(cmd.StandardOutput.ReadToEnd());
         }
     }
 }
