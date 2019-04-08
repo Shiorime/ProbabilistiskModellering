@@ -52,6 +52,9 @@ namespace ProbabilistiskModellering
                 }
                 client.Control.Close();
                 await Task.Delay(100);
+                Program pg = new Program();
+                string[] hej = pg.GetSpecificXMLAttributeFromFile("meanTimeLoss", @"filepath");
+                Console.WriteLine(hej[0]);
                 Console.ReadLine();
             });
         }
@@ -74,14 +77,20 @@ namespace ProbabilistiskModellering
             Console.WriteLine(cmd.StandardOutput.ReadToEnd());
         }
 
-        public string GetSpecificXMLAttributeFromFile(int index, string attribute, string filePath)
+        public string[] GetSpecificXMLAttributeFromFile(string attribute, string filePath)
         {
             //https://stackoverflow.com/questions/933687/read-xml-attribute-using-xmldocument
             XmlDocument xmlDoc = new XmlDocument(); /* Create new XmlDocument */
             xmlDoc.Load(filePath);                  /* Load the xml file from filePath */
             XmlNodeList list = xmlDoc.GetElementsByTagName("interval"); /* Find elements with interval. Put it into an array/list */
+            string[] finalArray = new string[list.Count];
 
-            return list[index].Attributes[$"{attribute}"].Value; /* Get specific attribute from index */
+            for(int i = 0; i < list.Count; ++i)
+            {
+                finalArray[i] = list[i].Attributes[$"{attribute}"].Value;
+            }
+
+            return finalArray;
         }
     }
 
