@@ -8,6 +8,7 @@ using System.Xml;
 using System.Xml.Linq;
 using CodingConnected.TraCI.NET;
 using CodingConnected.TraCI.NET.Commands;
+using System.Globalization;
 
 namespace ProbabilistiskModellering
 {
@@ -23,6 +24,7 @@ namespace ProbabilistiskModellering
             await Task.Run(async () =>
             {
                 var client = new TraCIClient();
+                Program pg = new Program();
                 Console.Write("Insert Port Number: ");
                 int port = int.Parse(Console.ReadLine());
                 await client.ConnectAsync("127.0.0.1", port);
@@ -51,10 +53,17 @@ namespace ProbabilistiskModellering
 
                 }
                 client.Control.Close();
+
                 await Task.Delay(100);
-                Program pg = new Program();
-                string[] hej = pg.GetSpecificXMLAttributeFromFile("meanTimeLoss", @"filepath");
-                Console.WriteLine(hej[0]);
+                string[] timeLoss = pg.GetSpecificXMLAttributeFromFile("timeLoss", @"C:\Users\Lasse\Documents\GitHub\ProbabilistiskModellering\SUMOFiles\out.xml");
+                int cars = timeLoss.Count();
+                double eo = 0.0;
+                for (int i = 0; i < cars; i++)
+                {
+                    eo += double.Parse(timeLoss[i], CultureInfo.InvariantCulture);
+                }
+
+                Console.WriteLine($"{eo / cars}");
                 Console.ReadLine();
             });
         }
@@ -82,7 +91,7 @@ namespace ProbabilistiskModellering
             //https://stackoverflow.com/questions/933687/read-xml-attribute-using-xmldocument
             XmlDocument xmlDoc = new XmlDocument(); /* Create new XmlDocument */
             xmlDoc.Load(filePath);                  /* Load the xml file from filePath */
-            XmlNodeList list = xmlDoc.GetElementsByTagName("interval"); /* Find elements with interval. Put it into an array/list */
+            XmlNodeList list = xmlDoc.GetElementsByTagName("tripinfo"); /* Find elements with interval. Put it into an array/list */
             string[] finalArray = new string[list.Count];
 
             for(int i = 0; i < list.Count; ++i)
