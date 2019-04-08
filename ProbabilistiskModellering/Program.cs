@@ -6,10 +6,11 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using CodingConnected.TraCI.NET;
 using CodingConnected.TraCI.NET.Commands;
+using CodingConnected.TraCI.NET.Helpers;
 
 namespace ProbabilistiskModellering
 {
-    class Program
+    class Program 
     {
         static void Main(string[] args)
         {
@@ -41,15 +42,13 @@ namespace ProbabilistiskModellering
                 {
                     Console.WriteLine(controlledLanes);
                 }
-
-                Console.ReadLine();
-
+                
                 while (simulation.GetTime("yeet").Content < 3000)
                 {
                     client.Control.SimStep();
                     trafficLights.SetRedYellowGreenState("n0", "GGGGGGGGGGGG");
-                }
 
+                }
                 client.Control.Close();
             });
         }
@@ -72,4 +71,5 @@ namespace ProbabilistiskModellering
             Console.WriteLine(cmd.StandardOutput.ReadToEnd());
         }
     }
+
 }
