@@ -72,14 +72,20 @@ namespace ProbabilistiskModellering
             Console.WriteLine(cmd.StandardOutput.ReadToEnd());
         }
 
-        public string GetSpecificXMLAttributeFromFile(int index, string attribute, string filePath)
+        public string[] GetSpecificXMLAttributeFromFile(int index, string attribute, string filePath)
         {
             //https://stackoverflow.com/questions/933687/read-xml-attribute-using-xmldocument
             XmlDocument xmlDoc = new XmlDocument(); /* Create new XmlDocument */
             xmlDoc.Load(filePath);                  /* Load the xml file from filePath */
             XmlNodeList list = xmlDoc.GetElementsByTagName("interval"); /* Find elements with interval. Put it into an array/list */
 
-            return list[index].Attributes[$"{attribute}"].Value; /* Get specific attribute from index */
+            string[] returnArray = new string[list.Count];
+
+            for (int i = 0; i < list.Count; ++i)
+            {
+                returnArray[i] = list[index].Attributes[$"{attribute}"].Value; /* Get specific attribute from index */
+            }
+            return returnArray;
         }
     }
 
