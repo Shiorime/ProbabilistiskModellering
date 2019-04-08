@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Linq;
 using CodingConnected.TraCI.NET;
 using CodingConnected.TraCI.NET.Commands;
-using CodingConnected.TraCI.NET.Helpers;
 
 namespace ProbabilistiskModellering
 {
@@ -14,7 +15,7 @@ namespace ProbabilistiskModellering
     {
         static void Main(string[] args)
         {
-           MainAsync(args).ConfigureAwait(false).GetAwaiter().GetResult();
+            MainAsync(args).ConfigureAwait(false).GetAwaiter().GetResult();
         }
 
         public static async Task MainAsync(string[] args)
@@ -69,6 +70,16 @@ namespace ProbabilistiskModellering
             cmd.StandardInput.Close();
             cmd.WaitForExit();
             Console.WriteLine(cmd.StandardOutput.ReadToEnd());
+        }
+
+        public string GetSpecificXMLAttributeFromFile(int index, string attribute, string filePath)
+        {
+            //https://stackoverflow.com/questions/933687/read-xml-attribute-using-xmldocument
+            XmlDocument xmlDoc = new XmlDocument(); /* Create new XmlDocument */
+            xmlDoc.Load(filePath);                  /* Load the xml file from filePath */
+            XmlNodeList list = xmlDoc.GetElementsByTagName("interval"); /* Find elements with interval. Put it into an array/list */
+
+            return list[index].Attributes[$"{attribute}"].Value; /* Get specific attribute from index */
         }
     }
 

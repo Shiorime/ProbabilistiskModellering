@@ -2,63 +2,63 @@
 
   <laneAreaDetector id="det_1_forward" lanes="1to0_0 0to2_0" 
   pos="-60" endPos="10" 
-  friendlyPos="true" freq="3000" file="det_log.txt" 
+  friendlyPos="true" freq="3000" file="out.xml" 
   timeThreshold="1.0" speedThreshold="1.4" jamThreshold="10"/>
 
   <laneAreaDetector id="det_1_left" lanes="1to0_1 0to3_0" 
   pos="-60" endPos="10" 
-  friendlyPos="true" freq="3000" file="det_log.txt" 
+  friendlyPos="true" freq="3000" file="out.xml" 
   timeThreshold="1.0" speedThreshold="1.4" jamThreshold="10"/>
 
 
 
   <laneAreaDetector id="det_2_forward_inner" lanes="2to0_1 0to1_1" 
   pos="-60" endPos="10" 
-  friendlyPos="true" freq="3000" file="det_log.txt" 
+  friendlyPos="true" freq="3000" file="out.xml" 
   timeThreshold="1.0" speedThreshold="1.4" jamThreshold="10"/>
 
   <laneAreaDetector id="det_2_forward_outer" lanes="2to0_0 0to1_0" 
   pos="-60" endPos="10" 
-  friendlyPos="true" freq="3000" file="det_log.txt" 
+  friendlyPos="true" freq="3000" file="out.xml" 
   timeThreshold="1.0" speedThreshold="1.4" jamThreshold="10"/>
 
   <laneAreaDetector id="det_2_right" lanes="2to0_0 0to3_0" 
   pos="-60" endPos="10" 
-  friendlyPos="true" freq="3000" file="det_log.txt" 
+  friendlyPos="true" freq="3000" file="out.xml" 
   timeThreshold="1.0" speedThreshold="1.4" jamThreshold="10"/>
 
   <laneAreaDetector id="det_2_left" lanes="2to0_2 0to4_0" 
   pos="-60" endPos="10" 
-  friendlyPos="true" freq="3000" file="det_log.txt" 
+  friendlyPos="true" freq="3000" file="out.xml" 
   timeThreshold="1.0" speedThreshold="1.4" jamThreshold="10"/>
 
 
 
   <laneAreaDetector id="det_3_forward" lanes="3to0_0 0to4_0" 
   pos="-60" endPos="10" 
-  friendlyPos="true" freq="3000" file="det_log.txt" 
+  friendlyPos="true" freq="3000" file="out.xml" 
   timeThreshold="1.0" speedThreshold="1.4" jamThreshold="10"/>
 
   <laneAreaDetector id="det_3_right" lanes="3to0_0 0to1_0" 
   pos="-60" endPos="10" 
-  friendlyPos="true" freq="3000" file="det_log.txt" 
+  friendlyPos="true" freq="3000" file="out.xml" 
   timeThreshold="1.0" speedThreshold="1.4" jamThreshold="10"/>
 
   <laneAreaDetector id="det_3_left" lanes="3to0_1 0to2_0" 
   pos="-60" endPos="10" 
-  friendlyPos="true" freq="3000" file="det_log.txt" 
+  friendlyPos="true" freq="3000" file="out.xml" 
   timeThreshold="1.0" speedThreshold="1.4" jamThreshold="10"/>
 
 
 
   <laneAreaDetector id="det_4_forward" lanes="4to0_1 0to3_0" 
   pos="-60" endPos="10" 
-  friendlyPos="true" freq="3000" file="det_log.txt" 
+  friendlyPos="true" freq="3000" file="out.xml" 
   timeThreshold="1.0" speedThreshold="1.4" jamThreshold="10"/>
 
   <laneAreaDetector id="det_4_right" lanes="4to0_0 0to2_0" 
   pos="-60" endPos="10" 
-  friendlyPos="true" freq="3000" file="det_log.txt" 
+  friendlyPos="true" freq="3000" file="out.xml" 
   timeThreshold="1.0" speedThreshold="1.4" jamThreshold="10"/>
 
 </additional>
