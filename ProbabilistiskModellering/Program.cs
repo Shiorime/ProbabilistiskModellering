@@ -79,7 +79,7 @@ namespace ProbabilistiskModellering
             cmd.Start();
 
             //port number is passed as argument, thus enabling sumo to be opened as many times as wanted 
-            cmd.StandardInput.WriteLine($"sumo --remote-port {portNumber} -c cfg.sumocfg -W true --tripinfo-output out.xml");
+            cmd.StandardInput.WriteLine($"sumo --remote-port {portNumber} -c cfg.sumocfg -W true --tripinfo-output {outputFile}");
             cmd.StandardInput.Flush();
             cmd.StandardInput.Close();
             cmd.WaitForExit();
