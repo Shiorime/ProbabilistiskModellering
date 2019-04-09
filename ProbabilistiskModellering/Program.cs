@@ -60,7 +60,8 @@ namespace ProbabilistiskModellering
         }
 
         // has been tested in seperate project, we will have to test if cmd.WaitForExit() causes conflict with the ending simulation
-        public void OpenSumo(int portNumber)
+       
+        public void OpenSumo(string portNumber, string outputFile)
         {
             Process cmd = new Process();
             cmd.StartInfo.FileName = "cmd.exe";
@@ -70,7 +71,7 @@ namespace ProbabilistiskModellering
             cmd.Start();
 
             //port number is passed as argument, thus enabling sumo to be opened as many times as wanted 
-            cmd.StandardInput.WriteLine($"sumo-gui --remote-port {portNumber} -c cfg.sumocfg -W true");
+            cmd.StandardInput.WriteLine($"sumo --remote-port {portNumber} -c cfg.sumocfg -W true --tripinfo-output {outputFile}");
             cmd.StandardInput.Flush();
             cmd.StandardInput.Close();
             cmd.WaitForExit();
