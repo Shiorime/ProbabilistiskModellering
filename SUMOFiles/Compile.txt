@@ -6,3 +6,6 @@ duarouter -n net.net.xml -r flow.rou.xml --randomize-flows -o routes.rou.xml
 
 Åbn Sumo-gui as server
 sumo-gui --remote-port 1000 -c cfg.sumocfg
+
+Åbn sumo as server
+sumo --remote-port (port number) -c cfg.sumocfg -W true --tripinfo-output out.xml
