@@ -60,7 +60,7 @@ namespace ProbabilistiskModellering
         }
 
         // has been tested in seperate project, we will have to test if cmd.WaitForExit() causes conflict with the ending simulation
-        public void OpenSumo(string portNumber)
+        public void OpenSumo(string portNumber, string outputFile)
         {
             Process cmd = new Process();
             cmd.StartInfo.FileName = "cmd.exe";
