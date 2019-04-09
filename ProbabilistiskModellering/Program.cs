@@ -8,7 +8,6 @@ using System.Xml;
 using System.Xml.Linq;
 using CodingConnected.TraCI.NET;
 using CodingConnected.TraCI.NET.Commands;
-using System.Globalization;
 
 namespace ProbabilistiskModellering
 {
@@ -25,7 +24,6 @@ namespace ProbabilistiskModellering
             {
 
                 var client = new TraCIClient();
-                Program pg = new Program();
                 Console.Write("Insert Port Number: ");
                 int port = int.Parse(Console.ReadLine());
                 await client.ConnectAsync("127.0.0.1", port);
@@ -56,22 +54,13 @@ namespace ProbabilistiskModellering
                 client.Control.Close();
 
                 await Task.Delay(100);
-                string[] timeLoss = pg.GetSpecificXMLAttributeFromFile("timeLoss", @"C:\Users\Lasse\Documents\GitHub\ProbabilistiskModellering\SUMOFiles\out.xml");
-                int cars = timeLoss.Count();
-                double eo = 0.0;
-                for (int i = 0; i < cars; i++)
-                {
-                    eo += double.Parse(timeLoss[i], CultureInfo.InvariantCulture);
-                }
-
-                Console.WriteLine($"{eo / cars}");
-                Console.WriteLine($"{cars}");
+                
                 Console.ReadLine();
             });
         }
 
         // has been tested in seperate project, we will have to test if cmd.WaitForExit() causes conflict with the ending simulation
-        public void OpenSumo(string portNumber)
+        public void OpenSumo(int portNumber)
         {
             Process cmd = new Process();
             cmd.StartInfo.FileName = "cmd.exe";
