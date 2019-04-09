@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProbabilistiskModellering;
+using System.Globalization;
 
 namespace ProbabilistiskModellering
 {
@@ -35,9 +37,17 @@ namespace ProbabilistiskModellering
         }
 
         // Calculate fitness for natural selection
-        public float CalculateFitness(int index)
+        public float CalculateFitness(int index, string attribute, string filePath)
         {
             // TODO
+            Program pg = new Program();
+            string[] timeLossArray = pg.GetSpecificXMLAttributeFromFile(attribute, filePath);
+            int cars = timeLossArray.Count();
+            double timeLossSum = 0.0;
+            for (int i = 0; i < cars; i++)
+            {
+                timeLossSum += double.Parse(timeLossArray[i], CultureInfo.InvariantCulture);
+            }
             fitness = FitnessFunction(index);
             return fitness;
         }
