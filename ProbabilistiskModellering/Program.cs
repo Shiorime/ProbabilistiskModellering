@@ -23,6 +23,7 @@ namespace ProbabilistiskModellering
         {
             await Task.Run(async () =>
             {
+
                 var client = new TraCIClient();
                 Program pg = new Program();
                 Console.Write("Insert Port Number: ");
@@ -64,6 +65,7 @@ namespace ProbabilistiskModellering
                 }
 
                 Console.WriteLine($"{eo / cars}");
+                Console.WriteLine($"{cars}");
                 Console.ReadLine();
             });
         }
