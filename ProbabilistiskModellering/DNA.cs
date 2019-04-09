@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ProbabilistiskModellering;
 using System.Globalization;
+using System.Threading;
 
 namespace ProbabilistiskModellering
 {
@@ -15,15 +16,27 @@ namespace ProbabilistiskModellering
 
         // Fitness, that will calculate fitness in fitnessFunction
         public float fitness { get; private set; }
-        private Random random;
+        private Random random = new Random();
         private Func<T> GetRandomGene;
-        Func<int, float> FitnessFunction;
-        string randomState;
+        public double FitnessFunction;
 
-        public DNA(int size, Random random, Func<T> GetRandomGene, Func<int, float> FitnessFunction, bool shouldInitializeGenes = true)
+        public DNA(int size, Func<T> GetRandomGene, bool shouldInitializeGenes = true)
         {
             genes = new T[size];
-            this.random = random;
+            this.GetRandomGene = GetRandomGene;
+
+            if (shouldInitializeGenes)
+            {
+                for (int i = 0; i < genes.Length; i++)
+                {
+                    genes[i] = GetRandomGene();
+                }
+            }
+        }
+
+        public DNA(int size, Func<T> GetRandomGene, double FitnessFunction, bool shouldInitializeGenes = true)
+        {
+            genes = new T[size];
             this.GetRandomGene = GetRandomGene;
             this.FitnessFunction = FitnessFunction;
             
@@ -40,22 +53,14 @@ namespace ProbabilistiskModellering
         public float CalculateFitness(int index, string attribute, string filePath)
         {
             // TODO
-            Program pg = new Program();
-            string[] timeLossArray = pg.GetSpecificXMLAttributeFromFile(attribute, filePath);
-            int cars = timeLossArray.Count();
-            double timeLossSum = 0.0;
-            for (int i = 0; i < cars; i++)
-            {
-                timeLossSum += double.Parse(timeLossArray[i], CultureInfo.InvariantCulture);
-            }
-            fitness = FitnessFunction(index);
+            //fitness = FitnessFunction(index);
             return fitness;
         }
 
         public DNA<T> CrossOver(DNA <T> otherParent)
         {
             // Child initializes
-            DNA<T> child = new DNA<T>(genes.Length, random, GetRandomGene, FitnessFunction, shouldInitializeGenes: false);
+            DNA<T> child = new DNA<T>(genes.Length, GetRandomGene, FitnessFunction ,false);
 
             for(int i = 0; i < genes.Length; i++)
             {
@@ -64,27 +69,6 @@ namespace ProbabilistiskModellering
                 child.genes[i] = random.NextDouble() < 0.5 ? (genes[i]) : otherParent.genes[i]; 
             }
             return child;
-        }
-
-        // skal placeres andetsteds, da denne skal føres som input i construteren
-        Random rand = new Random();
-        public string GenerateRandomRedYellowGreenState()
-        {
-            randomState = string.Empty;
-            int result = rand.Next(0, 2);
-            for (int i = 0; i < 11; i++)
-            {
-                if (result == 0)
-                {
-                    randomState = randomState + "r";
-                }
-                else if (result == 1)
-                {
-                    randomState = randomState + "G";
-                }
-                result = rand.Next(0, 2);
-            }
-            return randomState;
         }
 
         // should work lmao
@@ -97,6 +81,6 @@ namespace ProbabilistiskModellering
                     genes[i] = GetRandomGene();
                 }
             }
-        }  
+        }
     }
 }

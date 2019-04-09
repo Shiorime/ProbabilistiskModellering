@@ -20,9 +20,9 @@ namespace ProbabilistiskModellering
         private float fitnessSum;
         private int dnaSize;
         private Func<T> getRandomGene;
-        private Func<int, float> fitnessFunction;
+        private double fitnessFunction;
 
-        public GeneticAlgorithm(int populationSize, int dnaSize, Random random, Func<T> getRandomGene, Func<int, float> fitnessFunction, float mutationRate = 0.01f)
+        public GeneticAlgorithm(int populationSize, int dnaSize, Random random, Func<T> getRandomGene, double fitnessFunction, float mutationRate = 0.01f)
         {
             generation = 1;
             this.mutationRate = mutationRate;
@@ -38,7 +38,7 @@ namespace ProbabilistiskModellering
 
             for( int i = 0; i < populationSize; i++)
             {
-                Population.Add(new DNA<T>(dnaSize, random, getRandomGene, fitnessFunction, shouldInitializeGenes: true));
+                Population.Add(new DNA<T>(dnaSize, getRandomGene, fitnessFunction, true));
             }
         }
 
