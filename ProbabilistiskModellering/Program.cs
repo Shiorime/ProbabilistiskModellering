@@ -35,13 +35,13 @@ namespace ProbabilistiskModellering
 
                 RedGreen = pg.GenerateRandomRedYellowGreenState;
 
-                string sumoOutputFilePath = "out.xml";
+                string sumoOutputFilePath = "./SUMOFiles/out.xml";
                 DNA<string> genome = new DNA<string>(3600, RedGreen, true);
 
                 for (int i = 0; i < genome.genes.Length; i++)
                     write(genome.genes[i]);
 
-                pg.OpenSumo(1000, "out.xml");
+                pg.OpenSumo(1000, sumoOutputFilePath);
 
                 Console.Write("Insert Port Number: ");
                 int port = int.Parse(Console.ReadLine());
@@ -72,7 +72,7 @@ namespace ProbabilistiskModellering
                 await Task.Delay(100);
 
                 genome.FitnessFunction = 0;
-                //write(pg.CalculateFitnessFunction(pg, "timeLoss", sumoOutputFilePath).ToString());
+                write(pg.CalculateFitnessFunction(pg, "timeLoss", sumoOutputFilePath).ToString());
 
                 Console.ReadLine();
             });
@@ -106,28 +106,19 @@ namespace ProbabilistiskModellering
             {
                 timeLossSum += double.Parse(timeLossArray[i], CultureInfo.InvariantCulture);
             }
-            return timeLossSum;
+            return timeLossSum / cars;
         }
 
         // has been tested in seperate project, we will have to test if cmd.WaitForExit() causes conflict with the ending simulation
         public void OpenSumo(int portNumber, string outputFile)
         {
-            string yeet = $"sumo --remote-port {portNumber} -c cfg.sumocfg -W true --tripinfo-output {outputFile}";
+            //https://www.codeproject.com/Articles/25983/How-to-Execute-a-Command-in-C
+            string yeet = $"sumo --remote-port {portNumber} -c SUMOFiles/cfg.sumocfg -W true --tripinfo-output {outputFile}";
+            ProcessStartInfo sInfo = new ProcessStartInfo("cmd", "/c " + yeet);
             Process cmd = new Process();
-            cmd.StartInfo.FileName = "cmd.exe";
-            cmd.StartInfo.CreateNoWindow = false;
-            cmd.StartInfo.RedirectStandardInput = true;
-            cmd.StartInfo.RedirectStandardOutput = true;
-            cmd.StartInfo.UseShellExecute = false;
+            sInfo.FileName = "cmd.exe";
+            cmd.StartInfo = sInfo;
             cmd.Start();
-
-            //port number is passed as argument, thus enabling sumo to be opened as many times as wanted 
-            cmd.StandardInput.WriteLine(yeet);
-            cmd.StandardInput.Flush();
-            cmd.StandardInput.Close();
-            cmd.WaitForExit();
-
-            Console.WriteLine(cmd.StandardOutput.ReadToEnd());
         }
 
         public string[] GetSpecificXMLAttributeFromFile(string attribute, string filePath)
