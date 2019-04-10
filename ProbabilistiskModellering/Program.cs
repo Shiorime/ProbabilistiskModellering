@@ -26,53 +26,59 @@ namespace ProbabilistiskModellering
             await Task.Run(async () =>
             {
                 Program pg = new Program();
+                Stopwatch stopwatch = new Stopwatch();
 
-                TraCIClient client = new TraCIClient();
-                SimulationCommands simulation = new SimulationCommands(client);
-                TrafficLightCommands trafficLights = new TrafficLightCommands(client);
+                List<TraCIClient> listOfClients = new List<TraCIClient>();
+                List<SimulationCommands> listOfSimulations = new List<SimulationCommands>();
+                List<TrafficLightCommands> listOfTrafficLights = new List<TrafficLightCommands>();
+
+                for (int i = 0; i < 1; ++i)
+                {
+                    listOfClients.Add(new TraCIClient());
+                    listOfSimulations.Add(new SimulationCommands(listOfClients[i]));
+                    listOfTrafficLights.Add(new TrafficLightCommands(listOfClients[i]));
+                }
+
                 Func<string> RedGreen;
                 Action<string> write = Console.WriteLine;
 
                 RedGreen = pg.GenerateRandomRedYellowGreenState;
 
-                string sumoOutputFilePath = "./SUMOFiles/out.xml";
+                string sumoOutputFilePath = "./SUMOFiles/out";
                 DNA<string> genome = new DNA<string>(3600, RedGreen, true);
 
-                for (int i = 0; i < genome.genes.Length; i++)
-                    write(genome.genes[i]);
+                /*for (int i = 0; i < genome.genes.Length; i++)
+                    write(genome.genes[i]);*/
 
-                pg.OpenSumo(1000, sumoOutputFilePath);
 
-                Console.Write("Insert Port Number: ");
-                int port = int.Parse(Console.ReadLine());
-                await client.ConnectAsync("127.0.0.1", port);
-
-                Console.WriteLine($"Traffic lights count: {trafficLights.GetIdCount().Content}");
-
-                List<string> test = trafficLights.GetIdList().Content;
-                List<string> test1 = trafficLights.GetControlledLanes("n0").Content;
-
-                foreach (string nodes in test)
+                int port = 1000;
+                for (int i = 0; i < listOfClients.Count; ++i)
                 {
-                    Console.WriteLine(nodes);
+                    pg.OpenSumo(port, sumoOutputFilePath + $"{i}.xml");
+                    await listOfClients[i].ConnectAsync("127.0.0.1", port);
+                    ++port;
                 }
-                foreach (string controlledLanes in test1)
-                {
-                    Console.WriteLine(controlledLanes);
-                }
-                
-                while (simulation.GetTime("yeet").Content < 3000)
-                {
-                    client.Control.SimStep();
-                    trafficLights.SetRedYellowGreenState("n0", "GGGGGGGGGGGG");
 
+                stopwatch.Start();
+                while (listOfSimulations[listOfSimulations.Count-1].GetTime("yeet").Content < 3000)
+                {
+                    for (int i = 0; i < listOfClients.Count; ++i)
+                    {
+                        listOfTrafficLights[i].SetRedYellowGreenState("n0", "GGGGGGGGGGGG");
+                        listOfClients[i].Control.SimStep();
+                    }
                 }
-                client.Control.Close();
 
+                for (int i = 0; i < listOfClients.Count; ++i)
+                {
+                    listOfClients[i].Control.Close();
+                }
+                stopwatch.Stop();
                 await Task.Delay(100);
 
                 genome.FitnessFunction = 0;
-                write(pg.CalculateFitnessFunction(pg, "timeLoss", sumoOutputFilePath).ToString());
+                write(stopwatch.Elapsed.ToString());
+                write(pg.CalculateFitnessFunction(pg, "timeLoss", sumoOutputFilePath + $"{0}.xml").ToString());
 
                 Console.ReadLine();
             });
