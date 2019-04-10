@@ -32,7 +32,9 @@ namespace ProbabilistiskModellering
                 List<SimulationCommands> listOfSimulations = new List<SimulationCommands>();
                 List<TrafficLightCommands> listOfTrafficLights = new List<TrafficLightCommands>();
 
-                for (int i = 0; i < 1; ++i)
+                int numberOfInstancedClients = 2;
+
+                for (int i = 0; i < numberOfInstancedClients; ++i)
                 {
                     listOfClients.Add(new TraCIClient());
                     listOfSimulations.Add(new SimulationCommands(listOfClients[i]));
