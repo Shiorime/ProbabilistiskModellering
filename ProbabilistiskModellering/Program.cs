@@ -52,7 +52,8 @@ namespace ProbabilistiskModellering
                 /*for (int i = 0; i < genome.genes.Length; i++)
                     write(genome.genes[i]);*/
 
-
+                //Denne funktion åbner SUMO igennem port 1000, Det er vigtigt at huske at hvis port 1000 bliver brugt af computeren
+                //så vil der komme en fejl ved åbning af SUMO
                 int port = 1000;
                 for (int i = 0; i < listOfClients.Count; ++i)
                 {
@@ -61,6 +62,7 @@ namespace ProbabilistiskModellering
                     ++port;
                 }
 
+                //Denne del af koden har til formål at tage tid på hvor lang tid det tager at køre fitness funktionen
                 stopwatch.Start();
                 while (listOfSimulations[listOfSimulations.Count-1].GetTime("yeet").Content < 3000)
                 {
@@ -105,6 +107,8 @@ namespace ProbabilistiskModellering
             return randomState;
         }
 
+        //Denne funktion udregner Fitness funktionen, Denne funktion udregner den gennemsnitlige tid
+        //som hver bil bruger uden at køre den maksimalt tilladt hastighed
         public double CalculateFitnessFunction(Program pg, string attribute, string filePath)
         {
             string[] timeLossArray = pg.GetSpecificXMLAttributeFromFile(attribute, filePath);
