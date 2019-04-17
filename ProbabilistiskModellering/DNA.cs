@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace ProbabilistiskModellering
         public T[] genes { get; private set; }
 
         // Fitness, that will calculate fitness in fitnessFunction
-        public float fitness { get; private set; }
+        public double fitness { get; private set; }
         private Random random = new Random();
         private Func<T> GetRandomGene;
         public double FitnessFunction;
@@ -49,12 +50,32 @@ namespace ProbabilistiskModellering
             } 
         }
 
-        // Calculate fitness for natural selection
-        public float CalculateFitness(int index, string attribute, string filePath)
+        public double CalculateFitness(string attribute, string filePath)
         {
-            // TODO
-            //fitness = FitnessFunction(index);
-            return fitness;
+            string[] timeLossArray = GetSpecificXMLAttributeFromFile(attribute, filePath);
+            int cars = timeLossArray.Count();
+            double timeLossSum = 0.0;
+            for (int i = 0; i < cars; i++)
+            {
+                timeLossSum += double.Parse(timeLossArray[i], CultureInfo.InvariantCulture);
+            }
+            return timeLossSum / cars;
+        }
+
+        public string[] GetSpecificXMLAttributeFromFile(string attribute, string filePath)
+        {
+            //https://stackoverflow.com/questions/933687/read-xml-attribute-using-xmldocument
+            XmlDocument xmlDoc = new XmlDocument(); /* Create new XmlDocument */
+            xmlDoc.Load(filePath);                  /* Load the xml file from filePath */
+            XmlNodeList list = xmlDoc.GetElementsByTagName("tripinfo"); /* Find elements with interval. Put it into an array/list */
+            string[] finalArray = new string[list.Count];
+
+            for (int i = 0; i < list.Count; ++i)
+            {
+                finalArray[i] = list[i].Attributes[$"{attribute}"].Value;
+            }
+
+            return finalArray;
         }
 
         public DNA<T> CrossOver(DNA <T> otherParent)
@@ -71,7 +92,7 @@ namespace ProbabilistiskModellering
             return child;
         }
 
-        // should work lmao
+        
         public void Mutate(float mutationRate)
         {
             for (int i = 0; i < genes.Length; i++)

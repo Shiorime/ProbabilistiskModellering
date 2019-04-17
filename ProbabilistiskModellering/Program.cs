@@ -32,7 +32,7 @@ namespace ProbabilistiskModellering
                 List<SimulationCommands> listOfSimulations = new List<SimulationCommands>();
                 List<TrafficLightCommands> listOfTrafficLights = new List<TrafficLightCommands>();
 
-                int numberOfInstancedClients = 2;
+                int numberOfInstancedClients = 1;
 
                 for (int i = 0; i < numberOfInstancedClients; ++i)
                 {
@@ -66,10 +66,11 @@ namespace ProbabilistiskModellering
                 stopwatch.Start();
                 while (listOfSimulations[listOfSimulations.Count-1].GetTime("yeet").Content < 3000)
                 {
-                    for (int i = 0; i < listOfClients.Count; ++i)
+                    for (int i = 0; i < numberOfInstancedClients; ++i)
                     {
                         listOfTrafficLights[i].SetRedYellowGreenState("n0", "GGGGGGGGGGGG");
                         listOfClients[i].Control.SimStep();
+                        await Task.Delay(1000);
                     }
                 }
 
@@ -125,7 +126,7 @@ namespace ProbabilistiskModellering
         public void OpenSumo(int portNumber, string outputFile)
         {
             //https://www.codeproject.com/Articles/25983/How-to-Execute-a-Command-in-C
-            string yeet = $"sumo --remote-port {portNumber} -c SUMOFiles/cfg.sumocfg -W true --tripinfo-output {outputFile}";
+            string yeet = $"sumo-gui --remote-port {portNumber} -c SUMOFiles/cfg.sumocfg -W true --tripinfo-output {outputFile}";
             ProcessStartInfo sInfo = new ProcessStartInfo("cmd", "/c " + yeet);
             Process cmd = new Process();
             sInfo.FileName = "cmd.exe";
