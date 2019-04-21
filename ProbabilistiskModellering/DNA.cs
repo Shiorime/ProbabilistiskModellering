@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Xml;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,8 @@ using System.Threading.Tasks;
 using ProbabilistiskModellering;
 using System.Globalization;
 using System.Threading;
+using CodingConnected.TraCI.NET;
+using CodingConnected.TraCI.NET.Commands;
 
 namespace ProbabilistiskModellering
 {
@@ -40,7 +43,7 @@ namespace ProbabilistiskModellering
             genes = new T[size];
             this.GetRandomGene = GetRandomGene;
             this.FitnessFunction = FitnessFunction;
-            
+           
             if(shouldInitializeGenes)
             {
                 for (int i = 0; i < genes.Length; i++)
@@ -50,8 +53,10 @@ namespace ProbabilistiskModellering
             } 
         }
 
-        public double CalculateFitness(string attribute, string filePath)
+        public double CalculateFitnessIndividual(string attribute, string filePath)
         {
+            int min = 5;
+            int max = 30;
             string[] timeLossArray = GetSpecificXMLAttributeFromFile(attribute, filePath);
             int cars = timeLossArray.Count();
             double timeLossSum = 0.0;
@@ -59,7 +64,9 @@ namespace ProbabilistiskModellering
             {
                 timeLossSum += double.Parse(timeLossArray[i], CultureInfo.InvariantCulture);
             }
-            return timeLossSum / cars;
+            fitness = timeLossSum / cars;
+            //File.Delete(filePath);
+            return timeLossSum / cars - min / max - min;
         }
 
         public string[] GetSpecificXMLAttributeFromFile(string attribute, string filePath)
@@ -81,7 +88,7 @@ namespace ProbabilistiskModellering
         public DNA<T> CrossOver(DNA <T> otherParent)
         {
             // Child initializes
-            DNA<T> child = new DNA<T>(genes.Length, GetRandomGene, FitnessFunction ,false);
+            DNA<T> child = new DNA<T>(genes.Length, GetRandomGene, FitnessFunction , false);
 
             for(int i = 0; i < genes.Length; i++)
             {
@@ -92,7 +99,6 @@ namespace ProbabilistiskModellering
             return child;
         }
 
-        
         public void Mutate(float mutationRate)
         {
             for (int i = 0; i < genes.Length; i++)

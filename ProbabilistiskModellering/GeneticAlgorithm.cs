@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Globalization;
@@ -26,10 +27,15 @@ namespace ProbabilistiskModellering
         private double fitnessSum;
         private int dnaSize;
         private Func<T> getRandomGene;
-        private double fitnessFunction;
-        int portNumber = 1000;
 
-        public GeneticAlgorithm(int populationSize, int dnaSize, Random random, Func<T> getRandomGene, double fitnessFunction, float mutationRate = 0.01f)
+        private int portNumber = 1000;
+        int numberOfInstances;
+
+        List<TraCIClient> listOfClients = new List<TraCIClient>();
+        List<SimulationCommands> listOfSimulations = new List<SimulationCommands>();
+        List<TrafficLightCommands> listOfTrafficLights = new List<TrafficLightCommands>();
+
+        public GeneticAlgorithm(int populationSize, int dnaSize, Random random, Func<T> getRandomGene, int numberOfInstances, float mutationRate = 0.01f)
         {
             Generation = 1;
             this.mutationRate = mutationRate;
@@ -38,31 +44,99 @@ namespace ProbabilistiskModellering
             this.random = random;
             this.dnaSize = dnaSize;
             this.getRandomGene = getRandomGene;
-            this.fitnessFunction = fitnessFunction;
-            
+            this.numberOfInstances = numberOfInstances;
 
+           
             BestGenes = new T[dnaSize];
-
 
             for (int i = 0; i < populationSize; i++)
             {
-                Population.Add(new DNA<T>(dnaSize, getRandomGene, fitnessFunction, true));
+                Population.Add(new DNA<T>(dnaSize, getRandomGene, true));
             }
         }
 
-        public void Start()
+        public async Task StartGAAsync()
         {
-            List<TraCIClient> listOfClients = new List<TraCIClient>();
-            List<SimulationCommands> listOfSimulations = new List<SimulationCommands>();
-            List<TrafficLightCommands> listOfTrafficLights = new List<TrafficLightCommands>();
+            BestFitness = 100;
+            await RunSimulationAsync();
+            bool shouldStop = false;
+            CalculateFitness();
+            Console.WriteLine("Best fitness of Generation " + Generation + "is: " + BestFitness);
 
-            int numberOfInstancedClients = 10;
+            while (shouldStop == false)
+            {
+                if(BestFitness == 1 || Generation == 10)
+                {
+                    shouldStop = true;
+                }
+                else
+                {
+                    NewGeneration();
+                    await RunSimulationAsync();
+                }
+                Console.WriteLine("Best fitness of Generation " + Generation + "is: " + BestFitness);
+            }
+        }
 
-            for (int i = 0; i < numberOfInstancedClients; ++i)
+        private async Task RunSimulationAsync()
+        {
+            //initialize clients, simulationCommands and trafficlightCommands used for controlling sumo
+            for (int i = 0; i < numberOfInstances; ++i)
             {
                 listOfClients.Add(new TraCIClient());
                 listOfSimulations.Add(new SimulationCommands(listOfClients[i]));
                 listOfTrafficLights.Add(new TrafficLightCommands(listOfClients[i]));
+            }
+
+            //open SUMO clients
+            for (int i = 0; i < numberOfInstances; ++i)
+            {
+                OpenSumo(portNumber, sumoOutputFilePath + $"{i}.xml");
+                await listOfClients[i].ConnectAsync("127.0.0.1", portNumber);
+                ++portNumber;
+            }
+
+            // control trafficlights in simulation
+            while (listOfSimulations[listOfSimulations.Count - 1].GetTime("yeet").Content < 3000)
+            {
+                int numberOfSteps = dnaSize;
+
+                for (int i = 0; i < dnaSize; ++i)
+                {
+                    for (int j = 0; j < numberOfInstances; j++)
+                    {
+                        listOfTrafficLights[j].SetRedYellowGreenState("n0", $"{Population[j].genes[i]}");
+                        listOfClients[j].Control.SimStep();
+                      
+                    }
+                }
+            }
+            
+
+            // close clients, hence close ports, so they can be used again for the next round of simulations
+            for (int i = 0; i < listOfClients.Count; ++i)
+            {
+                listOfClients[i].Control.Close();
+            }
+            listOfClients.Clear();
+            listOfSimulations.Clear();
+            listOfTrafficLights.Clear();
+            await Task.Delay(1000);
+        }
+
+        private int CompareDNA(DNA<T> a, DNA<T> b)
+        {
+            if (a.fitness > b.fitness)
+            {
+                return -1;
+            }
+            else if( a.fitness < b.fitness)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
             }
         }
 
@@ -74,13 +148,13 @@ namespace ProbabilistiskModellering
             }
 
             CalculateFitness();
-
+            Population.Sort(CompareDNA);
             List<DNA<T>> newPopulation = new List<DNA<T>>();
 
             for(int i = 0; i < Population.Count; i++)
             {
-                DNA<T> parent1 = ChooseParent();
-                DNA<T> parent2 = ChooseParent();
+                DNA<T> parent1 = Population[0];
+                DNA<T> parent2 = Population[1];
 
                 DNA<T> child = parent1.CrossOver(parent2);
 
@@ -101,9 +175,10 @@ namespace ProbabilistiskModellering
 
             for(int i = 0; i < Population.Count; i ++)
             {
-                fitnessSum += Population[i].CalculateFitness("timeLoss", sumoOutputFilePath + $"{0}.xml");
+                
+                fitnessSum += Population[i].CalculateFitnessIndividual("timeLoss", sumoOutputFilePath + $"{i}.xml");
 
-                if (Population[i].fitness > best.fitness)
+                if (Population[i].fitness < best.fitness)
                 {
                     best = Population[i];
                 }
@@ -111,10 +186,14 @@ namespace ProbabilistiskModellering
 
             BestFitness = best.fitness;
             best.genes.CopyTo(BestGenes, 0);
+
         }
 
+        //need rework
         private DNA<T> ChooseParent()
         {
+            https://stackoverflow.com/questions/56692/random-weighted-choice
+
             double randomNumber = random.NextDouble() * fitnessSum;
 
             for(int i = 0; i < Population.Count; i++)
@@ -123,7 +202,6 @@ namespace ProbabilistiskModellering
                 {
                     return Population[i];
                 }
-
                 randomNumber -= Population[i].fitness;
             }
             return null;
