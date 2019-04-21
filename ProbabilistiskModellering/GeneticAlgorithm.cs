@@ -97,21 +97,14 @@ namespace ProbabilistiskModellering
             }
 
             // control trafficlights in simulation
-            while (listOfSimulations[listOfSimulations.Count - 1].GetTime("yeet").Content < 3000)
+            for (int i = 0; i < dnaSize; ++i)
             {
-                int numberOfSteps = dnaSize;
-
-                for (int i = 0; i < dnaSize; ++i)
+                for (int j = 0; j < numberOfInstances; j++)
                 {
-                    for (int j = 0; j < numberOfInstances; j++)
-                    {
-                        listOfTrafficLights[j].SetRedYellowGreenState("n0", $"{Population[j].genes[i]}");
-                        listOfClients[j].Control.SimStep();
-                      
-                    }
+                    listOfTrafficLights[j].SetRedYellowGreenState("n0", $"{Population[j].genes[i]}");
+                    listOfClients[j].Control.SimStep();
                 }
             }
-            
 
             // close clients, hence close ports, so they can be used again for the next round of simulations
             for (int i = 0; i < listOfClients.Count; ++i)
