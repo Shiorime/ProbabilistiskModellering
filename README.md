@@ -1,11 +1,9 @@
 # Probabilistisk Modellering
 
-##Requirements
-SUMO
+## Requirements
+SUMO 1.2.0
 
-## How to run
-
-### Sumo CLI
+## Sumo CLI
 1. Compile the program
 2. Open CMD into the SUMOFiles folder
 3. Type `sumo --remote-port (port number) -c cfg.sumocfg -W true --tripinfo-output out.xml` into cmd
