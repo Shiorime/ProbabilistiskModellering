@@ -1,8 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ProbabilistiskModellering;
 
-namespace ProgramTest
+namespace fitnessfunction_test
 {
     [TestClass]
     public class UnitTest1
@@ -10,7 +9,6 @@ namespace ProgramTest
         [TestMethod]
         public void TestMethod1()
         {
-
         }
     }
 }
