@@ -1,7 +1,7 @@
 # Probabilistisk Modellering
 
 ## Requirements
-SUMO 1.2.0
+* SUMO 1.2.0
 
 ## Sumo CLI
 1. Compile the program
