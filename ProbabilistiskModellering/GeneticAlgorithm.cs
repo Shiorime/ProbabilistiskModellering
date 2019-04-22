@@ -31,9 +31,7 @@ namespace ProbabilistiskModellering
         private int portNumber = 1000;
         int numberOfInstances;
 
-        List<TraCIClient> listOfClients = new List<TraCIClient>();
-        List<SimulationCommands> listOfSimulations = new List<SimulationCommands>();
-        List<TrafficLightCommands> listOfTrafficLights = new List<TrafficLightCommands>();
+        
 
         public GeneticAlgorithm(int populationSize, int dnaSize, Random random, Func<T> getRandomGene, int numberOfInstances, float mutationRate = 0.01f)
         {
@@ -60,12 +58,11 @@ namespace ProbabilistiskModellering
             BestFitness = 100;
             await RunSimulationAsync();
             bool shouldStop = false;
-            CalculateFitness();
-            Console.WriteLine("Best fitness of Generation " + Generation + "is: " + BestFitness);
+         
 
             while (shouldStop == false)
             {
-                if(BestFitness == 1 || Generation == 10)
+                if(BestFitness < 10)
                 {
                     shouldStop = true;
                 }
@@ -80,6 +77,10 @@ namespace ProbabilistiskModellering
 
         private async Task RunSimulationAsync()
         {
+            List<TraCIClient> listOfClients = new List<TraCIClient>();
+            List<SimulationCommands> listOfSimulations = new List<SimulationCommands>();
+            List<TrafficLightCommands> listOfTrafficLights = new List<TrafficLightCommands>();
+
             //initialize clients, simulationCommands and trafficlightCommands used for controlling sumo
             for (int i = 0; i < numberOfInstances; ++i)
             {
@@ -111,10 +112,12 @@ namespace ProbabilistiskModellering
             {
                 listOfClients[i].Control.Close();
             }
+
             listOfClients.Clear();
             listOfSimulations.Clear();
             listOfTrafficLights.Clear();
-            await Task.Delay(1000);
+
+            await Task.Delay(100);
         }
 
         private int CompareDNA(DNA<T> a, DNA<T> b)

@@ -28,79 +28,15 @@ namespace ProbabilistiskModellering
             {
                 Program pg = new Program();
                 Stopwatch stopwatch = new Stopwatch();
-
-                List<TraCIClient> listOfClients = new List<TraCIClient>();
-                List<SimulationCommands> listOfSimulations = new List<SimulationCommands>();
-                List<TrafficLightCommands> listOfTrafficLights = new List<TrafficLightCommands>();
-
-                
-                int numberOfInstancedClients = 1;
-                
-                 // for loop initializes number of clients to open.
-                for (int i = 0; i < numberOfInstancedClients; ++i)
-                {
-                    listOfClients.Add(new TraCIClient());
-                    listOfSimulations.Add(new SimulationCommands(listOfClients[i]));
-                    listOfTrafficLights.Add(new TrafficLightCommands(listOfClients[i]));
-                }
-
-                Func<string> RedGreen;
                 Action<string> write = Console.WriteLine;
 
-                RedGreen = pg.GenerateRandomRedYellowGreenState;
-
-                //DNA<string> genome = new DNA<string>(3000, RedGreen, true);
-                string sumoOutputFilePath = "./SUMOFiles/out";
                 stopwatch.Start();
-                GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(5, 3000, pg.random, pg.GenerateRandomRedYellowGreenState, 5, 0.1f);
+                GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(2, 2400, pg.random, pg.GenerateRandomRedYellowGreenState, 2, 0.01f);
                 await ga.StartGAAsync();
                 stopwatch.Stop();
                 write(stopwatch.Elapsed.ToString());
                 Console.ReadKey();
-                for(int i = 0; i < ga.Population.Count; i++)
-                {
-                    ga.Population[i].CalculateFitnessIndividual("timeLoss", sumoOutputFilePath + $"{i}.xml");
-                    Console.WriteLine("GA run succes " + ga.Population[i].fitness);
-                }
-                
-
-                
-
-
-                /*for (int i = 0; i < genome.genes.Length; i++)
-                    write(genome.genes[i]);*/
-
-                //Denne funktion åbner SUMO igennem port 1000, Det er vigtigt at huske at hvis port 1000 bliver brugt af computeren
-                //så vil der komme en fejl ved åbning af SUMO
-                /*int port = 1000;
-                for (int i = 0; i < listOfClients.Count; ++i)
-                {
-                    pg.OpenSumo(port, sumoOutputFilePath + $"{i}.xml");
-                    await listOfClients[i].ConnectAsync("127.0.0.1", port);
-                    ++port;
-                }
-
-                
-                stopwatch.Start();
-                while (listOfSimulations[listOfSimulations.Count-1].GetTime("yeet").Content < 3000)
-                {
-                    for (int i = 0; i < numberOfInstancedClients; ++i)
-                    {
-                        listOfTrafficLights[i].SetRedYellowGreenState("n0", genome.genes[i]);
-                        listOfClients[i].Control.SimStep();
-                    }
-                }
-
-                for (int i = 0; i < listOfClients.Count; ++i)
-                {
-                    listOfClients[i].Control.Close();
-                }
-                stopwatch.Stop();
-                await Task.Delay(100); 
-
-                genome.FitnessFunction = 0;
-                write(stopwatch.Elapsed.ToString());
-                write(pg.CalculateFitnessFunction(pg, "timeLoss", sumoOutputFilePath + $"{0}.xml").ToString()); */
+   
 
                 Console.WriteLine("Program complete");
                 Console.ReadLine();
