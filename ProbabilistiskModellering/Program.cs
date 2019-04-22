@@ -13,7 +13,7 @@ using CodingConnected.TraCI.NET.Commands;
 namespace ProbabilistiskModellering
 {
     delegate double FitnessFunction(Program pg, string attribute, string filePath);
-    class Program 
+    public class Program 
     {
         Random random = new Random();
 
