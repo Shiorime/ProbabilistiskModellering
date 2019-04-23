@@ -16,7 +16,7 @@ namespace ProgramTest
             string[] result = new string[1];
 
             // Act
-            result = test.GetSpecificXMLAttributeFromFile("timeLoss", filePath);
+            result = test.GetSpecificXMLAttributeFromFile("tripinfo", "timeLoss", filePath);
 
             // Assert
             Assert.AreEqual(result[0], "6.78");
