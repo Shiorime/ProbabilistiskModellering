@@ -53,11 +53,11 @@ namespace ProbabilistiskModellering
             } 
         }
 
-        public double CalculateFitnessIndividual(string attribute, string filePath)
+        public double CalculateFitnessIndividual(string element, string attribute, string filePath)
         {
             int min = 5;
             int max = 30;
-            string[] timeLossArray = GetSpecificXMLAttributeFromFile(attribute, filePath);
+            string[] timeLossArray = GetSpecificXMLAttributeFromFile(element, attribute, filePath);
             int cars = timeLossArray.Count();
             double timeLossSum = 0.0;
             for (int i = 0; i < cars; i++)
@@ -69,12 +69,12 @@ namespace ProbabilistiskModellering
             return timeLossSum / cars - min / max - min;
         }
 
-        public string[] GetSpecificXMLAttributeFromFile(string attribute, string filePath)
+        public string[] GetSpecificXMLAttributeFromFile(string element, string attribute, string filePath)
         {
             //https://stackoverflow.com/questions/933687/read-xml-attribute-using-xmldocument
             XmlDocument xmlDoc = new XmlDocument(); /* Create new XmlDocument */
             xmlDoc.Load(filePath);                  /* Load the xml file from filePath */
-            XmlNodeList list = xmlDoc.GetElementsByTagName("tripinfo"); /* Find elements with interval. Put it into an array/list */
+            XmlNodeList list = xmlDoc.GetElementsByTagName($"{element}"); /* Find elements with interval. Put it into an array/list */
             string[] finalArray = new string[list.Count];
 
             for (int i = 0; i < list.Count; ++i)

@@ -8,16 +8,18 @@ namespace ProgramTest
     public class ProgramTests
     {
         [TestMethod]
-        public void MainAsync_TypesAreCorrect_ReturnsInt()
+        public void GetSpecificXMLAttributeFromFile_ExpectedFirstArrayElement_ReturnsArray()
         {
             // Arrange
-            var program = new Program();
+            Program test = new Program();
+            string filePath = "./SUMOFiles/XMLTest.xml";
+            string[] result = new string[1];
 
             // Act
-            var result = program.MainAsync(new string { StopwatchStart = true });
-
+            result = test.GetSpecificXMLAttributeFromFile("timeLoss", filePath);
 
             // Assert
+            Assert.AreEqual(result[0], "6.78");
 
         }
         

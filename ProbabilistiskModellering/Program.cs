@@ -31,8 +31,10 @@ namespace ProbabilistiskModellering
                 Action<string> write = Console.WriteLine;
 
                 stopwatch.Start();
-                GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(10, 2400, pg.random, pg.GenerateRandomRedYellowGreenState, 10, 0.01f);
+                GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(2, 2400, pg.random, pg.GenerateRandomRedYellowGreenState, 2, 0.01f);
                 await ga.StartGAAsync();
+                ga.NewGeneration();
+                Console.WriteLine($"Best fitness of generation {ga.Generation} is: {ga.BestFitness}");
                 stopwatch.Stop();
                 write(stopwatch.Elapsed.ToString());
                 Console.ReadKey();
@@ -65,9 +67,9 @@ namespace ProbabilistiskModellering
 
         //Denne funktion udregner Fitness funktionen, Denne funktion udregner den gennemsnitlige tid
         //som hver bil bruger uden at køre den maksimalt tilladt hastighed
-        public double CalculateFitnessFunction(Program pg, string attribute, string filePath)
+        public double CalculateFitnessFunction(Program pg, string element, string attribute, string filePath)
         {
-            string[] timeLossArray = pg.GetSpecificXMLAttributeFromFile(attribute, filePath);
+            string[] timeLossArray = pg.GetSpecificXMLAttributeFromFile(element, attribute, filePath);
             int cars = timeLossArray.Count();
             double timeLossSum = 0.0;
             for (int i = 0; i < cars; i++)
@@ -90,12 +92,12 @@ namespace ProbabilistiskModellering
             cmd.Start();
         }
 
-        public string[] GetSpecificXMLAttributeFromFile(string attribute, string filePath)
+        public string[] GetSpecificXMLAttributeFromFile(string element, string attribute, string filePath)
         {
             //https://stackoverflow.com/questions/933687/read-xml-attribute-using-xmldocument
             XmlDocument xmlDoc = new XmlDocument(); /* Create new XmlDocument */
             xmlDoc.Load(filePath);                  /* Load the xml file from filePath */
-            XmlNodeList list = xmlDoc.GetElementsByTagName("tripinfo"); /* Find elements with interval. Put it into an array/list */
+            XmlNodeList list = xmlDoc.GetElementsByTagName($"{element}"); /* Find elements with interval. Put it into an array/list */
             string[] finalArray = new string[list.Count];
 
             for(int i = 0; i < list.Count; ++i)

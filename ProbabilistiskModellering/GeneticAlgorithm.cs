@@ -15,6 +15,7 @@ namespace ProbabilistiskModellering
     public class GeneticAlgorithm<T>
     {
         string sumoOutputFilePath = "./SUMOFiles/out";
+        string element = "tripinfo";
         public List<DNA<T>> Population { get; private set; }
         public int Generation { get; private set; }
         public double BestFitness { get; private set; }
@@ -62,16 +63,17 @@ namespace ProbabilistiskModellering
 
             while (shouldStop == false)
             {
-                if (BestFitness < 10 || Generation > 10)
+                if (BestFitness < 10 || Generation >= 2)
                 {
                     shouldStop = true;
                 }
                 else
                 {
                     NewGeneration();
+                    Console.WriteLine($"Best fitness of generation {Generation} is: {BestFitness}");
+                    ++Generation;
                     await RunSimulationAsync();
                 }
-                Console.WriteLine("Best fitness of Generation " + Generation + "is: " + BestFitness);
             }
         }
 
@@ -161,7 +163,6 @@ namespace ProbabilistiskModellering
 
             Population = newPopulation;
 
-            Generation++;
         }
                 
         public void CalculateFitness()
@@ -172,7 +173,7 @@ namespace ProbabilistiskModellering
             for(int i = 0; i < Population.Count; i ++)
             {
                 
-                fitnessSum += Population[i].CalculateFitnessIndividual("timeLoss", sumoOutputFilePath + $"{i}.xml");
+                fitnessSum += Population[i].CalculateFitnessIndividual("tripinfo", "timeLoss", sumoOutputFilePath + $"{i}.xml");
 
                 if (Population[i].fitness < best.fitness)
                 {
