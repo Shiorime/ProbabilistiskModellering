@@ -12,7 +12,7 @@ namespace ProgramTest
         {
             // Arrange
             Program test = new Program();
-            string filePath = "./SUMOFiles/XMLTest.xml";
+            string filePath = "./TestFiles/XMLTest.xml";
             string[] result = new string[1];
 
             // Act

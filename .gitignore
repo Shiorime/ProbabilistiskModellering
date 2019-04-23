@@ -3,6 +3,7 @@ bin/
 obj/
 _ReSharper.*/
 .vs/
+TestResults/
 
 # Ignore files
 *.suo

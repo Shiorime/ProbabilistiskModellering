@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="1to2.0" depart="0.00" departLane="1to0_0" departPos="5.10" departSpeed="0.00" departDelay="-0.79" arrival="54.00" arrivalLane="0to2_0" arrivalPos="489.60" arrivalSpeed="20.30" duration="54.00" routeLength="995.19" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="6.78" rerouteNo="0" devices="tripinfo_1to2.0" vType="DEFAULT_VEHTYPE" speedFactor="1.06" vaporized=""/>
+</tripinfos>
