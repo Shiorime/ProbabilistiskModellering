@@ -31,7 +31,7 @@ namespace ProbabilistiskModellering
                 Action<string> write = Console.WriteLine;
 
                 stopwatch.Start();
-                GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(2, 2400, pg.random, pg.GenerateRandomRedYellowGreenState, 2, 0.01f);
+                GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(3, 2400, pg.random, pg.GenerateRandomRedYellowGreenState, 3, 0.01f);
                 await ga.StartGAAsync();
                 ga.NewGeneration();
                 Console.WriteLine($"Best fitness of generation {ga.Generation} is: {ga.BestFitness}");
@@ -48,6 +48,8 @@ namespace ProbabilistiskModellering
 
         public string GenerateRandomRedYellowGreenState()
         {
+            string validString1 = "GGGrrrrGGrr";
+            string validString2 = "rrrGGGGrrGG";
             string randomState = string.Empty;
             int result = 0;
             for (int i = 0; i < 11; i++)
@@ -55,11 +57,11 @@ namespace ProbabilistiskModellering
                 result = random.Next(0, 2);
                 if (result == 0)
                 {
-                    randomState = randomState + "r";
+                    randomState = validString1;
                 }
                 else if (result == 1)
                 {
-                    randomState = randomState + "G";
+                    randomState = validString2;
                 }
             }
             return randomState;

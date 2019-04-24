@@ -63,7 +63,7 @@ namespace ProbabilistiskModellering
 
             while (shouldStop == false)
             {
-                if (BestFitness < 10 || Generation >= 2)
+                if (BestFitness < 10 || Generation >= 10)
                 {
                     shouldStop = true;
                 }
