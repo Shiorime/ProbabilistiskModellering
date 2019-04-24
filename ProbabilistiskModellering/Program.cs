@@ -67,8 +67,7 @@ namespace ProbabilistiskModellering
             return randomState;
         }
 
-        //Denne funktion udregner Fitness funktionen, Denne funktion udregner den gennemsnitlige tid
-        //som hver bil bruger uden at køre den maksimalt tilladt hastighed
+        //This function calculates the average time, that each car spends not driving at the maximum allowed speed
         public double CalculateFitnessFunction(Program pg, string element, string attribute, string filePath)
         {
             string[] timeLossArray = pg.GetSpecificXMLAttributeFromFile(element, attribute, filePath);
