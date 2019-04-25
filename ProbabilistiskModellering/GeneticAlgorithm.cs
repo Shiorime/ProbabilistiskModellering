@@ -54,29 +54,34 @@ namespace ProbabilistiskModellering
             }
         }
 
+        // this method starts and updates the genetic algortihm as it runs. 
         public async Task StartGAAsync()
         {
             BestFitness = 100;
+            // one call to start the simulation and run it is required to start the genetic algorithm
             await RunSimulationAsync();
             bool shouldStop = false;
          
-
+            // should stop is used as a flag as to when the genetic algorithm stops 
             while (shouldStop == false)
             {
-                if (BestFitness < 10 || Generation >= 10)
+                // this if statement is the stop condition for the program. When this is met, the flag will be set to true
+                // and the program will stop. 
+                if (BestFitness < 10 || Generation >= 5)
                 {
                     shouldStop = true;
                 }
                 else
                 {
-                    NewGeneration();
+                    NewGeneration(); // new generation gets generated based upon the old one
                     Console.WriteLine($"Best fitness of generation {Generation} is: {BestFitness}");
                     ++Generation;
-                    await RunSimulationAsync();
+                    await RunSimulationAsync(); // call to start simulation is made again
                 }
             }
         }
 
+        // method for running simulation 
         private async Task RunSimulationAsync()
         {
             List<TraCIClient> listOfClients = new List<TraCIClient>();
@@ -115,13 +120,17 @@ namespace ProbabilistiskModellering
                 listOfClients[i].Control.Close();
             }
 
+            // clear initialized lists to ensure that a null reference exception is avoided
             listOfClients.Clear();
             listOfSimulations.Clear();
             listOfTrafficLights.Clear();
 
+            // task delay has been inserted, since SUMO is slow at outputting .xml files
+            // this is done to avoid "file already in use" exception
             await Task.Delay(100);
         }
 
+        // compare DNA method for sorting the list of individuals in the population based upon their fitness
         private int CompareDNA(DNA<T> a, DNA<T> b)
         {
             if (a.fitness > b.fitness)
@@ -138,36 +147,37 @@ namespace ProbabilistiskModellering
             }
         }
 
+        // method for generating a new generation. 
         public void NewGeneration()
         {
-            if (Population.Count <= 0)
+            if (Population.Count <= 0) // just to ensure, that in case the population has not been initialized this method will stop
             {
                 return;
             }
 
             CalculateFitness();
             Population.Sort(CompareDNA);
-            List<DNA<T>> newPopulation = new List<DNA<T>>();
+            List<DNA<T>> newPopulation = new List<DNA<T>>(); // new population is declared and will be initialized in for-loop below
 
             for(int i = 0; i < Population.Count; i++)
             {
-                DNA<T> parent1 = Population[0];
+                DNA<T> parent1 = Population[0]; // Currently the selection chooses the two fittest individuals to create a new population. 
                 DNA<T> parent2 = Population[1];
 
-                DNA<T> child = parent1.CrossOver(parent2);
+                DNA<T> child = parent1.CrossOver(parent2); // call to crossover function
 
                 child.Mutate(mutationRate);
 
                 newPopulation.Add(child);
             }
 
-            Population = newPopulation;
+            Population = newPopulation; // population gets set to the newly generation population
 
         }
-                
+        
         public void CalculateFitness()
         {
-            fitnessSum = 0;
+            fitnessSum = 0; // fitnessSum currently has no use, but might be used for roulettewheel selection
             DNA<T> best = Population[0];
 
             for(int i = 0; i < Population.Count; i ++)
@@ -186,7 +196,7 @@ namespace ProbabilistiskModellering
 
         }
 
-        //need rework
+        //need rework, is weighted roulette wheel selection, however, it is unsure whether or not it works optimally
         private DNA<T> ChooseParent()
         {
             https://stackoverflow.com/questions/56692/random-weighted-choice
@@ -204,6 +214,7 @@ namespace ProbabilistiskModellering
             return null;
         }
 
+        // method for opening sumo with desired command line arguments
         public void OpenSumo(int portNumber, string outputFile)
         {
             //https://www.codeproject.com/Articles/25983/How-to-Execute-a-Command-in-C

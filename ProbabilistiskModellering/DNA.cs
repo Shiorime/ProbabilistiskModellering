@@ -53,6 +53,8 @@ namespace ProbabilistiskModellering
             } 
         }
 
+        // method for calculating fitness for each individual 
+        // fitness is currently the average time loss for each car
         public double CalculateFitnessIndividual(string element, string attribute, string filePath)
         {
             int min = 5;
@@ -65,8 +67,8 @@ namespace ProbabilistiskModellering
                 timeLossSum += double.Parse(timeLossArray[i], CultureInfo.InvariantCulture);
             }
             fitness = timeLossSum / cars;
-            //File.Delete(filePath);
-            return timeLossSum / cars - min / max - min;
+            // return timeLossSum / cars - min / max - min;
+            return timeLossSum / cars;
         }
 
         public string[] GetSpecificXMLAttributeFromFile(string element, string attribute, string filePath)

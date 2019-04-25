@@ -31,7 +31,7 @@ namespace ProbabilistiskModellering
                 Action<string> write = Console.WriteLine;
 
                 stopwatch.Start();
-                GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(3, 2400, pg.random, pg.GenerateRandomRedYellowGreenState, 3, 0.01f);
+                GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(1, 2400, pg.random, pg.GenerateRandomRedYellowGreenState, 1, 0.01f);
                 await ga.StartGAAsync();
                 ga.NewGeneration();
                 Console.WriteLine($"Best fitness of generation {ga.Generation} is: {ga.BestFitness}");
@@ -45,7 +45,8 @@ namespace ProbabilistiskModellering
             });
         }
 
-
+        // method for generating random gene for genome
+        // two valid strings are available to ensure, that each opposite entrance to the crossing are green at the same time 
         public string GenerateRandomRedYellowGreenState()
         {
             string validString1 = "GGGrrrrGGrr";
@@ -67,47 +68,7 @@ namespace ProbabilistiskModellering
             return randomState;
         }
 
-        //This function calculates the average time, that each car spends not driving at the maximum allowed speed
-        public double CalculateFitnessFunction(Program pg, string element, string attribute, string filePath)
-        {
-            string[] timeLossArray = pg.GetSpecificXMLAttributeFromFile(element, attribute, filePath);
-            int cars = timeLossArray.Count();
-            double timeLossSum = 0.0;
-            for (int i = 0; i < cars; i++)
-            {
-                timeLossSum += double.Parse(timeLossArray[i], CultureInfo.InvariantCulture);
-            }
-            File.Delete(filePath);
-            return timeLossSum / cars;
-        }
-
-        // has been tested in seperate project, we will have to test if cmd.WaitForExit() causes conflict with the ending simulation
-        public void OpenSumo(int portNumber, string outputFile)
-        {
-            //https://www.codeproject.com/Articles/25983/How-to-Execute-a-Command-in-C
-            string yeet = $"sumo --remote-port {portNumber} -c SUMOFiles/cfg.sumocfg -W true --tripinfo-output {outputFile}";
-            ProcessStartInfo sInfo = new ProcessStartInfo("cmd", "/c " + yeet);
-            Process cmd = new Process();
-            sInfo.FileName = "cmd.exe";
-            cmd.StartInfo = sInfo;
-            cmd.Start();
-        }
-
-        public string[] GetSpecificXMLAttributeFromFile(string element, string attribute, string filePath)
-        {
-            //https://stackoverflow.com/questions/933687/read-xml-attribute-using-xmldocument
-            XmlDocument xmlDoc = new XmlDocument(); /* Create new XmlDocument */
-            xmlDoc.Load(filePath);                  /* Load the xml file from filePath */
-            XmlNodeList list = xmlDoc.GetElementsByTagName($"{element}"); /* Find elements with interval. Put it into an array/list */
-            string[] finalArray = new string[list.Count];
-
-            for(int i = 0; i < list.Count; ++i)
-            {
-                finalArray[i] = list[i].Attributes[$"{attribute}"].Value;
-            }
-
-            return finalArray;
-        }
+        
     }
 
 }
