@@ -22,7 +22,7 @@ namespace ProbabilistiskModellering
         public double fitness { get; private set; }
         private Random random = new Random();
         private Func<T> GetRandomGene;
-        public double FitnessFunction;
+        public double fitnessFunction;
 
         public DNA(int size, Func<T> GetRandomGene, bool shouldInitializeGenes = true)
         {
@@ -38,11 +38,11 @@ namespace ProbabilistiskModellering
             }
         }
 
-        public DNA(int size, Func<T> GetRandomGene, double FitnessFunction, bool shouldInitializeGenes = true)
+        public DNA(int size, Func<T> GetRandomGene, double fitnessFunction, bool shouldInitializeGenes = true)
         {
             genes = new T[size];
             this.GetRandomGene = GetRandomGene;
-            this.FitnessFunction = FitnessFunction;
+            this.fitnessFunction = fitnessFunction;
            
             if(shouldInitializeGenes)
             {
@@ -69,7 +69,7 @@ namespace ProbabilistiskModellering
 
             fitness = 1 - (timeLossSum / cars - min ) / (max - min);
             //fitness = ((timeLossSum / cars) - min ) / max - min;
-            return 1 - (timeLossSum / cars - min) / (max - min);
+            return fitness;
 
         }
 
@@ -92,7 +92,7 @@ namespace ProbabilistiskModellering
         public DNA<T> CrossOver(DNA <T> otherParent)
         {
             // Child initializes
-            DNA<T> child = new DNA<T>(genes.Length, GetRandomGene, FitnessFunction , false);
+            DNA<T> child = new DNA<T>(genes.Length, GetRandomGene, fitnessFunction , false);
 
             for(int i = 0; i < genes.Length; i++)
             {

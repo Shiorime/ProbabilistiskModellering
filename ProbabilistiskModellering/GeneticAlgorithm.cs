@@ -15,11 +15,10 @@ namespace ProbabilistiskModellering
     public class GeneticAlgorithm<T>
     {
         string sumoOutputFilePath = "./SUMOFiles/out";
-        string element = "tripinfo";
-        public List<DNA<T>> Population { get; private set; }
-        public int Generation { get; private set; }
-        public double BestFitness { get; private set; }
-        public T[] BestGenes { get; private set; }
+        public List<DNA<T>> population { get; private set; }
+        public int generation { get; private set; }
+        public double bestFitness { get; private set; }
+        public T[] bestGenes { get; private set; }
 
         public float mutationRate;
         private Random random;
@@ -27,37 +26,37 @@ namespace ProbabilistiskModellering
         private List<DNA<T>> newPopulation;
         private double fitnessSum;
         private int dnaSize;
-        private Func<T> getRandomGene;
+        private Func<T> GetRandomGene;
 
         private int portNumber = 1000;
         int numberOfInstances;
 
         
 
-        public GeneticAlgorithm(int populationSize, int dnaSize, Random random, Func<T> getRandomGene, int numberOfInstances, float mutationRate = 0.01f)
+        public GeneticAlgorithm(int populationSize, int dnaSize, Random random, Func<T> GetRandomGene, int numberOfInstances, float mutationRate = 0.01f)
         {
-            Generation = 1;
+            generation = 1;
             this.mutationRate = mutationRate;
-            Population = new List<DNA<T>>(populationSize);
+            population = new List<DNA<T>>(populationSize);
             newPopulation = new List<DNA<T>>(populationSize);
             this.random = random;
             this.dnaSize = dnaSize;
-            this.getRandomGene = getRandomGene;
+            this.GetRandomGene = GetRandomGene;
             this.numberOfInstances = numberOfInstances;
 
            
-            BestGenes = new T[dnaSize];
+            bestGenes = new T[dnaSize];
 
             for (int i = 0; i < populationSize; i++)
             {
-                Population.Add(new DNA<T>(dnaSize, getRandomGene, true));
+                population.Add(new DNA<T>(dnaSize, GetRandomGene, true));
             }
         }
 
         // this method starts and updates the genetic algortihm as it runs. 
         public async Task StartGAAsync()
         {
-            BestFitness = 0.5;
+            bestFitness = 0.5;
             // one call to start the simulation and run it is required to start the genetic algorithm
             await RunSimulationAsync();
             bool shouldStop = false;
@@ -67,15 +66,15 @@ namespace ProbabilistiskModellering
             {
                 // this if statement is the stop condition for the program. When this is met, the flag will be set to true
                 // and the program will stop. 
-                if (BestFitness >= 0.85 || Generation >= 2)
+                if (bestFitness >= 0.85 || generation >= 2)
                 {
                     shouldStop = true;
                 }
                 else
                 {
                     NewGeneration(); // new generation gets generated based upon the old one
-                    Console.WriteLine($"Best fitness of generation {Generation} is: {BestFitness}");
-                    ++Generation;
+                    Console.WriteLine($"Best fitness of generation {generation} is: {bestFitness}");
+                    ++generation;
                     await RunSimulationAsync(); // call to start simulation is made again
                 }
             }
@@ -110,7 +109,7 @@ namespace ProbabilistiskModellering
             {
                 Parallel.For(0, numberOfInstances, j =>
                {
-                   listOfTrafficLights[j].SetRedYellowGreenState("n0", $"{Population[j].genes[i]}");
+                   listOfTrafficLights[j].SetRedYellowGreenState("n0", $"{population[j].genes[i]}");
                    listOfClients[j].Control.SimStep();
                });
                 
@@ -153,16 +152,16 @@ namespace ProbabilistiskModellering
         // method for generating a new generation. 
         public void NewGeneration()
         {
-            if (Population.Count <= 0) // just to ensure, that in case the population has not been initialized this method will stop
+            if (population.Count <= 0) // just to ensure, that in case the population has not been initialized this method will stop
             {
                 return;
             }
 
             CalculateFitness();
-            Population.Sort(CompareDNA);
+            population.Sort(CompareDNA);
             List<DNA<T>> newPopulation = new List<DNA<T>>(); // new population is declared and will be initialized in for-loop below
 
-            for(int i = 0; i < Population.Count; i++)
+            for(int i = 0; i < population.Count; i++)
             {
                 DNA<T> parent1 = ChooseParent(); // Currently the selection chooses the two fittest individuals to create a new population. 
                 DNA<T> parent2 = ChooseParent();
@@ -174,28 +173,28 @@ namespace ProbabilistiskModellering
                 newPopulation.Add(child);
             }
 
-            Population = newPopulation; // population gets set to the newly generation population
+            population = newPopulation; // population gets set to the newly generation population
 
         }
         
         public void CalculateFitness()
         {
             fitnessSum = 0; // fitnessSum currently has no use, but might be used for roulettewheel selection
-            DNA<T> best = Population[0];
+            DNA<T> best = population[0];
 
-            for(int i = 0; i < Population.Count; i ++)
+            for(int i = 0; i < population.Count; i ++)
             {
                 
-                fitnessSum += Population[i].CalculateFitnessIndividual("tripinfo", "timeLoss", sumoOutputFilePath + $"{i}.xml");
+                fitnessSum += population[i].CalculateFitnessIndividual("tripinfo", "timeLoss", sumoOutputFilePath + $"{i}.xml");
 
-                if (Population[i].fitness > best.fitness)
+                if (population[i].fitness > best.fitness)
                 {
-                    best = Population[i];
+                    best = population[i];
                 }
             }
 
-            BestFitness = best.fitness;
-            best.genes.CopyTo(BestGenes, 0);
+            bestFitness = best.fitness;
+            best.genes.CopyTo(bestGenes, 0);
 
         }
 
@@ -206,13 +205,13 @@ namespace ProbabilistiskModellering
 
             double randomNumber = random.NextDouble() * fitnessSum;
 
-            for(int i = 0; i < Population.Count; i++)
+            for(int i = 0; i < population.Count; i++)
             {
-                if (randomNumber < Population[i].fitness)
+                if (randomNumber < population[i].fitness)
                 {
-                    return Population[i];
+                    return population[i];
                 }
-                randomNumber -= Population[i].fitness;
+                randomNumber -= population[i].fitness;
             }
             return null;
         }
