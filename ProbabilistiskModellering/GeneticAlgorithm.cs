@@ -29,11 +29,9 @@ namespace ProbabilistiskModellering
         private Func<T> GetRandomGene;
 
         private int portNumber = 1000;
-        int numberOfInstances;
+        private int numberOfInstances;
 
-        
-
-        public GeneticAlgorithm(int populationSize, int dnaSize, Random random, Func<T> GetRandomGene, int numberOfInstances, float mutationRate = 0.01f)
+        public GeneticAlgorithm(int populationSize, int dnaSize, Random random, Func<T> GetRandomGene, float mutationRate = 0.01f)
         {
             generation = 1;
             this.mutationRate = mutationRate;
@@ -42,7 +40,7 @@ namespace ProbabilistiskModellering
             this.random = random;
             this.dnaSize = dnaSize;
             this.GetRandomGene = GetRandomGene;
-            this.numberOfInstances = numberOfInstances;
+            numberOfInstances = populationSize;
 
            
             bestGenes = new T[dnaSize];
