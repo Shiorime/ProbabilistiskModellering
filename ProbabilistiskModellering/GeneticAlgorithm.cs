@@ -57,7 +57,7 @@ namespace ProbabilistiskModellering
         // this method starts and updates the genetic algortihm as it runs. 
         public async Task StartGAAsync()
         {
-            BestFitness = 100;
+            BestFitness = 0.5;
             // one call to start the simulation and run it is required to start the genetic algorithm
             await RunSimulationAsync();
             bool shouldStop = false;
@@ -67,7 +67,7 @@ namespace ProbabilistiskModellering
             {
                 // this if statement is the stop condition for the program. When this is met, the flag will be set to true
                 // and the program will stop. 
-                if (BestFitness < 10 || Generation >= 10)
+                if (BestFitness >= 0.85)
                 {
                     shouldStop = true;
                 }

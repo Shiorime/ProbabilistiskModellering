@@ -68,7 +68,6 @@ namespace ProbabilistiskModellering
             }
 
             fitness = 1 - (timeLossSum / cars - min ) / (max - min);
-            Console.WriteLine(fitness);
             //fitness = ((timeLossSum / cars) - min ) / max - min;
             return 1 - (timeLossSum / cars - min) / (max - min);
 
