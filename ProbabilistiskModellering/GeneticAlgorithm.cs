@@ -67,7 +67,7 @@ namespace ProbabilistiskModellering
             {
                 // this if statement is the stop condition for the program. When this is met, the flag will be set to true
                 // and the program will stop. 
-                if (BestFitness >= 0.85)
+                if (BestFitness >= 0.85 || Generation >= 2)
                 {
                     shouldStop = true;
                 }
@@ -104,15 +104,18 @@ namespace ProbabilistiskModellering
                 ++portNumber;
             }
 
+             
             // control trafficlights in simulation
             for (int i = 0; i < dnaSize; ++i)
             {
-                for (int j = 0; j < numberOfInstances; j++)
-                {
-                    listOfTrafficLights[j].SetRedYellowGreenState("n0", $"{Population[j].genes[i]}");
-                    listOfClients[j].Control.SimStep();
-                }
+                Parallel.For(0, numberOfInstances, j =>
+               {
+                   listOfTrafficLights[j].SetRedYellowGreenState("n0", $"{Population[j].genes[i]}");
+                   listOfClients[j].Control.SimStep();
+               });
+                
             }
+
 
             // close clients, hence close ports, so they can be used again for the next round of simulations
             for (int i = 0; i < listOfClients.Count; ++i)
