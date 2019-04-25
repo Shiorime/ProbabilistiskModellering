@@ -67,7 +67,7 @@ namespace ProbabilistiskModellering
             {
                 // this if statement is the stop condition for the program. When this is met, the flag will be set to true
                 // and the program will stop. 
-                if (BestFitness < 10 || Generation >= 5)
+                if (BestFitness < 10 || Generation >= 10)
                 {
                     shouldStop = true;
                 }
@@ -161,8 +161,8 @@ namespace ProbabilistiskModellering
 
             for(int i = 0; i < Population.Count; i++)
             {
-                DNA<T> parent1 = Population[0]; // Currently the selection chooses the two fittest individuals to create a new population. 
-                DNA<T> parent2 = Population[1];
+                DNA<T> parent1 = ChooseParent(); // Currently the selection chooses the two fittest individuals to create a new population. 
+                DNA<T> parent2 = ChooseParent();
 
                 DNA<T> child = parent1.CrossOver(parent2); // call to crossover function
 
@@ -185,7 +185,7 @@ namespace ProbabilistiskModellering
                 
                 fitnessSum += Population[i].CalculateFitnessIndividual("tripinfo", "timeLoss", sumoOutputFilePath + $"{i}.xml");
 
-                if (Population[i].fitness < best.fitness)
+                if (Population[i].fitness > best.fitness)
                 {
                     best = Population[i];
                 }
@@ -199,7 +199,7 @@ namespace ProbabilistiskModellering
         //need rework, is weighted roulette wheel selection, however, it is unsure whether or not it works optimally
         private DNA<T> ChooseParent()
         {
-            https://stackoverflow.com/questions/56692/random-weighted-choice
+            // https://stackoverflow.com/questions/56692/random-weighted-choice
 
             double randomNumber = random.NextDouble() * fitnessSum;
 

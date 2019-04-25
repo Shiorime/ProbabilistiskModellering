@@ -66,9 +66,12 @@ namespace ProbabilistiskModellering
             {
                 timeLossSum += double.Parse(timeLossArray[i], CultureInfo.InvariantCulture);
             }
-            fitness = timeLossSum / cars;
-            // return timeLossSum / cars - min / max - min;
-            return timeLossSum / cars;
+
+            fitness = 1 - (timeLossSum / cars - min ) / (max - min);
+            Console.WriteLine(fitness);
+            //fitness = ((timeLossSum / cars) - min ) / max - min;
+            return 1 - (timeLossSum / cars - min) / (max - min);
+
         }
 
         public string[] GetSpecificXMLAttributeFromFile(string element, string attribute, string filePath)
