@@ -226,7 +226,7 @@ namespace ProbabilistiskModellering
             cmd.Start();
         }
 
-        public void SaveGenesToXMLFile()
+        public void SaveBestGenesToXMLFile()
         {
             int size = bestGenes.Count();
 
