@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProbabilistiskModellering", "ProbabilistiskModellering\ProbabilistiskModellering.csproj", "{EAB5801E-4F2F-4CD9-9DE5-CD9EC15BA3CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgramTest", "ProgramTest\ProgramTest.csproj", "{26087398-2556-4A4E-A3C6-CCBA6DB5E52B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "ProgramTest\UnitTests.csproj", "{26087398-2556-4A4E-A3C6-CCBA6DB5E52B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

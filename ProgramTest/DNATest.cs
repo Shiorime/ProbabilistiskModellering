@@ -1,18 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProbabilistiskModellering;
 
-namespace ProgramTest
+namespace UnitTests
 {
     [TestClass]
-    public class ProgramTests
+    class DNATest
     {
         [TestMethod]
         public void GetSpecificXMLAttributeFromFile_ExpectedFirstArrayElement_ReturnsArray()
         {
             // Arrange
-            Program test = new Program();
+            DNA<string> test = new DNA<string>(int size, Func<T> );
             string filePath = "./TestFiles/XMLTest.xml";
             string[] result = new string[1];
 
@@ -28,7 +32,7 @@ namespace ProgramTest
         public void CalculateFitnessFunction_DoesCorrectCalculation_ReturnsDouble()
         {
             // Arrange
-            Program test = new Program();
+            DNA<string> test = new DNA<string>();
             string filePath = null;
             string attribute = null;
             string element = null;
