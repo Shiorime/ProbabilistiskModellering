@@ -64,7 +64,7 @@ namespace ProbabilistiskModellering
             {
                 // this if statement is the stop condition for the program. When this is met, the flag will be set to true
                 // and the program will stop. 
-                if (bestFitness >= 0.85 || generation >= 2)
+                if (bestFitness >= 0.85 || generation >= 30)
                 {
                     shouldStop = true;
                 }
@@ -110,7 +110,6 @@ namespace ProbabilistiskModellering
                    listOfTrafficLights[j].SetRedYellowGreenState("n0", $"{population[j].genes[i]}");
                    listOfClients[j].Control.SimStep();
                });
-
             }
 
 
@@ -157,7 +156,7 @@ namespace ProbabilistiskModellering
 
             CalculateFitness();
             population.Sort(CompareDNA);
-            List<DNA<T>> newPopulation = new List<DNA<T>>(); // new population is declared and will be initialized in for-loop below
+            newPopulation.Clear();
 
             for (int i = 0; i < population.Count; i++)
             {
@@ -171,7 +170,9 @@ namespace ProbabilistiskModellering
                 newPopulation.Add(child);
             }
 
+            List<DNA<T>> tmpList = population;
             population = newPopulation; // population gets set to the newly generation population
+            newPopulation = tmpList;
 
         }
 
