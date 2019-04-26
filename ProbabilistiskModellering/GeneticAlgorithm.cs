@@ -231,11 +231,11 @@ namespace ProbabilistiskModellering
             int size = bestGenes.Count();
 
             XDocument doc = new XDocument(new XElement("bestGenes"));
-            for (int i = 0; i < dnaSize; ++i)
+            for (int i = 0; i < size; ++i)
             {
                 doc.Root.Add(new XElement("element", bestGenes[i]));
             }
-            doc.Save("./test.xml");
+            doc.Save("./output.xml");
         }
     }
 }
