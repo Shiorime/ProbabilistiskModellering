@@ -5,7 +5,7 @@ using System.Linq;
 using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
+using System.Xml.Linq;
 using System.Diagnostics;
 using CodingConnected.TraCI.NET;
 using CodingConnected.TraCI.NET.Commands;
@@ -42,7 +42,7 @@ namespace ProbabilistiskModellering
             this.GetRandomGene = GetRandomGene;
             numberOfInstances = populationSize;
 
-           
+
             bestGenes = new T[dnaSize];
 
             for (int i = 0; i < populationSize; i++)
@@ -58,7 +58,7 @@ namespace ProbabilistiskModellering
             // one call to start the simulation and run it is required to start the genetic algorithm
             await RunSimulationAsync();
             bool shouldStop = false;
-         
+
             // should stop is used as a flag as to when the genetic algorithm stops 
             while (shouldStop == false)
             {
@@ -101,7 +101,7 @@ namespace ProbabilistiskModellering
                 ++portNumber;
             }
 
-             
+
             // control trafficlights in simulation
             for (int i = 0; i < dnaSize; ++i)
             {
@@ -110,7 +110,7 @@ namespace ProbabilistiskModellering
                    listOfTrafficLights[j].SetRedYellowGreenState("n0", $"{population[j].genes[i]}");
                    listOfClients[j].Control.SimStep();
                });
-                
+
             }
 
 
@@ -137,7 +137,7 @@ namespace ProbabilistiskModellering
             {
                 return -1;
             }
-            else if( a.fitness < b.fitness)
+            else if (a.fitness < b.fitness)
             {
                 return 1;
             }
@@ -159,7 +159,7 @@ namespace ProbabilistiskModellering
             population.Sort(CompareDNA);
             List<DNA<T>> newPopulation = new List<DNA<T>>(); // new population is declared and will be initialized in for-loop below
 
-            for(int i = 0; i < population.Count; i++)
+            for (int i = 0; i < population.Count; i++)
             {
                 DNA<T> parent1 = ChooseParent(); // Currently the selection chooses the two fittest individuals to create a new population. 
                 DNA<T> parent2 = ChooseParent();
@@ -174,15 +174,15 @@ namespace ProbabilistiskModellering
             population = newPopulation; // population gets set to the newly generation population
 
         }
-        
+
         public void CalculateFitness()
         {
             fitnessSum = 0; // fitnessSum currently has no use, but might be used for roulettewheel selection
             DNA<T> best = population[0];
 
-            for(int i = 0; i < population.Count; i ++)
+            for (int i = 0; i < population.Count; i++)
             {
-                
+
                 fitnessSum += population[i].CalculateFitnessIndividual("tripinfo", "timeLoss", sumoOutputFilePath + $"{i}.xml");
 
                 if (population[i].fitness > best.fitness)
@@ -203,7 +203,7 @@ namespace ProbabilistiskModellering
 
             double randomNumber = random.NextDouble() * fitnessSum;
 
-            for(int i = 0; i < population.Count; i++)
+            for (int i = 0; i < population.Count; i++)
             {
                 if (randomNumber < population[i].fitness)
                 {
@@ -225,7 +225,18 @@ namespace ProbabilistiskModellering
             cmd.StartInfo = sInfo;
             cmd.Start();
         }
-    }
 
+        public void SaveGenesToXMLFile()
+        {
+            int size = bestGenes.Count();
+
+            XDocument doc = new XDocument(new XElement("bestGenes"));
+            for (int i = 0; i < dnaSize; ++i)
+            {
+                doc.Root.Add(new XElement("element", bestGenes[i]));
+            }
+            doc.Save("./test.xml");
+        }
+    }
 }
 
