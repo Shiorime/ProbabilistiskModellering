@@ -8,7 +8,6 @@ TestResults/
 # Ignore files
 *.suo
 *.user
-*.csproj
 *.config
 *.sdf
 *.log
