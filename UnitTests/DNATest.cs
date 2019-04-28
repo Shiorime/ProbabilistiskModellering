@@ -12,11 +12,17 @@ namespace UnitTests
     [TestClass]
     class DNATest
     {
+        private bool GetRandomGene;
+        private readonly Func<string> fitnessFunction;
+
+        public int size { get; private set; }
+        public bool shouldInitializeGenes { get; private set; }
+
         [TestMethod]
         public void GetSpecificXMLAttributeFromFile_ExpectedFirstArrayElement_ReturnsArray()
         {
             // Arrange
-            DNA<string> test = new DNA<string>(int size, Func<T>);
+            DNA<string> test = new DNA<string>(size, Func<T> GetRandomGene, fitnessFunction, shouldInitializeGenes = true);
             string filePath = "./TestFiles/XMLTest.xml";
             string[] result = new string[1];
 
@@ -32,7 +38,7 @@ namespace UnitTests
         public void CalculateFitnessFunction_DoesCorrectCalculation_ReturnsDouble()
         {
             // Arrange
-            DNA<string> test = new DNA<string>();
+            DNA<string> test = new DNA<string>(size, Func<T> GetRandomGene, fitnessFunction, shouldInitializeGenes = true);
             string filePath = null;
             string attribute = null;
             string element = null;
