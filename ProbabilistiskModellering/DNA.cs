@@ -67,8 +67,9 @@ namespace ProbabilistiskModellering
                 timeLossSum += double.Parse(timeLossArray[i], CultureInfo.InvariantCulture);
             }
 
+            // ide til anden matematisk model https://math.stackexchange.com/questions/384613/exponential-function-with-values-between-0-and-1-for-x-values-between-0-and-1
+
             fitness = 1 - (timeLossSum / cars - min ) / (max - min);
-            //fitness = ((timeLossSum / cars) - min ) / max - min;
             return fitness;
 
         }
