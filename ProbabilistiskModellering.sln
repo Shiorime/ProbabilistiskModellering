@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.329
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProbabilistiskModellering", "ProbabilistiskModellering\ProbabilistiskModellering.csproj", "{EAB5801E-4F2F-4CD9-9DE5-CD9EC15BA3CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgramTest", "ProgramTest\ProgramTest.csproj", "{26087398-2556-4A4E-A3C6-CCBA6DB5E52B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{34094F8A-4EA7-4603-A5A4-3C2498ED52D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{EAB5801E-4F2F-4CD9-9DE5-CD9EC15BA3CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAB5801E-4F2F-4CD9-9DE5-CD9EC15BA3CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAB5801E-4F2F-4CD9-9DE5-CD9EC15BA3CD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{26087398-2556-4A4E-A3C6-CCBA6DB5E52B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{26087398-2556-4A4E-A3C6-CCBA6DB5E52B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{26087398-2556-4A4E-A3C6-CCBA6DB5E52B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{26087398-2556-4A4E-A3C6-CCBA6DB5E52B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34094F8A-4EA7-4603-A5A4-3C2498ED52D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34094F8A-4EA7-4603-A5A4-3C2498ED52D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34094F8A-4EA7-4603-A5A4-3C2498ED52D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34094F8A-4EA7-4603-A5A4-3C2498ED52D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
