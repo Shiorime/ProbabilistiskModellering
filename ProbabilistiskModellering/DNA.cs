@@ -24,7 +24,7 @@ namespace ProbabilistiskModellering
         private Func<T> GetRandomGene;
         public double fitnessFunction;
 
-        public DNA(int size, bool v, Func<T> GetRandomGene, bool shouldInitializeGenes = true)
+        public DNA(int size, Func<T> GetRandomGene, bool shouldInitializeGenes = true)
         {
             genes = new T[size];
             this.GetRandomGene = GetRandomGene;

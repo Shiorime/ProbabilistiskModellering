@@ -64,7 +64,7 @@ namespace ProbabilistiskModellering
             {
                 // this if statement is the stop condition for the program. When this is met, the flag will be set to true
                 // and the program will stop. 
-                if (bestFitness >= 0.85 || generation >= 30)
+                if (bestFitness >= 0.85 || generation >= 2)
                 {
                     shouldStop = true;
                 }
@@ -126,7 +126,7 @@ namespace ProbabilistiskModellering
 
             // task delay has been inserted, since SUMO is slow at outputting .xml files
             // this is done to avoid "file already in use" exception
-            await Task.Delay(100);
+            await Task.Delay(1000);
         }
 
         // compare DNA method for sorting the list of individuals in the population based upon their fitness
