@@ -30,7 +30,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void CalculateFitnessFunction_DoesCorrectCalculation_ReturnsDouble()
+        public void CalculateFitnessIndividual_DoesCorrectCalculation_ReturnsDouble()
         {
             // Arrange
             DNA<string> test = new DNA<string>(0, TestString, 0.0, true);
@@ -44,13 +44,13 @@ namespace UnitTests
             {
                 timeLossSum += double.Parse(timeLossArray[i], CultureInfo.InvariantCulture);
             }
-            double result = new double();
+            double result = timeLossSum;
 
             // Act
             result = test.CalculateFitnessIndividual(element, attribute, filePath);
 
             // Assert
-            Assert.
+            Assert.AreEqual(result, 6.78);
                 
         }
 

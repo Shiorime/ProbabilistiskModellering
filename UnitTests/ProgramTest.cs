@@ -13,7 +13,7 @@ namespace UnitTests
     public class ProgramTest
     { 
         [TestMethod]
-        public void GenerateRandomRedYellowGreenState_ReturnsString()
+        public void GenerateRandomRedYellowGreenState_ExpectedRes1OrRes2Value_ReturnsString()
         {
             //arrange
             Program testProgram = new Program();

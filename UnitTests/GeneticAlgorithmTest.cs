@@ -13,7 +13,7 @@ namespace UnitTests
     public class GeneticAlgorithmTest
     {
         [TestMethod]
-        public void GeneticAlgorithmConstructorTest()
+        public void GeneticAlgorithmConstructor_IfTheConstructorAssignsCorrectly_ReturnsList()
         {
             //arrange
             Program pg = new Program();
@@ -45,7 +45,7 @@ namespace UnitTests
         [DataRow(1,2,1)]
         [DataRow(2,1,-1)]
         [DataRow(1,1,0)]
-        public void CompareDNATest(int x, int y, int expected)
+        public void CompareDNA_ExpectedFitnessFromPairOfDNAComparison_ReturnsInt(int x, int y, int expected)
         {
             //arrange
             _DNA a = new _DNA(x);
