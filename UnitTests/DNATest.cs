@@ -10,7 +10,7 @@ using ProbabilistiskModellering;
 namespace UnitTests
 {
     [TestClass]
-    class DNATest
+    public class DNATest
     {
 
         [TestMethod]
@@ -50,7 +50,7 @@ namespace UnitTests
             result = test.CalculateFitnessIndividual(element, attribute, filePath);
 
             // Assert
-            //Assert.
+            Assert.
                 
         }
 

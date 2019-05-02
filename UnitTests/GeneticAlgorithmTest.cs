@@ -10,26 +10,21 @@ using ProbabilistiskModellering;
 namespace UnitTests
 {
     [TestClass]
-    class GeneticAlgorithmTest
+    public class GeneticAlgorithmTest
     {
         [TestMethod]
-
         public void GeneticAlgorithmConstructorTest()
         {
             //arrange
             Program pg = new Program();
-            Random random = new Random();
-            int _dnaSize = 10;
-            int _popSize = 2;
-            int _popCount;
+            Random random = new Random(1);
+            int expected = 2;
 
             //act
-            GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(_popSize, _dnaSize, random, pg.GenerateRandomRedYellowGreenState, 0.05f);
-            _popCount = ga.population.Count;
+            GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(2, 10, random, pg.GenerateRandomRedYellowGreenState, 0.05f);
 
             //assert
-            Assert.AreEqual(_dnaSize, ga.dnaSize);
-            Assert.AreEqual(_popSize, _popCount);
+            Assert.AreEqual(ga.population.Count, expected);
         }
 
         private int CompareDNAModified(_DNA a, _DNA b)
@@ -47,24 +42,21 @@ namespace UnitTests
                 return 0;
             }
         }
-        public void CompareDNATest()
+        [DataRow(1,2,1)]
+        [DataRow(2,1,-1)]
+        [DataRow(1,1,0)]
+        public void CompareDNATest(int x, int y, int expected)
         {
             //arrange
-            _DNA a = new _DNA(1);
-            _DNA b = new _DNA(2);
-            int firstSmaller;
-            int firstLarger;
-            int firstEqual;
+            _DNA a = new _DNA(x);
+            _DNA b = new _DNA(y);
+            int c;
 
             //act
-            firstSmaller = CompareDNAModified(a, b);
-            firstLarger = CompareDNAModified(b, a);
-            firstEqual = CompareDNAModified(a, a);
-
+            c = CompareDNAModified(a, b);
+            
             //assert
-            Assert.AreEqual(firstSmaller, 1);
-            Assert.AreEqual(firstLarger, -1);
-            Assert.AreEqual(firstEqual, 0);
+            Assert.AreEqual(c, expected);
         }
 
 

@@ -10,7 +10,7 @@ using ProbabilistiskModellering;
 namespace UnitTests
 {
     [TestClass]
-    class ProgramTest
+    public class ProgramTest
     { 
         [TestMethod]
         public void GenerateRandomRedYellowGreenState_ReturnsString()
