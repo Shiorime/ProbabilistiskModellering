@@ -14,22 +14,20 @@ namespace UnitTests
     {
         [TestMethod]
 
-        public void GeneticAlgorithmConstructorTest()
+        public void GeneticAlgorithmConstructor_IfTheConstructorAssignsCorrectly_ReturnsList()
         {
             //arrange
             Program pg = new Program();
             Random random = new Random();
             int _dnaSize = 10;
             int _popSize = 2;
-            int _popCount;
 
             //act
             GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(_popSize, _dnaSize, random, pg.GenerateRandomRedYellowGreenState, 0.05f);
-            _popCount = ga.population.Count;
 
             //assert
             Assert.AreEqual(_dnaSize, ga.dnaSize);
-            Assert.AreEqual(_popSize, _popCount);
+            Assert.AreEqual(_popSize, ga.population.Count);
         }
 
         private int CompareDNAModified(_DNA a, _DNA b)
@@ -47,7 +45,7 @@ namespace UnitTests
                 return 0;
             }
         }
-        public void CompareDNATest()
+        public void CompareDNA_ExpectedFitnessFromPairOfDNAComparison_ReturnsInt()
         {
             //arrange
             _DNA a = new _DNA(1);
