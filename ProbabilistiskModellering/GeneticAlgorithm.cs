@@ -25,7 +25,7 @@ namespace ProbabilistiskModellering
 
         private List<DNA<T>> newPopulation;
         private double fitnessSum;
-        private int dnaSize;
+        public int dnaSize;
         private Func<T> GetRandomGene;
 
         private int portNumber = 1000;
