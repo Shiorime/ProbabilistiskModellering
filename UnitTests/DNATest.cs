@@ -19,7 +19,7 @@ namespace UnitTests
             
             // Arrange
             DNA<string> test = new DNA<string>(0, TestString, 0.0, true);
-            string filePath = "./TestFiles/XMLTest.xml";
+            string filePath = "./../../../../TestFiles/XMLTest.xml";
             string[] result = new string[1];
 
             // Act
