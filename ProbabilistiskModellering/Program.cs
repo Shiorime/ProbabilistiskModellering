@@ -31,7 +31,8 @@ namespace ProbabilistiskModellering
 
                 stopwatch.Start();
 
-                GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(30, 2400, pg.random, pg.GenerateRandomRedYellowGreenState, 0.05f);
+                GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(50, 2400, pg.random, pg.GenerateRandomRedYellowGreenState, 0.05f);
+                
                 await ga.StartGAAsync();
                 ga.NewGeneration();
                 ga.SaveBestGenesToXMLFile();

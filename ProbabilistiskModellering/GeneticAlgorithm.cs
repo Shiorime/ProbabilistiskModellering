@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,7 +65,7 @@ namespace ProbabilistiskModellering
             {
                 // this if statement is the stop condition for the program. When this is met, the flag will be set to true
                 // and the program will stop.
-                if (bestFitness >= 0.85 || generation >= 2)
+                if (bestFitness >= 0.85 || generation >= 100)
                 {
                     shouldStop = true;
                 }
