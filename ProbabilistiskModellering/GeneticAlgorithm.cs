@@ -25,7 +25,7 @@ namespace ProbabilistiskModellering
 
         private List<DNA<T>> newPopulation;
         private double fitnessSum;
-        private int dnaSize;
+        public int dnaSize;
         private Func<T> GetRandomGene;
 
         private int portNumber = 1000;
@@ -63,7 +63,7 @@ namespace ProbabilistiskModellering
             while (shouldStop == false)
             {
                 // this if statement is the stop condition for the program. When this is met, the flag will be set to true
-                // and the program will stop. 
+                // and the program will stop.
                 if (bestFitness >= 0.85 || generation >= 4)
                 {
                     shouldStop = true;
