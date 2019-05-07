@@ -16,6 +16,8 @@ namespace ProbabilistiskModellering
         private Func<T> GetRandomGene;
         public double fitnessFunction;
 
+        private int numberOfSeconds = 5;
+
         public DNA(int size, Func<T> GetRandomGene, bool shouldInitializeGenes = true)
         {
             genes = new T[size];
@@ -23,9 +25,14 @@ namespace ProbabilistiskModellering
 
             if (shouldInitializeGenes)
             {
-                for (int i = 0; i < genes.Length; i++)
+                int length = genes.Length;
+                for (int i = 0; i < length;)
                 {
-                    genes[i] = GetRandomGene();
+                    T randomGene = GetRandomGene();
+                    for (int j = 0; j < numberOfSeconds; ++j)
+                    {
+                        genes[i++] = randomGene;
+                    }
                 }
             }
         }
@@ -35,14 +42,29 @@ namespace ProbabilistiskModellering
             genes = new T[size];
             this.GetRandomGene = GetRandomGene;
             this.fitnessFunction = fitnessFunction;
-           
-            if(shouldInitializeGenes)
+
+            if (shouldInitializeGenes)
+            {
+                int length = genes.Length;
+                for (int i = 0; i < length;)
+                {
+                    T randomGene = GetRandomGene();
+                    for (int j = 0; j < numberOfSeconds; ++j)
+                    {
+                        genes[i++] = randomGene;
+                    }
+                }
+            }
+
+            /*
+            if (shouldInitializeGenes)
             {
                 for (int i = 0; i < genes.Length; i++)
                 {
                     genes[i] = GetRandomGene();
                 }
-            } 
+            }
+            */
         }
 
         // method for calculating fitness for each individual 
@@ -84,7 +106,7 @@ namespace ProbabilistiskModellering
 
         public DNA<T> CrossOver(DNA <T> otherParent)
         {
-            // Child initializes
+            // Child initializes    
             DNA<T> child = new DNA<T>(genes.Length, GetRandomGene, fitnessFunction , false);
 
             //for(int i = 0; i < genes.Length; i++)

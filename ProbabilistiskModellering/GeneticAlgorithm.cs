@@ -63,8 +63,8 @@ namespace ProbabilistiskModellering
             while (shouldStop == false)
             {
                 // this if statement is the stop condition for the program. When this is met, the flag will be set to true
-                // and the program will stop. 
-                if (bestFitness >= 0.85 || generation >= 2)
+                // and the program will stop.
+                if (bestFitness >= 0.85 || generation >= 4)
                 {
                     shouldStop = true;
                 }
