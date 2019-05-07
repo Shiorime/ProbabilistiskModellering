@@ -170,7 +170,6 @@ namespace ProbabilistiskModellering
             List<DNA<T>> tmpList = population;
             population = newPopulation; // population gets set to the newly generation population
             newPopulation = tmpList;
-
         }
 
         public void CalculateFitness()
