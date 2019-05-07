@@ -34,23 +34,25 @@ namespace UnitTests
         {
             // Arrange
             DNA<string> test = new DNA<string>(0, TestString, 0.0, true);
-            string filePath = null;
-            string attribute = null;
-            string element = null;
-            string[] timeLossArray = test.GetSpecificXMLAttributeFromFile(element, attribute, filePath);
+            string filePath = "./../../../../TestFiles/XMLTest.xml";
+            string element = "tripinfo";
+            string attribute = "timeLoss";
+            string[] timeLossArray = test.GetSpecificXMLAttributeFromFile("tripinfo", "timeLoss", filePath);
             int cars = timeLossArray.Count();
             double timeLossSum = 0.0;
             for (int i = 0; i < cars; i++)
             {
-                timeLossSum += double.Parse(timeLossArray[i], CultureInfo.InvariantCulture);
+                timeLossSum += double.Parse(timeLossArray[i]);
             }
             double result = timeLossSum;
+
+            double expected = 1 - ((6.78 / 1 - 5) / (25));
 
             // Act
             result = test.CalculateFitnessIndividual(element, attribute, filePath);
 
             // Assert
-            Assert.AreEqual(result, 6.78);
+            Assert.AreEqual(result, expected, 0.1);
                 
         }
 
