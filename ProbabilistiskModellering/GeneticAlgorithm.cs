@@ -24,6 +24,7 @@ namespace ProbabilistiskModellering
         private Random random;
 
         private List<DNA<T>> newPopulation;
+        private List<DNA<T>> elitists;
         private double fitnessSum;
         public int dnaSize;
         private Func<T> GetRandomGene;
@@ -64,12 +65,14 @@ namespace ProbabilistiskModellering
             {
                 // this if statement is the stop condition for the program. When this is met, the flag will be set to true
                 // and the program will stop.
-                if (bestFitness >= 0.85 || generation >= 4)
+                if (bestFitness >= 0.85 || generation >= 2)
                 {
                     shouldStop = true;
                 }
                 else
                 {
+                    for (int i = 0; i < 15; i++)
+                        Console.WriteLine(population[i].fitness);
                     NewGeneration(); // new generation gets generated based upon the old one
                     Console.WriteLine($"Best fitness of generation {generation} is: {bestFitness}");
                     ++generation;
@@ -97,6 +100,7 @@ namespace ProbabilistiskModellering
             for (int i = 0; i < numberOfInstances; ++i)
             {
                 OpenSumo(portNumber, sumoOutputFilePath + $"{i}.xml");
+                await Task.Delay(100);
                 await listOfClients[i].ConnectAsync("127.0.0.1", portNumber);
                 ++portNumber;
             }
@@ -133,17 +137,11 @@ namespace ProbabilistiskModellering
         private int CompareDNA(DNA<T> a, DNA<T> b)
         {
             if (a.fitness > b.fitness)
-            {
                 return -1;
-            }
             else if (a.fitness < b.fitness)
-            {
                 return 1;
-            }
             else
-            {
                 return 0;
-            }
         }
 
         // method for generating a new generation. 
@@ -156,12 +154,15 @@ namespace ProbabilistiskModellering
 
             CalculateFitness();
             population.Sort(CompareDNA);
+            for (int i = 0; i < 15; i++)
+                Console.WriteLine(population[i].fitness);
             newPopulation.Clear();
 
             for (int i = 0; i < population.Count; i++)
             {
                 DNA<T> parent1 = ChooseParent(); // Currently the selection chooses the two fittest individuals to create a new population. 
                 DNA<T> parent2 = ChooseParent();
+                
 
                 DNA<T> child = parent1.CrossOver(parent2); // call to crossover function
 
@@ -169,10 +170,8 @@ namespace ProbabilistiskModellering
 
                 newPopulation.Add(child);
             }
-
-            List<DNA<T>> tmpList = population;
+            
             population = newPopulation; // population gets set to the newly generation population
-            newPopulation = tmpList;
 
         }
 
@@ -208,11 +207,14 @@ namespace ProbabilistiskModellering
             {
                 if (randomNumber < population[i].fitness)
                 {
+                    Console.WriteLine(i);
                     return population[i];
                 }
                 randomNumber -= population[i].fitness;
             }
             return null;
+
+
         }
 
         // method for opening sumo with desired command line arguments

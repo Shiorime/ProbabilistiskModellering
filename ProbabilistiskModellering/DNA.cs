@@ -68,11 +68,9 @@ namespace ProbabilistiskModellering
         }
 
         // method for calculating fitness for each individual 
-        // fitness is currently the average time loss for each car
+        // Fitness is an exponential function
         public double CalculateFitnessIndividual(string element, string attribute, string filePath)
         {
-            int min = 5;
-            int max = 30;
             string[] timeLossArray = GetSpecificXMLAttributeFromFile(element, attribute, filePath);
             int cars = timeLossArray.Count();
             double timeLossSum = 0.0;
@@ -80,10 +78,10 @@ namespace ProbabilistiskModellering
             {
                 timeLossSum += double.Parse(timeLossArray[i], CultureInfo.InvariantCulture);
             }
-
+            double timeLossAvg = timeLossSum / cars;
             // ide til anden matematisk model https://math.stackexchange.com/questions/384613/exponential-function-with-values-between-0-and-1-for-x-values-between-0-and-1
 
-            fitness = 1 - (timeLossSum / cars - min ) / (max - min);
+            fitness = Math.Pow(2, -(0.1 * timeLossAvg));
             return fitness;
 
         }
@@ -128,7 +126,6 @@ namespace ProbabilistiskModellering
             {
                 child.genes[i] = otherParent.genes[i++];
             }
-            Console.WriteLine(child.genes[1200]);
             return child;
         }
 
