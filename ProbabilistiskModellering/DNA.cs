@@ -1,15 +1,7 @@
 ﻿using System;
-using System.IO;
-using System.Xml;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProbabilistiskModellering;
 using System.Globalization;
-using System.Threading;
-using CodingConnected.TraCI.NET;
-using CodingConnected.TraCI.NET.Commands;
+using System.Linq;
+using System.Xml;
 
 namespace ProbabilistiskModellering
 {
@@ -95,12 +87,26 @@ namespace ProbabilistiskModellering
             // Child initializes
             DNA<T> child = new DNA<T>(genes.Length, GetRandomGene, fitnessFunction , false);
 
-            for(int i = 0; i < genes.Length; i++)
+            //for(int i = 0; i < genes.Length; i++)
+            //{
+            //    When genes split between 2 parents, then it is random who survives.
+            //    This is why we use random. If it is less than 0.5 then it is genes from the first parent, else it is the other parent.
+            //   child.genes[i] = random.NextDouble() < 0.5 ? (genes[i]) : otherParent.genes[i];
+            //}
+
+            int crossNumber = random.Next(0, genes.Length + 1);
+            int i = 0;
+
+            while(i - crossNumber < 0)
             {
-                // When genes split between 2 parents, then it is random who survives.
-                // This is why we use random. If it is less than 0.5 then it is genes from the first parent, else it is the other parent.
-                child.genes[i] = random.NextDouble() < 0.5 ? (genes[i]) : otherParent.genes[i]; 
+                child.genes[i] = genes[i++];
             }
+
+            while(i < genes.Length)
+            {
+                child.genes[i] = otherParent.genes[i++];
+            }
+            Console.WriteLine(child.genes[1200]);
             return child;
         }
 
