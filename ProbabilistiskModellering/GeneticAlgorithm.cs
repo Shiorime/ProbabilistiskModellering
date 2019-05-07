@@ -145,7 +145,6 @@ namespace ProbabilistiskModellering
         // method for generating a new generation. 
         public void NewGeneration()
         {
-            List<DNA<T>> tmpList;
 
             if (population.Count <= 0) // just to ensure, that in case the population has not been initialized this method will stop
             {
@@ -168,7 +167,7 @@ namespace ProbabilistiskModellering
 
                 newPopulation.Add(child);
             }
-            tmpList = population;
+            List<DNA<T>> tmpList = population;
             population = newPopulation; // population gets set to the newly generation population
             newPopulation = tmpList;
         }
