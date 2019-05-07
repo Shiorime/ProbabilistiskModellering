@@ -207,7 +207,6 @@ namespace ProbabilistiskModellering
             {
                 if (randomNumber < population[i].fitness)
                 {
-                    Console.WriteLine(i);
                     return population[i];
                 }
                 randomNumber -= population[i].fitness;
