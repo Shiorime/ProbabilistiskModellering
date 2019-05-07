@@ -71,8 +71,6 @@ namespace ProbabilistiskModellering
                 }
                 else
                 {
-                    for (int i = 0; i < 15; i++)
-                        Console.WriteLine(population[i].fitness);
                     NewGeneration(); // new generation gets generated based upon the old one
                     Console.WriteLine($"Best fitness of generation {generation} is: {bestFitness}");
                     ++generation;
@@ -154,8 +152,6 @@ namespace ProbabilistiskModellering
 
             CalculateFitness();
             population.Sort(CompareDNA);
-            for (int i = 0; i < 15; i++)
-                Console.WriteLine(population[i].fitness);
             newPopulation.Clear();
 
             for (int i = 0; i < population.Count; i++)
