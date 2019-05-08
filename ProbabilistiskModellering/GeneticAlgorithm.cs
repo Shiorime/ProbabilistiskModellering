@@ -166,10 +166,7 @@ namespace ProbabilistiskModellering
 
                 newPopulation.Add(child);
             }
-<<<<<<< HEAD
 
-=======
->>>>>>> 4eff395210053eca3373428f72b8132b6f193c92
             List<DNA<T>> tmpList = population;
             population = newPopulation; // population gets set to the newly generation population
             newPopulation = tmpList;
