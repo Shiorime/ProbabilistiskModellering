@@ -22,9 +22,10 @@ namespace ProbabilistiskModellering
 
         public float mutationRate;
         private Random random;
+        private int populationSize;
+        private int elitismCount;
 
         private List<DNA<T>> newPopulation;
-        private List<DNA<T>> elitists;
         private double fitnessSum;
         public int dnaSize;
         private Func<T> GetRandomGene;
@@ -32,9 +33,11 @@ namespace ProbabilistiskModellering
         private int portNumber = 1000;
         private int numberOfInstances;
 
-        public GeneticAlgorithm(int populationSize, int dnaSize, Random random, Func<T> GetRandomGene, float mutationRate = 0.01f)
+        public GeneticAlgorithm(int populationSize, int dnaSize, int elitismCount, Random random, Func<T> GetRandomGene, float mutationRate = 0.01f)
         {
+            this.elitismCount = elitismCount;
             generation = 1;
+            this.populationSize = populationSize;
             this.mutationRate = mutationRate;
             population = new List<DNA<T>>(populationSize);
             newPopulation = new List<DNA<T>>(populationSize);
@@ -145,31 +148,41 @@ namespace ProbabilistiskModellering
         // method for generating a new generation. 
         public void NewGeneration()
         {
+            Console.WriteLine("population count is " + population.Count);
+
             if (population.Count <= 0) // just to ensure, that in case the population has not been initialized this method will stop
             {
                 return;
-            }
+            } 
 
             CalculateFitness();
             population.Sort(CompareDNA);
             newPopulation.Clear();
 
-            for (int i = 0; i < population.Count; i++)
+            for (int i = 0; i < populationSize; i++)
             {
-                DNA<T> parent1 = ChooseParent(); // Currently the selection chooses the two fittest individuals to create a new population. 
-                DNA<T> parent2 = ChooseParent();
-                
+                if( i < elitismCount)
+                {
+                    newPopulation.Add(population[i]);
+                }
 
-                DNA<T> child = parent1.CrossOver(parent2); // call to crossover function
+                else
+                {
+                    DNA<T> parent1 = ChooseParent();
+                    DNA<T> parent2 = ChooseParent();
 
-                child.Mutate(mutationRate);
+                    DNA<T> child = parent1.CrossOver(parent2); // call to crossover function
 
-                newPopulation.Add(child);
+                    child.Mutate(mutationRate);
+
+                    newPopulation.Add(child);
+                }
             }
 
+            
             List<DNA<T>> tmpList = population;
             population = newPopulation; // population gets set to the newly generation population
-            newPopulation = tmpList;
+            newPopulation = tmpList; 
         }
 
         public void CalculateFitness()
@@ -177,9 +190,9 @@ namespace ProbabilistiskModellering
             fitnessSum = 0; // fitnessSum currently has no use, but might be used for roulettewheel selection
             DNA<T> best = population[0];
 
-            for (int i = 0; i < population.Count; i++)
+            for (int i = 0; i < populationSize; i++)
             {
-
+                
                 fitnessSum += population[i].CalculateFitnessIndividual("tripinfo", "timeLoss", sumoOutputFilePath + $"{i}.xml");
 
                 if (population[i].fitness > best.fitness)
@@ -219,6 +232,7 @@ namespace ProbabilistiskModellering
             //https://www.codeproject.com/Articles/25983/How-to-Execute-a-Command-in-C
             string yeet = $"sumo --remote-port {portNumber} -c SUMOFiles/cfg.sumocfg -W true --tripinfo-output {outputFile}";
             ProcessStartInfo sInfo = new ProcessStartInfo("cmd", "/c " + yeet);
+            sInfo.CreateNoWindow = true;
             Process cmd = new Process();
             sInfo.FileName = "cmd.exe";
             cmd.StartInfo = sInfo;
