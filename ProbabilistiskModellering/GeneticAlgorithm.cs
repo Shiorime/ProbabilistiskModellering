@@ -224,22 +224,30 @@ namespace ProbabilistiskModellering
             SaveBestGenesToXMLFile();
         }
 
-        //need rework, is weighted roulette wheel selection, however, it is unsure whether or not it works optimally
         private DNA<T> ChooseParent()
         {
             /* Generating a random double between 0 and fitnessSum. */
             // https://stackoverflow.com/questions/56692/random-weighted-choice
 
-            double randomNumber = random.NextDouble() * fitnessSum;
+            /* Generating a random double between 0 and fitnessSum. */
+            double randomNumber = (fitnessSum * random.NextDouble() * 1.05) + population[0].fitness;
 
+            /* Checks if randomNumber is greater than fitnessSum, if not, increments randomNumber
+               by the the fitness of the i'th individual. Continues until randomNumber is greater
+               than fitnessSum, at which point the parent has been chosen. */
             for (int i = 0; i < population.Count; i++)
             {
-                if (randomNumber < population[i].fitness)
+                if (randomNumber >= fitnessSum)
                 {
                     return population[i];
                 }
-                randomNumber -= population[i].fitness;
+                else
+                {
+                    randomNumber += population[i].fitness;
+                }
             }
+            Console.WriteLine("Something went TERRIBLY WRONG DUMBO...\n");
+            Console.WriteLine($"Fitness sum er = {fitnessSum} \n randomNumber er = {randomNumber} \n population count er = {population.Count}");
             return null;
         }
 
