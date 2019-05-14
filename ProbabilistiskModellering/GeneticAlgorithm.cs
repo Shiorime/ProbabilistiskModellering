@@ -165,8 +165,6 @@ namespace ProbabilistiskModellering
         // method for generating a new generation. 
         public void NewGeneration()
         {
-            Console.WriteLine("population count is " + population.Count);
-
             if (population.Count <= 0) // just to ensure, that in case the population has not been initialized this method will stop
             {
                 return;
@@ -246,8 +244,6 @@ namespace ProbabilistiskModellering
                     randomNumber += population[i].fitness;
                 }
             }
-            Console.WriteLine("Something went TERRIBLY WRONG DUMBO...\n");
-            Console.WriteLine($"Fitness sum er = {fitnessSum} \n randomNumber er = {randomNumber} \n population count er = {population.Count}");
             return null;
         }
 

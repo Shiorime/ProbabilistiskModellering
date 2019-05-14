@@ -16,6 +16,9 @@ namespace ProbabilistiskModellering
     public class Program 
     {
         Random random = new Random();
+        int population = 0;
+        int genes = 0;
+        int elitistNumber = 0;
 
         static void Main(string[] args)
         {
@@ -26,29 +29,17 @@ namespace ProbabilistiskModellering
         {
             await Task.Run(async () =>
             {
-                int population = 0;
                 Program pg = new Program();
 
-                Console.Write("Population count: ");
-                try
-                {
-                    population = int.Parse(Console.ReadLine());
-                }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Invalid. Please write a number. Press any key to close.");
-                    Console.ReadLine();
-                    Environment.Exit(-1);
-                }
+                pg.AskPopulationSize();
+                pg.AskGenePoolSize();
 
-                if(population <= 1)
-                {
-                    Console.WriteLine("A population of one is not useful");
-                    Console.ReadLine();
-                    Environment.Exit(-1);
-                }
+                if (pg.population >= 10)
+                    pg.elitistNumber = 5;
+                else
+                    pg.elitistNumber = pg.population / 2;
 
-                GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(population, 2400, 2, pg.random, pg.GenerateRandomRedYellowGreenState, 0.05f);
+                GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(pg.population, pg.genes, pg.elitistNumber, pg.random, pg.GenerateRandomRedYellowGreenState, 0.05f);
                 
                 await ga.StartGAAsync();
                 ga.NewGeneration();
@@ -83,8 +74,51 @@ namespace ProbabilistiskModellering
             }
             return randomState;
         }
-
         
+        public void AskPopulationSize()
+        {
+            Console.Write("Population count: ");
+            try
+            {
+                population = int.Parse(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Invalid. Please write a number. Press any key to close.");
+                Console.ReadLine();
+                Environment.Exit(-1);
+            }
+
+            if (population <= 1)
+            {
+                Console.WriteLine("A population of one or less is not useful");
+                Console.ReadLine();
+                Environment.Exit(-1);
+            }
+        }
+
+        public void AskGenePoolSize()
+        {
+            Console.Write("Amount of genes: ");
+            try
+            {
+                genes = int.Parse(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Invalid. Please write a number. Press any key to close.");
+                Console.ReadLine();
+                Environment.Exit(-1);
+            }
+
+            if (genes <= 0)
+            {
+                Console.WriteLine("Not possible with a gene pool of 0 or less");
+                Console.ReadLine();
+                Environment.Exit(-1);
+            }
+        }
+
     }
 
 }
