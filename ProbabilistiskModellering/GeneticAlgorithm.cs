@@ -270,7 +270,7 @@ namespace ProbabilistiskModellering
             {
                 doc.Root.Add(new XElement("phase", new XAttribute("duration", "1"), new XAttribute("state", $"{bestGenes[i]}")));
             }
-            doc.Save("./output.xml");
+            doc.Save("./bestGenes.xml");
         }
 
         public void SaveBestFitness()
