@@ -264,8 +264,11 @@ namespace ProbabilistiskModellering
         {
             int size = bestGenes.Count();
 
-            XDocument doc = new XDocument(new XElement("tlLogic", new XAttribute("id", "n0"), new XAttribute("type", "static"), new XAttribute("programID", "69"), new XAttribute("offset", "0"))
-                );
+            XDocument doc = new XDocument(new XElement("tlLogic",
+                new XAttribute("id", "n0"),
+                new XAttribute("type", "static"),
+                new XAttribute("programID", "69"),
+                new XAttribute("offset", "0")));
             for (int i = 0; i < size; ++i)
             {
                 doc.Root.Add(new XElement("phase", new XAttribute("duration", "1"), new XAttribute("state", $"{bestGenes[i]}")));
