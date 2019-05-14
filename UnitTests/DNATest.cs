@@ -14,6 +14,7 @@ namespace UnitTests
     {
 
         [TestMethod]
+        /* Testing if the getting specific attribute from XML file and assigning it works properly */
         public void GetSpecificXMLAttributeFromFile_ExpectedFirstArrayElement_ReturnsArray()
         {
             
@@ -21,15 +22,17 @@ namespace UnitTests
             DNA<string> test = new DNA<string>(0, TestString, 0.0, true);
             string filePath = "./../../../../TestFiles/XMLTest.xml";
             string[] result = new string[1];
+            string expected = "6.78";
 
             // Act
             result = test.GetSpecificXMLAttributeFromFile("tripinfo", "timeLoss", filePath);
 
             // Assert
-            Assert.AreEqual(result[0], "6.78");
+            Assert.AreEqual(result[0], expected);
         }
 
         [TestMethod]
+        /* Testing if the fitness function outputs correctly, by using a controlled test file. */
         public void CalculateFitnessIndividual_DoesCorrectCalculation_ReturnsDouble()
         {
             // Arrange
@@ -46,13 +49,13 @@ namespace UnitTests
             }
             double result = timeLossSum;
 
-            double expected = 1 - ((6.78 / 1 - 5) / (25));
+            double expected = Math.Pow(2, -(0.1 * 6.78));
 
             // Act
             result = test.CalculateFitnessIndividual(element, attribute, filePath);
 
             // Assert
-            Assert.AreEqual(result, expected, 0.1);
+            Assert.AreEqual(result, expected);
                 
         }
 

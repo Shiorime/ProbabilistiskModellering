@@ -13,20 +13,22 @@ namespace UnitTests
     public class ProgramTest
     { 
         [TestMethod]
+        /* Testing the generation of a random RYG-state */
+        /* consider DataRows / Random Seeds */
         public void GenerateRandomRedYellowGreenState_ExpectedRes1OrRes2Value_ReturnsString()
         {
             //arrange
             Program testProgram = new Program();
             string res1 = "GGGrrrrGGrr";
-            string res2 = "rrrGGGGrrGG";
+            string expected = "rrrGGGGrrGG";
 
             //act
             string testString = testProgram.GenerateRandomRedYellowGreenState();
             if (testString.Equals(res1))
-                testString = res2;
+                testString = expected;
 
             //assert
-            Assert.AreEqual(testString, res2);
+            Assert.AreEqual(testString, expected);
 
         }
     }

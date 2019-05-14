@@ -13,6 +13,7 @@ namespace UnitTests
     public class GeneticAlgorithmTest
     {
         [TestMethod]
+        /* Testing the GeneticAlgorithm constructor, specifically if population count is being assigned. */
         public void GeneticAlgorithmConstructor_IfTheConstructorAssignsCorrectly_ReturnsList()
         {
             //arrange
@@ -21,12 +22,12 @@ namespace UnitTests
             int expected = 2;
 
             //act
-            GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(2, 10, random, pg.GenerateRandomRedYellowGreenState, 0.05f);
+            GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(2, 10, 2, random, pg.GenerateRandomRedYellowGreenState, 0.05f);
 
             //assert
             Assert.AreEqual(ga.population.Count, expected);
         }
-
+        /* Simplified CompareDNA method in order to reduce arrangement requirements */
         private int CompareDNAModified(_DNA a, _DNA b)
         {
             if (a.fitness > b.fitness)
@@ -42,6 +43,8 @@ namespace UnitTests
                 return 0;
             }
         }
+        [TestMethod]
+        /* Testing the CompareDNA method for all three possible outcomes. */
         [DataRow(1,2,1)]
         [DataRow(2,1,-1)]
         [DataRow(1,1,0)]
