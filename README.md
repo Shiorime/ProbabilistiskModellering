@@ -1,4 +1,5 @@
 # Probabilistisk Modellering
+* Download the program from https://github.com/Shizukanawa/ProbabilistiskModellering/releases
 
 ## Requirements
 * SUMO 1.2.0
