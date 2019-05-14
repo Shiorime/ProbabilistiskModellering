@@ -214,6 +214,7 @@ namespace ProbabilistiskModellering
             bestFitness = best.fitness;
             best.genes.CopyTo(bestGenes, 0);
 
+            SaveBestGenesToXMLFile();
         }
 
         //need rework, is weighted roulette wheel selection, however, it is unsure whether or not it works optimally
@@ -240,8 +241,8 @@ namespace ProbabilistiskModellering
         public void OpenSumo(int portNumber, string outputFile)
         {
             //https://www.codeproject.com/Articles/25983/How-to-Execute-a-Command-in-C
-            string yeet = $"sumo --remote-port {portNumber} -c SUMOFiles/cfg.sumocfg -W true --tripinfo-output {outputFile}";
-            ProcessStartInfo sInfo = new ProcessStartInfo("cmd", "/c " + yeet);
+            string command = $"sumo --remote-port {portNumber} -c SUMOFiles/cfg.sumocfg -W true --tripinfo-output {outputFile}";
+            ProcessStartInfo sInfo = new ProcessStartInfo("cmd", "/c " + command);
             sInfo.CreateNoWindow = true;
             Process cmd = new Process();
             sInfo.FileName = "cmd.exe";
