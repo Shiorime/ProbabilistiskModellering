@@ -110,11 +110,21 @@ namespace ProbabilistiskModellering
             // control trafficlights in simulation
             for (int i = 0; i < dnaSize; ++i)
             {
-                Parallel.For(0, numberOfInstances, j =>
-               {
-                   listOfTrafficLights[j].SetRedYellowGreenState("n0", $"{population[j].genes[i]}");
-                   listOfClients[j].Control.SimStep();
-               });
+                try
+                {
+                    Parallel.For(0, numberOfInstances, j =>
+                    {
+                       listOfTrafficLights[j].SetRedYellowGreenState("n0", $"{population[j].genes[i]}");
+                       listOfClients[j].Control.SimStep();
+                    });
+                }
+                catch(NullReferenceException)
+                {
+                    listOfClients.Clear();
+                    listOfSimulations.Clear();
+                    listOfTrafficLights.Clear();
+                    await RunSimulationAsync();
+                }
             }
 
 
