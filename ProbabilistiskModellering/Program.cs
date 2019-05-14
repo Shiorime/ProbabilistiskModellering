@@ -26,20 +26,35 @@ namespace ProbabilistiskModellering
         {
             await Task.Run(async () =>
             {
+                int population = 0;
                 Program pg = new Program();
-                Stopwatch stopwatch = new Stopwatch();
 
-                stopwatch.Start();
+                Console.Write("Population count: ");
+                try
+                {
+                    population = int.Parse(Console.ReadLine());
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Invalid. Please write a number. Press any key to close.");
+                    Console.ReadLine();
+                    Environment.Exit(-1);
+                }
 
-                GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(20, 2400, 2, pg.random, pg.GenerateRandomRedYellowGreenState, 0.05f);
+                if(population <= 1)
+                {
+                    Console.WriteLine("A population of one is not useful");
+                    Console.ReadLine();
+                    Environment.Exit(-1);
+                }
+
+                GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(population, 2400, 2, pg.random, pg.GenerateRandomRedYellowGreenState, 0.05f);
                 
                 await ga.StartGAAsync();
                 ga.NewGeneration();
                 ga.SaveBestGenesToXMLFile();
+                ga.SaveBestFitness();
                 Console.WriteLine($"Best fitness of generation {ga.generation} is: {ga.bestFitness}");
-                stopwatch.Stop();
-                Console.WriteLine(stopwatch.Elapsed.ToString());
-                Console.ReadKey();
 
                 Console.WriteLine("Program complete");
                 Console.ReadLine();

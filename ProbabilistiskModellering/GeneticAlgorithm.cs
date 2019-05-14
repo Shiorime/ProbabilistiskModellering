@@ -14,7 +14,8 @@ namespace ProbabilistiskModellering
 {
     public class GeneticAlgorithm<T>
     {
-        string sumoOutputFilePath = "./SUMOFiles/out";
+        private string sumoOutputFilePath = "./SUMOFiles/out";
+        private string bestFitnessPath = "./bestFitness.txt";
         public List<DNA<T>> population { get; private set; }
         public int generation { get; private set; }
         public double bestFitness { get; private set; }
@@ -58,6 +59,10 @@ namespace ProbabilistiskModellering
         // this method starts and updates the genetic algortihm as it runs. 
         public async Task StartGAAsync()
         {
+            if(File.Exists(bestFitnessPath))
+            {
+                File.Delete(bestFitnessPath);
+            }
             bestFitness = 0.5;
             // one call to start the simulation and run it is required to start the genetic algorithm
             await RunSimulationAsync();
@@ -76,6 +81,7 @@ namespace ProbabilistiskModellering
                 {
                     NewGeneration(); // new generation gets generated based upon the old one
                     Console.WriteLine($"Best fitness of generation {generation} is: {bestFitness}");
+                    SaveBestFitness();
                     ++generation;
                     await RunSimulationAsync(); // call to start simulation is made again
                 }
@@ -97,6 +103,7 @@ namespace ProbabilistiskModellering
                 listOfTrafficLights.Add(new TrafficLightCommands(listOfClients[i]));
             }
 
+            portNumber = 1000;
             //open SUMO clients
             for (int i = 0; i < numberOfInstances; ++i)
             {
@@ -141,7 +148,7 @@ namespace ProbabilistiskModellering
 
             // task delay has been inserted, since SUMO is slow at outputting .xml files
             // this is done to avoid "file already in use" exception
-            await Task.Delay(2000);
+            await Task.Delay(5000);
         }
 
         // compare DNA method for sorting the list of individuals in the population based upon their fitness
@@ -220,6 +227,7 @@ namespace ProbabilistiskModellering
         //need rework, is weighted roulette wheel selection, however, it is unsure whether or not it works optimally
         private DNA<T> ChooseParent()
         {
+            /* Generating a random double between 0 and fitnessSum. */
             // https://stackoverflow.com/questions/56692/random-weighted-choice
 
             double randomNumber = random.NextDouble() * fitnessSum;
@@ -233,8 +241,6 @@ namespace ProbabilistiskModellering
                 randomNumber -= population[i].fitness;
             }
             return null;
-
-
         }
 
         // method for opening sumo with desired command line arguments
@@ -260,6 +266,24 @@ namespace ProbabilistiskModellering
                 doc.Root.Add(new XElement("element", bestGenes[i]));
             }
             doc.Save("./output.xml");
+        }
+
+        public void SaveBestFitness()
+        {
+            //https://docs.microsoft.com/en-us/dotnet/api/system.io.file.appendtext?view=netframework-4.8
+ 
+            if (!File.Exists(bestFitnessPath))
+            {
+                using (StreamWriter sw = File.CreateText(bestFitnessPath))
+                {
+                    sw.WriteLine($"{bestFitness}");
+                }
+            }
+            else
+            {
+                using (StreamWriter sw = File.AppendText(bestFitnessPath))
+                    sw.WriteLine($"{bestFitness}");
+            }
         }
     }
 }
