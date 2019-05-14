@@ -1,17 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/20/19 15:04:36 by Eclipse SUMO netconvert Version 1.1.0
+<!-- generated on 05/14/19 17:19:07 by Eclipse SUMO netedit Version 1.1.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="nodes.nod.xml"/>
-        <edge-files value="edges.edg.xml"/>
-        <connection-files value="connections.con.xml"/>
+        <sumo-net-file value="C:\Users\Trung\Repos\ProbabilistiskModellering\SUMOFiles\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="C:\Users\Trung\Repos\ProbabilistiskModellering\SUMOFiles\net.net.xml"/>
     </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
 
 </configuration>
 -->
@@ -94,13 +113,39 @@
 
     <tlLogic id="n0" type="static" programID="0" offset="0">
         <phase duration="29" state="rrrGGGGrrGG"/>
-        
-        
-        <phase duration="5"  state="rrryyyyrryy"/>
+        <phase duration="10" state="rrryyyyrryy"/>
         <phase duration="29" state="GGGrrrrGGrr"/>
-        
-        
         <phase duration="5"  state="yyyrrrryyrr"/>
+    </tlLogic>
+    <tlLogic id="n0" type="static" programID="2" offset="0">
+        <phase duration="29" state="rrrGGGrrrGr"/>
+        <phase duration="5"  state="rrryyyrrryr"/>
+        <phase duration="6"  state="rrrrrrGrrrG"/>
+        <phase duration="5"  state="rrrrrryrrry"/>
+        <phase duration="29" state="GGrrrrrGGrr"/>
+        <phase duration="5"  state="yyrrrrryyrr"/>
+        <phase duration="6"  state="rrGrrrrrrrr"/>
+        <phase duration="5"  state="rryrrrrrrrr"/>
+    </tlLogic>
+    <tlLogic id="n0" type="static" programID="3" offset="0">
+        <phase duration="29" state="rrrGGGrrrGr"/>
+        <phase duration="5"  state="rrryyyrrryr"/>
+        <phase duration="6"  state="rrrrrrGrrrG"/>
+        <phase duration="5"  state="rrrrrryrrry"/>
+        <phase duration="29" state="GGrrrrrGGrr"/>
+        <phase duration="5"  state="yyrrrrryyrr"/>
+        <phase duration="6"  state="rrGrrrrrrrr"/>
+        <phase duration="5"  state="rryrrrrrrrr"/>
+    </tlLogic>
+    <tlLogic id="n0" type="static" programID="4" offset="0">
+        <phase duration="29" state="rrrGGGrrrGr"/>
+        <phase duration="5"  state="rrryyyrrryr"/>
+        <phase duration="6"  state="rrrrrrGrrrG"/>
+        <phase duration="5"  state="rrrrrryrrry"/>
+        <phase duration="29" state="GGrrrrrGGrr"/>
+        <phase duration="5"  state="yyrrrrryyrr"/>
+        <phase duration="6"  state="rrGrrrrrrrr"/>
+        <phase duration="5"  state="rryrrrrrrrr"/>
     </tlLogic>
 
     <junction id="1i" type="dead_end" x="0.00" y="500.00" incLanes="0to1_0 0to1_1" intLanes="" shape="0.00,506.40 0.00,500.00"/>
