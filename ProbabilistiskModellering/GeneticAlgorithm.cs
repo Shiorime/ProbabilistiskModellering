@@ -222,7 +222,7 @@ namespace ProbabilistiskModellering
             // https://stackoverflow.com/questions/56692/random-weighted-choice
 
             /* Generating a random double between 0 and fitnessSum. */
-            double randomNumber = fitnessSum * random.NextDouble() * 1.05;
+            double randomNumber = (fitnessSum * random.NextDouble() * 1.05) + population[0].fitness;
 
             /* Checks if randomNumber is greater than fitnessSum, if not, increments randomNumber
                by the the fitness of the i'th individual. Continues until randomNumber is greater
@@ -238,6 +238,8 @@ namespace ProbabilistiskModellering
                     randomNumber += population[i].fitness;
                 }
             }
+            Console.WriteLine("Something went TERRIBLY WRONG DUMBO...\n");
+            Console.WriteLine($"Fitness sum er = {fitnessSum} \n randomNumber er = {randomNumber} \n population count er = {population.Count}");
             return null;
 
 
