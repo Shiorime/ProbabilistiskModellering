@@ -9,6 +9,7 @@ using System.Xml.Linq;
 using System.Diagnostics;
 using CodingConnected.TraCI.NET;
 using CodingConnected.TraCI.NET.Commands;
+using System.Net.Sockets;
 
 namespace ProbabilistiskModellering
 {
@@ -105,12 +106,22 @@ namespace ProbabilistiskModellering
 
             portNumber = 1000;
             //open SUMO clients
-            for (int i = 0; i < numberOfInstances; ++i)
+            try
             {
-                OpenSumo(portNumber, sumoOutputFilePath + $"{i}.xml");
-                await Task.Delay(100);
-                await listOfClients[i].ConnectAsync("127.0.0.1", portNumber);
-                ++portNumber;
+                for (int i = 0; i < numberOfInstances; ++i)
+                {
+                    OpenSumo(portNumber, sumoOutputFilePath + $"{i}.xml");
+                    await Task.Delay(100);
+                    await listOfClients[i].ConnectAsync("127.0.0.1", portNumber);
+                    ++portNumber;
+                }
+            }
+            catch (SocketException)
+            {
+                listOfClients.Clear();
+                listOfSimulations.Clear();
+                listOfTrafficLights.Clear();
+                await RunSimulationAsync();
             }
 
 
