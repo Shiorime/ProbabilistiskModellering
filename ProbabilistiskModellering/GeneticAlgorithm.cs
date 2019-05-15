@@ -235,10 +235,7 @@ namespace ProbabilistiskModellering
 
         private DNA<T> ChooseParent()
         {
-            /* Generating a random double between 0 and fitnessSum. */
-            // https://stackoverflow.com/questions/56692/random-weighted-choice
-
-            /* Generating a random double between 0 and fitnessSum. */
+            /* Generating a random double between 0 and a value above fitnessSum. */
             double randomNumber = (fitnessSum * random.NextDouble() * 1.05) + population[0].fitness;
 
             /* Checks if randomNumber is greater than fitnessSum, if not, increments randomNumber
