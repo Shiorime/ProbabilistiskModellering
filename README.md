@@ -1,6 +1,8 @@
 # Probabilistisk Modellering
 * Download the program from https://github.com/Shizukanawa/ProbabilistiskModellering/releases/latest
 
+# WARNING!! RUNNING THE PROGRAM MAY CAUSE YOUR COMPUTER TO BE UNRESPONSIVE
+
 ## Requirements
 * SUMO 1.2.0
 * .NET Framework 4.6.1
