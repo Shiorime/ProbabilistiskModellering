@@ -19,6 +19,8 @@ namespace ProbabilistiskModellering
         int population = 0;
         int genes = 0;
         int elitistNumber = 0;
+        int generationStop = 0;
+        double fitnessStop = 0.0;
 
         static void Main(string[] args)
         {
@@ -33,13 +35,15 @@ namespace ProbabilistiskModellering
 
                 pg.AskPopulationSize();
                 pg.AskGenePoolSize();
+                pg.AskGenerationStopSize();
+                pg.AskFitnessScoreStopSize();
 
                 if (pg.population >= 10)
                     pg.elitistNumber = 5;
                 else
                     pg.elitistNumber = pg.population / 2;
 
-                GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(pg.population, pg.genes, pg.elitistNumber, pg.random, pg.GenerateRandomRedYellowGreenState, 0.05f);
+                GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(pg.population, pg.genes, pg.elitistNumber, pg.generationStop, pg.fitnessStop, pg.random, pg.GenerateRandomRedYellowGreenState, 0.05f);
                 
                 await ga.StartGAAsync();
                 ga.NewGeneration();
@@ -77,7 +81,7 @@ namespace ProbabilistiskModellering
         
         public void AskPopulationSize()
         {
-            Console.Write("Population count: ");
+            Console.Write("Desired population count: ");
             try
             {
                 population = int.Parse(Console.ReadLine());
@@ -99,7 +103,7 @@ namespace ProbabilistiskModellering
 
         public void AskGenePoolSize()
         {
-            Console.Write("Amount of genes: ");
+            Console.Write("Desired gene length: ");
             try
             {
                 genes = int.Parse(Console.ReadLine());
@@ -114,6 +118,50 @@ namespace ProbabilistiskModellering
             if (genes <= 0)
             {
                 Console.WriteLine("Not possible with a gene pool of 0 or less");
+                Console.ReadLine();
+                Environment.Exit(-1);
+            }
+        }
+
+        public void AskGenerationStopSize()
+        {
+            Console.Write("Stop when reaching generation number: ");
+            try
+            {
+                generationStop = int.Parse(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Invalid. Please write a number. Press any key to close.");
+                Console.ReadLine();
+                Environment.Exit(-1);
+            }
+
+            if (generationStop <= 0)
+            {
+                Console.WriteLine("Not possible with a generation count less than or equal to 0");
+                Console.ReadLine();
+                Environment.Exit(-1);
+            }
+        }
+
+        public void AskFitnessScoreStopSize()
+        {
+            Console.Write("Stop when reaching fitness score: ");
+            try
+            {
+                fitnessStop = double.Parse(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Invalid. Please write a number. Press any key to close.");
+                Console.ReadLine();
+                Environment.Exit(-1);
+            }
+
+            if (fitnessStop > 0.0 && fitnessStop < 1.0)
+            {
+                Console.WriteLine("Not possible with fitness below 0 and above 1");
                 Console.ReadLine();
                 Environment.Exit(-1);
             }

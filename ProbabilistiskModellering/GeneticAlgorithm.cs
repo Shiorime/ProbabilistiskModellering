@@ -26,6 +26,8 @@ namespace ProbabilistiskModellering
         private Random random;
         private int populationSize;
         private int elitismCount;
+        private int generationStop;
+        private double fitnessStop;
 
         private List<DNA<T>> newPopulation;
         private double fitnessSum;
@@ -35,10 +37,12 @@ namespace ProbabilistiskModellering
         private int portNumber = 1000;
         private int numberOfInstances;
 
-        public GeneticAlgorithm(int populationSize, int dnaSize, int elitismCount, Random random, Func<T> GetRandomGene, float mutationRate = 0.01f)
+        public GeneticAlgorithm(int populationSize, int dnaSize, int elitismCount, int generationStop, double fitnessStop, Random random, Func<T> GetRandomGene, float mutationRate = 0.01f)
         {
             this.elitismCount = elitismCount;
             generation = 1;
+            this.generationStop = generationStop;
+            this.fitnessStop = fitnessStop;
             this.populationSize = populationSize;
             this.mutationRate = mutationRate;
             population = new List<DNA<T>>(populationSize);
@@ -74,7 +78,7 @@ namespace ProbabilistiskModellering
             {
                 // this if statement is the stop condition for the program. When this is met, the flag will be set to true
                 // and the program will stop.
-                if (bestFitness >= 0.85 || generation >= 100)
+                if (bestFitness >= fitnessStop || generation >= generationStop)
                 {
                     shouldStop = true;
                 }
