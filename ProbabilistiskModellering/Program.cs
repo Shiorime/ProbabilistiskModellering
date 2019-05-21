@@ -117,7 +117,7 @@ namespace ProbabilistiskModellering
 
             if (genes <= 0)
             {
-                Console.WriteLine("Not possible with a gene pool of 0 or less");
+                Console.WriteLine("Not possible with a gene pool of 0 or less. Press any key to close.");
                 Console.ReadLine();
                 Environment.Exit(-1);
             }
@@ -139,7 +139,7 @@ namespace ProbabilistiskModellering
 
             if (generationStop <= 0)
             {
-                Console.WriteLine("Not possible with a generation count less than or equal to 0");
+                Console.WriteLine("Not possible with a generation count less than or equal to 0. Press any key to close.");
                 Console.ReadLine();
                 Environment.Exit(-1);
             }
@@ -154,14 +154,14 @@ namespace ProbabilistiskModellering
             }
             catch (FormatException)
             {
-                Console.WriteLine("Invalid. Please write a number. Press any key to close.");
+                Console.WriteLine("Invalid. Please write a number. Press any key to close. Press any key to close.");
                 Console.ReadLine();
                 Environment.Exit(-1);
             }
 
             if (fitnessStop > 0.0 && fitnessStop < 1.0)
             {
-                Console.WriteLine("Not possible with fitness below 0 and above 1");
+                Console.WriteLine("Not possible with fitness below 0 and above 1. Press any key to close.");
                 Console.ReadLine();
                 Environment.Exit(-1);
             }

@@ -22,7 +22,7 @@ namespace UnitTests
             int expected = 2;
 
             //act
-            GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(2, 10, 2, random, pg.GenerateRandomRedYellowGreenState, 0.05f);
+            GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(2, 10, 2, 5, 0.5, random, pg.GenerateRandomRedYellowGreenState, 0.05f);
 
             //assert
             Assert.AreEqual(ga.population.Count, expected);
