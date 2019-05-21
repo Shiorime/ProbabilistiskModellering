@@ -2,17 +2,17 @@
     <vType id="bus" length="10.0" maxSpeed="27.8" sigma="0.0" accel="0.7" decel="5.0" vClass="bus" guiShape="bus"/>
     <vType id="passenger" length="3.0" maxSpeed="27.8" sigma="0.0" accel="1.0" decel="5.0" vClass="passenger" guiShape="passenger"/>
 
-    <flow id="1to3" begin="0" end="2400" number="15" from="1to0" to="0to3" type="bus"/>
-    <flow id="1to2" begin="0" end="2400" number="320" from="1to0" to="0to2"/>
+    <flow id="1to3" begin="0" end="900" number="8" from="1to0" to="0to3" type="bus"/>
+    <flow id="1to2" begin="0" end="900" number="199" from="1to0" to="0to2"/>
 
-    <flow id="2to1" begin="0" end="2400" number="474" from="2to0" to="0to1"/>
-    <flow id="2to3" begin="0" end="2400" number="69" from="2to0" to="0to3"/>
-    <flow id="2to4" begin="0" end="2400" number="39" from="2to0" to="0to4"/>
+    <flow id="2to1" begin="0" end="900" number="185" from="2to0" to="0to1"/>
+    <flow id="2to3" begin="0" end="900" number="15" from="2to0" to="0to3"/>
+    <flow id="2to4" begin="0" end="900" number="10" from="2to0" to="0to4"/>
 
-    <flow id="3to1" begin="0" end="2400" number="42" from="3to0" to="0to1"/>
-    <flow id="3to2" begin="0" end="2400" number="65" from="3to0" to="0to2"/>
-    <flow id="3to4" begin="0" end="2400" number="34" from="3to0" to="0to4"/>
+    <flow id="3to1" begin="0" end="900" number="18" from="3to0" to="0to1"/>
+    <flow id="3to2" begin="0" end="900" number="11" from="3to0" to="0to2"/>
+    <flow id="3to4" begin="0" end="900" number="11" from="3to0" to="0to4"/>
 
-    <flow id="4to2" begin="0" end="2400" number="33" from="4to0" to="0to2"/>
-    <flow id="4to3" begin="0" end="2400" number="55" from="4to0" to="0to3"/>
+    <flow id="4to2" begin="0" end="900" number="11" from="4to0" to="0to2"/>
+    <flow id="4to3" begin="0" end="900" number="24" from="4to0" to="0to3"/>
 </routes>
