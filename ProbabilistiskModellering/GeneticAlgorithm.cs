@@ -96,12 +96,13 @@ namespace ProbabilistiskModellering
         // method for running simulation 
         private async Task RunSimulationAsync()
         {
+            int i = 0;
             List<TraCIClient> listOfClients = new List<TraCIClient>();
             List<SimulationCommands> listOfSimulations = new List<SimulationCommands>();
             List<TrafficLightCommands> listOfTrafficLights = new List<TrafficLightCommands>();
 
             //initialize clients, simulationCommands and trafficlightCommands used for controlling sumo
-            for (int i = 0; i < numberOfInstances; ++i)
+            for (i = 0; i < numberOfInstances; ++i)
             {
                 listOfClients.Add(new TraCIClient());
                 listOfSimulations.Add(new SimulationCommands(listOfClients[i]));
@@ -112,7 +113,7 @@ namespace ProbabilistiskModellering
             //open SUMO clients
             try
             {
-                for (int i = 0; i < numberOfInstances; ++i)
+                for (i = 0; i < numberOfInstances; ++i)
                 {
                     OpenSumo(portNumber, sumoOutputFilePath + $"{i}.xml");
                     await Task.Delay(100);
@@ -122,6 +123,8 @@ namespace ProbabilistiskModellering
             }
             catch (SocketException)
             {
+                await Task.Delay(1000);
+                Array.ForEach(Process.GetProcessesByName("sumo"), x => x.Kill());
                 listOfClients.Clear();
                 listOfSimulations.Clear();
                 listOfTrafficLights.Clear();
@@ -130,7 +133,7 @@ namespace ProbabilistiskModellering
 
 
             // control trafficlights in simulation
-            for (int i = 0; i < dnaSize; ++i)
+            for (i = 0; i < dnaSize; ++i)
             {
                 try
                 {
@@ -142,6 +145,8 @@ namespace ProbabilistiskModellering
                 }
                 catch(NullReferenceException)
                 {
+                    await Task.Delay(1000);
+                    Array.ForEach(Process.GetProcessesByName("sumo"), x => x.Kill());
                     listOfClients.Clear();
                     listOfSimulations.Clear();
                     listOfTrafficLights.Clear();
@@ -151,7 +156,7 @@ namespace ProbabilistiskModellering
 
 
             // close clients, hence close ports, so they can be used again for the next round of simulations
-            for (int i = 0; i < listOfClients.Count; ++i)
+            for (i = 0; i < listOfClients.Count; ++i)
             {
                 listOfClients[i].Control.Close();
             }

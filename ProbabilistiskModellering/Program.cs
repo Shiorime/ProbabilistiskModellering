@@ -9,6 +9,7 @@ using System.Xml;
 using System.Globalization;
 using CodingConnected.TraCI.NET;
 using CodingConnected.TraCI.NET.Commands;
+using System.Management;
 
 namespace ProbabilistiskModellering
 {
@@ -44,11 +45,12 @@ namespace ProbabilistiskModellering
                     pg.elitistNumber = pg.population / 2;
 
                 GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(pg.population, pg.genes, pg.elitistNumber, pg.generationStop, pg.fitnessStop, pg.random, pg.GenerateRandomRedYellowGreenState, 0.05f);
-                
+
                 await ga.StartGAAsync();
                 ga.NewGeneration();
                 ga.SaveBestGenesToXMLFile();
                 ga.SaveBestFitness();
+
                 Console.WriteLine($"Best fitness of generation {ga.generation} is: {ga.bestFitness}");
 
                 Console.WriteLine("Program complete");
