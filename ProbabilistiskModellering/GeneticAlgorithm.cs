@@ -168,7 +168,7 @@ namespace ProbabilistiskModellering
 
             // task delay has been inserted, since SUMO is slow at outputting .xml files
             // this is done to avoid "file already in use" exception
-            await Task.Delay(5000);
+            await Task.Delay((populationSize / 200) * 5000);
         }
 
         // compare DNA method for sorting the list of individuals in the population based upon their fitness

@@ -117,36 +117,6 @@
         <phase duration="29" state="GGGrrrrGGrr"/>
         <phase duration="5"  state="yyyrrrryyrr"/>
     </tlLogic>
-    <tlLogic id="n0" type="static" programID="2" offset="0">
-        <phase duration="29" state="rrrGGGrrrGr"/>
-        <phase duration="5"  state="rrryyyrrryr"/>
-        <phase duration="6"  state="rrrrrrGrrrG"/>
-        <phase duration="5"  state="rrrrrryrrry"/>
-        <phase duration="29" state="GGrrrrrGGrr"/>
-        <phase duration="5"  state="yyrrrrryyrr"/>
-        <phase duration="6"  state="rrGrrrrrrrr"/>
-        <phase duration="5"  state="rryrrrrrrrr"/>
-    </tlLogic>
-    <tlLogic id="n0" type="static" programID="3" offset="0">
-        <phase duration="29" state="rrrGGGrrrGr"/>
-        <phase duration="5"  state="rrryyyrrryr"/>
-        <phase duration="6"  state="rrrrrrGrrrG"/>
-        <phase duration="5"  state="rrrrrryrrry"/>
-        <phase duration="29" state="GGrrrrrGGrr"/>
-        <phase duration="5"  state="yyrrrrryyrr"/>
-        <phase duration="6"  state="rrGrrrrrrrr"/>
-        <phase duration="5"  state="rryrrrrrrrr"/>
-    </tlLogic>
-    <tlLogic id="n0" type="static" programID="4" offset="0">
-        <phase duration="29" state="rrrGGGrrrGr"/>
-        <phase duration="5"  state="rrryyyrrryr"/>
-        <phase duration="6"  state="rrrrrrGrrrG"/>
-        <phase duration="5"  state="rrrrrryrrry"/>
-        <phase duration="29" state="GGrrrrrGGrr"/>
-        <phase duration="5"  state="yyrrrrryyrr"/>
-        <phase duration="6"  state="rrGrrrrrrrr"/>
-        <phase duration="5"  state="rryrrrrrrrr"/>
-    </tlLogic>
 
     <junction id="1i" type="dead_end" x="0.00" y="500.00" incLanes="0to1_0 0to1_1" intLanes="" shape="0.00,506.40 0.00,500.00"/>
     <junction id="1o" type="dead_end" x="0.00" y="500.00" incLanes="" intLanes="" shape="0.00,500.00 0.00,493.60"/>

@@ -34,7 +34,10 @@ namespace ProbabilistiskModellering
             {
                 Program pg = new Program();
 
-                pg.AskPopulationSize();
+                Console.WriteLine(pg.CalculateFitnessIndividual("tripinfo", "timeLoss", "./sumo.xml"));
+                Console.ReadLine();
+
+                /*pg.AskPopulationSize();
                 pg.AskGenePoolSize();
                 pg.AskGenerationStopSize();
                 pg.AskFitnessScoreStopSize();
@@ -54,7 +57,7 @@ namespace ProbabilistiskModellering
                 Console.WriteLine($"Best fitness of generation {ga.generation} is: {ga.bestFitness}");
 
                 Console.WriteLine("Program complete");
-                Console.ReadLine();
+                Console.ReadLine();*/
             });
         }
 
@@ -167,6 +170,38 @@ namespace ProbabilistiskModellering
                 Console.ReadLine();
                 Environment.Exit(-1);
             }
+        }
+
+        public double CalculateFitnessIndividual(string element, string attribute, string filePath)
+        {
+            string[] timeLossArray = GetSpecificXMLAttributeFromFile(element, attribute, filePath);
+            int cars = timeLossArray.Count();
+            double timeLossSum = 0.0;
+            for (int i = 0; i < cars; i++)
+            {
+                timeLossSum += double.Parse(timeLossArray[i], CultureInfo.InvariantCulture);
+            }
+            double timeLossAvg = timeLossSum / cars;
+            // ide til anden matematisk model https://math.stackexchange.com/questions/384613/exponential-function-with-values-between-0-and-1-for-x-values-between-0-and-1
+
+            return Math.Pow(2, -(0.1 * timeLossAvg));
+
+        }
+
+        public string[] GetSpecificXMLAttributeFromFile(string element, string attribute, string filePath)
+        {
+            //https://stackoverflow.com/questions/933687/read-xml-attribute-using-xmldocument
+            XmlDocument xmlDoc = new XmlDocument(); /* Create new XmlDocument */
+            xmlDoc.Load(filePath);                  /* Load the xml file from filePath */
+            XmlNodeList list = xmlDoc.GetElementsByTagName($"{element}"); /* Find elements with interval. Put it into an array/list */
+            string[] finalArray = new string[list.Count];
+
+            for (int i = 0; i < list.Count; ++i)
+            {
+                finalArray[i] = list[i].Attributes[$"{attribute}"].Value;
+            }
+
+            return finalArray;
         }
 
     }
