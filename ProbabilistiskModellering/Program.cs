@@ -34,10 +34,7 @@ namespace ProbabilistiskModellering
             {
                 Program pg = new Program();
 
-                Console.WriteLine(pg.CalculateFitnessIndividual("tripinfo", "timeLoss", "./sumo.xml"));
-                Console.ReadLine();
-
-                /*pg.AskPopulationSize();
+                pg.AskPopulationSize();
                 pg.AskGenePoolSize();
                 pg.AskGenerationStopSize();
                 pg.AskFitnessScoreStopSize();
@@ -57,7 +54,7 @@ namespace ProbabilistiskModellering
                 Console.WriteLine($"Best fitness of generation {ga.generation} is: {ga.bestFitness}");
 
                 Console.WriteLine("Program complete");
-                Console.ReadLine();*/
+                Console.ReadLine();
             });
         }
 
