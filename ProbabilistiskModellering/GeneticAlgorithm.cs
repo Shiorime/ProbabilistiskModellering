@@ -123,46 +123,29 @@ namespace ProbabilistiskModellering
             }
             catch (SocketException)
             {
-                await Task.Delay(1000);
-                Array.ForEach(Process.GetProcessesByName("sumo"), x => x.Kill());
-                listOfClients.Clear();
-                listOfSimulations.Clear();
-                listOfTrafficLights.Clear();
-                await RunSimulationAsync();
+                await HandleExceptions(listOfClients, listOfSimulations, listOfTrafficLights);
             }
-
 
             // control trafficlights in simulation
             for (i = 0; i < dnaSize; ++i)
             {
-                try
+                Parallel.For(0, numberOfInstances, async j =>
                 {
-                    Parallel.For(0, numberOfInstances, j =>
+                    try
                     {
-                       listOfTrafficLights[j].SetRedYellowGreenState("n0", $"{population[j].genes[i]}");
-                       listOfClients[j].Control.SimStep();
-                    });
-                }
-                catch(NullReferenceException)
-                {
-                    await Task.Delay(1000);
-                    Array.ForEach(Process.GetProcessesByName("sumo"), x => x.Kill());
-                    listOfClients.Clear();
-                    listOfSimulations.Clear();
-                    listOfTrafficLights.Clear();
-                    await RunSimulationAsync();
-                }
-                catch(ArgumentOutOfRangeException)
-                {
-                    await Task.Delay(1000);
-                    Array.ForEach(Process.GetProcessesByName("sumo"), x => x.Kill());
-                    listOfClients.Clear();
-                    listOfSimulations.Clear();
-                    listOfTrafficLights.Clear();
-                    await RunSimulationAsync();
-                }
+                        listOfTrafficLights[j].SetRedYellowGreenState("n0", $"{population[j].genes[i]}");
+                        listOfClients[j].Control.SimStep();
+                    }
+                    catch (NullReferenceException)
+                    {
+                        await HandleExceptions(listOfClients, listOfSimulations, listOfTrafficLights);
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        await HandleExceptions(listOfClients, listOfSimulations, listOfTrafficLights);
+                    }
+                });
             }
-
 
             // close clients, hence close ports, so they can be used again for the next round of simulations
             for (i = 0; i < listOfClients.Count; ++i)
@@ -317,6 +300,16 @@ namespace ProbabilistiskModellering
                 using (StreamWriter sw = File.AppendText(bestFitnessPath))
                     sw.WriteLine($"{bestFitness}");
             }
+        }
+
+        public async Task HandleExceptions(List<TraCIClient> clients, List<SimulationCommands> simulations, List<TrafficLightCommands> traffic)
+        {
+            await Task.Delay(1000);
+            Array.ForEach(Process.GetProcessesByName("sumo"), x => x.Kill());
+            clients.Clear();
+            simulations.Clear();
+            traffic.Clear();
+            await RunSimulationAsync();
         }
     }
 }
