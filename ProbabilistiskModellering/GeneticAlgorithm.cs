@@ -167,7 +167,7 @@ namespace ProbabilistiskModellering
             listOfTrafficLights.Clear();
 
             int minimum = 5000;
-            int result = (populationSize / 200) * 5000;
+            int result = (populationSize / 200) * 6000;
             if (minimum > result)
                 result = minimum;
             // task delay has been inserted, since SUMO is slow at outputting .xml files
@@ -248,22 +248,17 @@ namespace ProbabilistiskModellering
 
         private DNA<T> ChooseParent()
         {
-            /* Generating a random double between 0 and a value above fitnessSum. */
-            double randomNumber = (fitnessSum * random.NextDouble() * 1.05) + population[0].fitness;
+            // https://stackoverflow.com/questions/56692/random-weighted-choice
 
-            /* Checks if randomNumber is greater than fitnessSum, if not, increments randomNumber
-               by the the fitness of the i'th individual. Continues until randomNumber is greater
-               than fitnessSum, at which point the parent has been chosen. */
+            double randomNumber = random.NextDouble() * fitnessSum;
+
             for (int i = 0; i < population.Count; i++)
             {
-                if (randomNumber >= fitnessSum)
+                if (randomNumber < population[i].fitness)
                 {
                     return population[i];
                 }
-                else
-                {
-                    randomNumber += population[i].fitness;
-                }
+                randomNumber -= population[i].fitness;
             }
             return null;
         }
