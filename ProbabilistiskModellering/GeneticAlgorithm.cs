@@ -152,6 +152,15 @@ namespace ProbabilistiskModellering
                     listOfTrafficLights.Clear();
                     await RunSimulationAsync();
                 }
+                catch(ArgumentOutOfRangeException)
+                {
+                    await Task.Delay(1000);
+                    Array.ForEach(Process.GetProcessesByName("sumo"), x => x.Kill());
+                    listOfClients.Clear();
+                    listOfSimulations.Clear();
+                    listOfTrafficLights.Clear();
+                    await RunSimulationAsync();
+                }
             }
 
 
@@ -252,7 +261,7 @@ namespace ProbabilistiskModellering
 
             double randomNumber = random.NextDouble() * fitnessSum;
 
-            for (int i = 0; i < population.Count; i++)
+            for (int i = 0; i < populationSize; i++)
             {
                 if (randomNumber < population[i].fitness)
                 {
