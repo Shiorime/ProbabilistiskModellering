@@ -47,9 +47,6 @@ namespace ProbabilistiskModellering
                 GeneticAlgorithm<string> ga = new GeneticAlgorithm<string>(pg.population, pg.genes, pg.elitistNumber, pg.generationStop, pg.fitnessStop, pg.random, pg.GenerateRandomRedYellowGreenState, 0.05f);
 
                 await ga.StartGAAsync();
-                ga.NewGeneration();
-                ga.SaveBestGenesToXMLFile();
-                ga.SaveBestFitness();
 
                 Console.WriteLine($"Best fitness of generation {ga.generation} is: {ga.bestFitness}");
 

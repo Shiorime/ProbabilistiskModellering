@@ -81,6 +81,9 @@ namespace ProbabilistiskModellering
                 if (bestFitness >= fitnessStop || generation >= generationStop)
                 {
                     shouldStop = true;
+                    CalculateFitness();
+                    SaveBestGenesToXMLFile();
+                    SaveBestFitness();
                 }
                 else
                 {
