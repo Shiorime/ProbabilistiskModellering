@@ -62,8 +62,48 @@ namespace UnitTests
             Assert.AreEqual(c, expected);
         }
 
+        [TestMethod]
+        [DataRow(0.5,20)]
+        [DataRow(0.1, 25)]
+        [DataRow(0.9, 10)]
+        [DataRow(2,9001)]
+        public void ChooseParentTest_ExpectedFitnessScore_ReturnsDouble(double x, double y)
+        {
+            //Arrange
+            double[] fitnessArray = new double[] { 25, 20, 15, 10, 5 };
+            double randomFake = x;
+            double randomNumber = randomFake * (75);
+            double expected = y;
+            double result;
+
+            //Act
+            result = ChooseParentModified(fitnessArray, randomNumber);
+
+            //Assert
+            Assert.AreEqual(result, expected);
+        }
+
+        public double ChooseParentModified(double[] fitnessArray, double randomNumber)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                if (randomNumber < fitnessArray[i])
+                {
+                    return fitnessArray[i];
+                }
+                randomNumber -= fitnessArray[i];
+            }
+            return 9001;
+        }
+
 
     }
+    
+
+
+
+
+
     public class _DNA
     {
         public int fitness;
